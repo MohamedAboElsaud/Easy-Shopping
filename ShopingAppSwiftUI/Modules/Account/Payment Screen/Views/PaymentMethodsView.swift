@@ -10,9 +10,9 @@ import SwiftUI
 
 struct PaymentMethodsView: View {
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
     
-    @StateObject var payVM = PaymentViewModel.shared
+    @StateObject var paymentViewModel = PaymentViewModel.shared
     @State var isPicker: Bool = false
     var didSelect:( (_ obj: PaymentModel) -> () )?
     
@@ -21,7 +21,7 @@ struct PaymentMethodsView: View {
             
             ScrollView{
                 LazyVStack(spacing: 15) {
-                    ForEach( payVM.listArr , id: \.id, content: {
+                    ForEach( paymentViewModel.listArr , id: \.id, content: {
                         pObj in
                         
                         HStack(spacing: 15) {
@@ -33,12 +33,12 @@ struct PaymentMethodsView: View {
                             
                             VStack(spacing: 4){
                                 Text(pObj.name)
-                                    .font(.customfont(.bold, fontSize: 18))
+                                    .font(.customFont(.bold, fontSize: 18))
                                     .foregroundColor(.primaryText)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                 
                                 Text("**** **** **** \(pObj.cardNumber) ")
-                                    .font(.customfont(.medium, fontSize: 15))
+                                    .font(.customFont(.medium, fontSize: 15))
                                     .foregroundColor(.primaryApp)
                                     .multilineTextAlignment( .leading)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -46,7 +46,7 @@ struct PaymentMethodsView: View {
                             }
                             
                             Button {
-                                payVM.serviceCallRemove(pObj: pObj)
+                                paymentViewModel.serviceCallRemove(pObj: pObj)
                             } label: {
                                 Image("close")
                                     .resizable()
@@ -62,7 +62,7 @@ struct PaymentMethodsView: View {
                         .shadow(color: Color.black.opacity(0.15), radius: 2)
                         .onTapGesture {
                             if(isPicker) {
-                                mode.wrappedValue.dismiss()
+                                presentMode.wrappedValue.dismiss()
                                 didSelect?(pObj)
                             }
                         }
@@ -77,7 +77,7 @@ struct PaymentMethodsView: View {
                 HStack{
                     
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -87,7 +87,7 @@ struct PaymentMethodsView: View {
                     Spacer()
                     
                     Text("Payment Methods")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     
@@ -115,8 +115,8 @@ struct PaymentMethodsView: View {
             
             
         }
-        .alert(isPresented: $payVM.showError, content: {
-            Alert(title: Text(Globs.AppName), message: Text(payVM.errorMessage) )
+        .alert(isPresented: $paymentViewModel.showAlert, content: {
+            Alert(title: Text(Globs.AppName), message: Text(paymentViewModel.alertMessage) )
         })
         .navigationTitle("")
         .navigationBarHidden(true)

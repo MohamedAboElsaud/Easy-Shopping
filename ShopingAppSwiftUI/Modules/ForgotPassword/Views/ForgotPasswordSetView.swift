@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ForgotPasswordSetView: View {
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
     @StateObject var forgotVM = ForgotPasswordViewModel.shared;
     
     
@@ -33,22 +33,22 @@ struct ForgotPasswordSetView: View {
                 
                 
                 Text("Set New Password")
-                    .font(.customfont(.semibold, fontSize: 26))
+                    .font(.customFont(.semibold, fontSize: 26))
                     .foregroundColor(.primaryText)
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 4)
                 
                 Text("Enter your new password")
-                    .font(.customfont(.semibold, fontSize: 16))
+                    .font(.customFont(.semibold, fontSize: 16))
                     .foregroundColor(.secondaryText)
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, .screenWidth * 0.1)
                 
                 
-                LineSecureField(txt:$forgotVM.txtNewPassword, isPassword: $forgotVM.isNewPassword, title: "New Password", placeholder: "Enter your new password")
+                LineSecureField(textField:$forgotVM.textFieldNewPassword, isPassword: $forgotVM.isNewPassword, title: "New Password", placeholder: "Enter your new password")
                     .padding(.bottom, .screenWidth * 0.02)
                 
-                LineSecureField(  txt: $forgotVM.txtConfirmPassword, isPassword: $forgotVM.isConfirmPassword,title: "Confirm Password", placeholder: "Enter your confirm password")
+                LineSecureField(  textField: $forgotVM.textFieldConfirmPassword, isPassword: $forgotVM.isConfirmPassword,title: "Confirm Password", placeholder: "Enter your confirm password")
                     .padding(.bottom, .screenWidth * 0.04)
                 
                 
@@ -71,7 +71,7 @@ struct ForgotPasswordSetView: View {
                     
                 HStack {
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -92,9 +92,9 @@ struct ForgotPasswordSetView: View {
             
             
         }
-        .alert(isPresented: $forgotVM.showError) {
+        .alert(isPresented: $forgotVM.showAlert) {
             // TODO: create binding state to change value to dissmis all navigatios
-            Alert(title: Text(Globs.AppName), message: Text( forgotVM.errorMessage ), dismissButton: .default(Text("Ok")))
+            Alert(title: Text(Globs.AppName), message: Text( forgotVM.alertMessage ), dismissButton: .default(Text("Ok")))
         }
         
         .background(Color.white)

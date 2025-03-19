@@ -23,7 +23,7 @@ struct CheckoutView: View {
                 HStack{
                     
                     Text("Checkout")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     
@@ -48,7 +48,7 @@ struct CheckoutView: View {
                 VStack{
                     HStack {
                         Text("Delivery Type")
-                            .font(.customfont(.semibold, fontSize: 18))
+                            .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.secondaryText)
                             .frame(height: 46)
                         
@@ -75,14 +75,14 @@ struct CheckoutView: View {
                         } label: {
                             HStack {
                                 Text("Delivery")
-                                    .font(.customfont(.semibold, fontSize: 18))
+                                    .font(.customFont(.semibold, fontSize: 18))
                                     .foregroundColor(.secondaryText)
                                     .frame(height: 46)
                                 
                                 Spacer()
                                 
                                 Text( cartVM.deliverObj?.name ?? "Select Method")
-                                    .font(.customfont(.semibold, fontSize: 18))
+                                    .font(.customFont(.semibold, fontSize: 18))
                                     .foregroundColor(.primaryText)
                                     .frame(height: 46)
                                 
@@ -104,7 +104,7 @@ struct CheckoutView: View {
                     
                     HStack {
                         Text("Payment Type")
-                            .font(.customfont(.semibold, fontSize: 18))
+                            .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.secondaryText)
                             .frame(height: 46)
                         
@@ -129,7 +129,7 @@ struct CheckoutView: View {
                         } label: {
                             HStack {
                                 Text("Payment")
-                                    .font(.customfont(.semibold, fontSize: 18))
+                                    .font(.customFont(.semibold, fontSize: 18))
                                     .foregroundColor(.secondaryText)
                                     .frame(height: 46)
                                 
@@ -141,7 +141,7 @@ struct CheckoutView: View {
                                     .frame(width: 30, height: 20)
                                 
                                 Text( cartVM.paymentObj?.cardNumber ?? "Select")
-                                    .font(.customfont(.semibold, fontSize: 18))
+                                    .font(.customFont(.semibold, fontSize: 18))
                                     .foregroundColor(.primaryText)
                                     .frame(height: 46)
                                 
@@ -165,7 +165,7 @@ struct CheckoutView: View {
                     } label: {
                         HStack {
                             Text("Promo Code")
-                                .font(.customfont(.semibold, fontSize: 18))
+                                .font(.customFont(.semibold, fontSize: 18))
                                 .foregroundColor(.secondaryText)
                                 .frame(height: 46)
                             
@@ -174,7 +174,7 @@ struct CheckoutView: View {
                             
                             
                             Text( cartVM.promoObj?.code  ?? "Pick Discount")
-                                .font(.customfont(.semibold, fontSize: 18))
+                                .font(.customFont(.semibold, fontSize: 18))
                                 .foregroundColor(.primaryText)
                                 .frame(height: 46)
                             
@@ -193,37 +193,37 @@ struct CheckoutView: View {
                 VStack{
                     HStack {
                         Text("Totat")
-                            .font(.customfont(.semibold, fontSize: 16))
+                            .font(.customFont(.semibold, fontSize: 16))
                             .foregroundColor(.secondaryText)
                         
                         Spacer()
                         
                         Text("$ \(cartVM.total)")
-                            .font(.customfont(.semibold, fontSize: 16))
+                            .font(.customFont(.semibold, fontSize: 16))
                             .foregroundColor(.secondaryText)
                     }
                     
                     HStack {
                         Text("Delivery Cost")
-                            .font(.customfont(.semibold, fontSize: 16))
+                            .font(.customFont(.semibold, fontSize: 16))
                             .foregroundColor(.secondaryText)
                         
                         Spacer()
                         
                         Text("+ $ \(cartVM.deliverPriceAmount)")
-                            .font(.customfont(.semibold, fontSize: 16))
+                            .font(.customFont(.semibold, fontSize: 16))
                             .foregroundColor(.secondaryText)
                     }
                     
                     HStack {
                         Text("Discount")
-                            .font(.customfont(.semibold, fontSize: 16))
+                            .font(.customFont(.semibold, fontSize: 16))
                             .foregroundColor(.secondaryText)
                         
                         Spacer()
                         
                         Text("- $ \(cartVM.discountAmount)")
-                            .font(.customfont(.semibold, fontSize: 16))
+                            .font(.customFont(.semibold, fontSize: 16))
                             .foregroundColor(.red)
                     }
                     
@@ -233,7 +233,7 @@ struct CheckoutView: View {
                 
                 HStack {
                     Text("Final Total")
-                        .font(.customfont(.semibold, fontSize: 18))
+                        .font(.customFont(.semibold, fontSize: 18))
                         .foregroundColor(.secondaryText)
                         .frame(height: 46)
                     
@@ -242,7 +242,7 @@ struct CheckoutView: View {
                     
                     
                     Text("$\(cartVM.userPayAmount)")
-                        .font(.customfont(.semibold, fontSize: 18))
+                        .font(.customFont(.semibold, fontSize: 18))
                         .foregroundColor(.primaryText)
                         .frame(height: 46)
                     
@@ -257,24 +257,24 @@ struct CheckoutView: View {
                 
                 VStack {
                     Text("By continuing you agree to our")
-                        .font(.customfont(.semibold, fontSize: 14))
+                        .font(.customFont(.semibold, fontSize: 14))
                         .foregroundColor(.secondaryText)
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     
                     HStack{
                         
                         Text("Terms of Service")
-                            .font(.customfont(.semibold, fontSize: 14))
+                            .font(.customFont(.semibold, fontSize: 14))
                             .foregroundColor(.primaryText)
                         
                         
                         Text(" and ")
-                            .font(.customfont(.semibold, fontSize: 14))
+                            .font(.customFont(.semibold, fontSize: 14))
                             .foregroundColor(.secondaryText)
                         
                         
                         Text("Privacy Policy.")
-                            .font(.customfont(.semibold, fontSize: 14))
+                            .font(.customFont(.semibold, fontSize: 14))
                             .foregroundColor(.primaryText)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         

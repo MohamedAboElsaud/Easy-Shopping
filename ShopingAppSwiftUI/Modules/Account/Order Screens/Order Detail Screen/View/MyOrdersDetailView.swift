@@ -10,8 +10,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MyOrdersDetailView: View {
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @StateObject var detailVM: MyOrderDetailViewModel = MyOrderDetailViewModel(prodObj: MyOrderModel(dict: [:]) )
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
+    @StateObject var myOrderDetailViewModel: MyOrderDetailViewModel = MyOrderDetailViewModel(prodObj: MyOrderModel(dict: [:]) )
     @State var showWriteReview = false
     
     var body: some View {
@@ -21,33 +21,33 @@ struct MyOrdersDetailView: View {
                 
                 VStack{
                     HStack{
-                        Text("Order ID: # \( detailVM.pObj.id )")
-                            .font(.customfont(.bold, fontSize: 20))
+                        Text("Order ID: # \( myOrderDetailViewModel.pObj.id )")
+                            .font(.customFont(.bold, fontSize: 20))
                             .foregroundColor(.primaryText)
                         
                         Spacer()
                         
-                        Text( getPaymentStatus(mObj: detailVM.pObj )  )
-                            .font(.customfont(.bold, fontSize: 18))
-                            .foregroundColor( getPaymentStatusColor(mObj: detailVM.pObj))
+                        Text( getPaymentStatus(mObj: myOrderDetailViewModel.pObj )  )
+                            .font(.customFont(.bold, fontSize: 18))
+                            .foregroundColor( getPaymentStatusColor(mObj: myOrderDetailViewModel.pObj))
                     }
                     
                     
                     HStack{
-                        Text(detailVM.pObj.createdDate.displayDate(format: "yyyy-MM-dd hh:mm a"))
-                            .font(.customfont(.regular, fontSize: 12))
+                        Text(myOrderDetailViewModel.pObj.createdDate.displayDate(format: "yyyy-MM-dd hh:mm a"))
+                            .font(.customFont(.regular, fontSize: 12))
                             .foregroundColor(.secondaryText)
                         
                         Spacer()
                         
-                        Text( getOrderStatus(mObj: detailVM.pObj )  )
-                            .font(.customfont(.bold, fontSize: 18))
-                            .foregroundColor( getOrderStatusColor(mObj: detailVM.pObj))
+                        Text( getOrderStatus(mObj: myOrderDetailViewModel.pObj )  )
+                            .font(.customFont(.bold, fontSize: 18))
+                            .foregroundColor( getOrderStatusColor(mObj: myOrderDetailViewModel.pObj))
                     }
                     .padding(.bottom, 8)
                     
-                    Text("\(detailVM.pObj.address),\(detailVM.pObj.city), \(detailVM.pObj.state), \(detailVM.pObj.postalCode) ")
-                        .font(.customfont(.regular, fontSize: 16))
+                    Text("\(myOrderDetailViewModel.pObj.address),\(myOrderDetailViewModel.pObj.city), \(myOrderDetailViewModel.pObj.state), \(myOrderDetailViewModel.pObj.postalCode) ")
+                        .font(.customFont(.regular, fontSize: 16))
                         .foregroundColor(.secondaryText)
                         .multilineTextAlignment( .leading)
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -55,26 +55,26 @@ struct MyOrdersDetailView: View {
                     
                     HStack{
                         Text("Delivery Type:")
-                            .font(.customfont(.medium, fontSize: 16))
+                            .font(.customFont(.medium, fontSize: 16))
                             .foregroundColor(.primaryText)
                         
                         Spacer()
                         
-                        Text( getDeliveryType(mObj: detailVM.pObj )  )
-                            .font(.customfont(.regular, fontSize: 16))
+                        Text( getDeliveryType(mObj: myOrderDetailViewModel.pObj )  )
+                            .font(.customFont(.regular, fontSize: 16))
                             .foregroundColor( .primaryText )
                     }
                     .padding(.bottom, 4)
                     
                     HStack{
                         Text("Payment Type:")
-                            .font(.customfont(.medium, fontSize: 16))
+                            .font(.customFont(.medium, fontSize: 16))
                             .foregroundColor(.primaryText)
                         
                         Spacer()
                         
-                        Text( getPaymentType(mObj: detailVM.pObj )  )
-                            .font(.customfont(.regular, fontSize: 16))
+                        Text( getPaymentType(mObj: myOrderDetailViewModel.pObj )  )
+                            .font(.customFont(.regular, fontSize: 16))
                             .foregroundColor( .primaryText )
                     }
                     
@@ -88,10 +88,10 @@ struct MyOrdersDetailView: View {
                 .padding(.top, .topInsets + 46)
                 
                 LazyVStack {
-                    ForEach(detailVM.listArr, id: \.id) { pObj in
-                        OrderItemRow(pObj: pObj, showReviewBotton: detailVM.pObj.orderStatus == 3 && pObj.rating == 0) {
+                    ForEach(myOrderDetailViewModel.listArr, id: \.id) { pObj in
+                        OrderItemRow(pObj: pObj, showReviewBotton: myOrderDetailViewModel.pObj.orderStatus == 3 && pObj.rating == 0) {
                            // showWriteReview = true
-                            detailVM.actionWriteReviewOpen(obj: pObj)
+                            myOrderDetailViewModel.actionWriteReviewOpen(obj: pObj)
                         }
                     }
                 }
@@ -100,39 +100,39 @@ struct MyOrdersDetailView: View {
                                        
                     HStack{
                         Text("Amount:")
-                            .font(.customfont(.bold, fontSize: 18))
+                            .font(.customFont(.bold, fontSize: 18))
                             .foregroundColor(.primaryText)
                         
                         Spacer()
                         
-                        Text( "$\( detailVM.pObj.totalPrice, specifier: "%.2f" )"  )
-                            .font(.customfont(.medium, fontSize: 18))
+                        Text( "$\( myOrderDetailViewModel.pObj.totalPrice, specifier: "%.2f" )"  )
+                            .font(.customFont(.medium, fontSize: 18))
                             .foregroundColor( .primaryText )
                     }
                     .padding(.bottom, 4)
                     
                     HStack{
                         Text("Delivery Cost:")
-                            .font(.customfont(.bold, fontSize: 18))
+                            .font(.customFont(.bold, fontSize: 18))
                             .foregroundColor(.primaryText)
                         
                         Spacer()
                         
-                        Text( "+ $\( detailVM.pObj.deliverPrice ?? 0.0, specifier: "%.2f" )"  )
-                            .font(.customfont(.medium, fontSize: 18))
+                        Text( "+ $\( myOrderDetailViewModel.pObj.deliverPrice ?? 0.0, specifier: "%.2f" )"  )
+                            .font(.customFont(.medium, fontSize: 18))
                             .foregroundColor( .primaryText )
                     }
                     .padding(.bottom, 4)
                     
                     HStack{
                         Text("Discount Cost:")
-                            .font(.customfont(.bold, fontSize: 18))
+                            .font(.customFont(.bold, fontSize: 18))
                             .foregroundColor(.primaryText)
                         
                         Spacer()
                         
-                        Text( "- $\( detailVM.pObj.discountPrice ?? 0.0, specifier: "%.2f" )"  )
-                            .font(.customfont(.medium, fontSize: 18))
+                        Text( "- $\( myOrderDetailViewModel.pObj.discountPrice ?? 0.0, specifier: "%.2f" )"  )
+                            .font(.customFont(.medium, fontSize: 18))
                             .foregroundColor( .red )
                     }
                     .padding(.bottom, 4)
@@ -141,13 +141,13 @@ struct MyOrdersDetailView: View {
                     
                     HStack{
                         Text("Total:")
-                            .font(.customfont(.bold, fontSize: 22))
+                            .font(.customFont(.bold, fontSize: 22))
                             .foregroundColor(.primaryText)
                         
                         Spacer()
                         
-                        Text( "$\( detailVM.pObj.userPayPrice ?? 0.0, specifier: "%.2f" )"  )
-                            .font(.customfont(.bold, fontSize: 22))
+                        Text( "$\( myOrderDetailViewModel.pObj.userPayPrice ?? 0.0, specifier: "%.2f" )"  )
+                            .font(.customFont(.bold, fontSize: 22))
                             .foregroundColor( .primaryText )
                     }
                     .padding(.bottom, 4)
@@ -167,7 +167,7 @@ struct MyOrdersDetailView: View {
                 
                 HStack{
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -178,7 +178,7 @@ struct MyOrdersDetailView: View {
                     Spacer()
                     
                     Text("My Order Detail")
-                        .font(.customfont(.semibold, fontSize: 16))
+                        .font(.customFont(.semibold, fontSize: 16))
                         .foregroundColor(.primaryText)
                     Spacer()
                     
@@ -190,11 +190,11 @@ struct MyOrdersDetailView: View {
             .padding(.horizontal, 20)
             
         }
-        .alert(isPresented: $detailVM.showError, content: {
+        .alert(isPresented: $myOrderDetailViewModel.showAlert, content: {
             
-            Alert(title: Text(Globs.AppName), message: Text(detailVM.errorMessage)  , dismissButton: .default(Text("Ok"))  )
+            Alert(title: Text(Globs.AppName), message: Text(myOrderDetailViewModel.alertMessage)  , dismissButton: .default(Text("Ok"))  )
         })
-        .background( NavigationLink(destination: WriteReviewView(vm: detailVM), isActive: $detailVM.showWriteReview, label: {
+        .background( NavigationLink(destination: WriteReviewView( myOrderDetailViewModel: myOrderDetailViewModel), isActive: $myOrderDetailViewModel.showWriteReview, label: {
             EmptyView()
         }) )
         .navigationTitle("")
@@ -299,7 +299,7 @@ struct MyOrdersDetailView: View {
 
 struct MyOrdersDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MyOrdersDetailView(detailVM: MyOrderDetailViewModel(prodObj: MyOrderModel(dict: [
+        MyOrdersDetailView(myOrderDetailViewModel: MyOrderDetailViewModel(prodObj: MyOrderModel(dict: [
             
             
                         "order_id": 4,

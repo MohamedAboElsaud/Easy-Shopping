@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ForgotPasswordView: View {
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
     @StateObject var forgotVM = ForgotPasswordViewModel.shared;
     
     var body: some View {
@@ -28,18 +28,18 @@ struct ForgotPasswordView: View {
                 
                 
                 Text("Forgot Password")
-                    .font(.customfont(.semibold, fontSize: 26))
+                    .font(.customFont(.semibold, fontSize: 26))
                     .foregroundColor(.primaryText)
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 4)
                 
                 Text("Enter your emails")
-                    .font(.customfont(.semibold, fontSize: 16))
+                    .font(.customFont(.semibold, fontSize: 16))
                     .foregroundColor(.secondaryText)
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, .screenWidth * 0.1)
                 
-                LineTextField(  txt: $forgotVM.txtEmail, title: "Email", placeholder: "Enter your email address",keyboardType: .emailAddress)
+                LineTextField(  textField: $forgotVM.textFieldEmail, title: "Email", placeholder: "Enter your email address",keyboardType: .emailAddress)
                     .padding(.bottom, .screenWidth * 0.07)
                 
                 
@@ -64,7 +64,7 @@ struct ForgotPasswordView: View {
                     
                 HStack {
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -85,9 +85,9 @@ struct ForgotPasswordView: View {
             
             
         }
-        .alert(isPresented: $forgotVM.showError) {
+        .alert(isPresented: $forgotVM.showAlert) {
                 // TODO: - change name of App
-            Alert(title: Text(Globs.AppName), message: Text( forgotVM.errorMessage ), dismissButton: .default(Text("Ok")))
+            Alert(title: Text(Globs.AppName), message: Text( forgotVM.alertMessage ), dismissButton: .default(Text("Ok")))
         }
         .background( NavigationLink(destination: OTPView(), isActive: $forgotVM.showVerify,  label: {
             EmptyView()

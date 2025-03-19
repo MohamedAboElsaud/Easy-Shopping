@@ -11,13 +11,13 @@ class MainViewModel: ObservableObject {
         
     static var shared: MainViewModel = MainViewModel()
     
-    @Published var txtUsername = ""
-    @Published var txtEmail = ""
-    @Published var txtPassword = ""
+    @Published var textFieldUsername = ""
+    @Published var textFieldEmail = ""
+    @Published var textFieldPassword = ""
     @Published var isShowPassword = false
     
-    @Published var showError = false
-    @Published var errorMessage = ""
+    @Published var showAlert = false
+    @Published var alertMessage = ""
     
     @Published var isUserLogin = false
     @Published var userObj = UserModel(dict: [:])
@@ -31,9 +31,9 @@ class MainViewModel: ObservableObject {
         }
         
         #if DEBUG
-        txtUsername = "user6"
-        txtEmail = "test6@gmail.com"
-        txtPassword = "123456"
+        textFieldUsername = "user6"
+        textFieldEmail = "test6@gmail.com"
+        textFieldPassword = "123456"
         
         #endif
     }
@@ -48,35 +48,35 @@ class MainViewModel: ObservableObject {
     func serviceCallLogin() {
         
         // Todo : divides to funcs
-        if !txtEmail.isValidEmail {
-            self.errorMessage = "please enter valid email address"
-            self.showError = true
+        if !textFieldEmail.isValidEmail {
+            self.alertMessage = "please enter valid email address"
+            self.showAlert = true
             return
             
         }
 
         
-        if txtPassword.isEmpty {
-            self.errorMessage = "please enter valid password"
-            self.showError = true
+        if textFieldPassword.isEmpty {
+            self.alertMessage = "please enter valid password"
+            self.showAlert = true
             return
             
         }
         
-        ServiceCall.post(parameter: ["email": txtEmail,"password": txtPassword,"dervice_token": ""], path: Globs.SV_LOGIN) { responseObj in
+        ServiceCall.post(parameter: ["email": textFieldEmail,"password": textFieldPassword,"dervice_token": ""], path: Globs.SV_LOGIN) { responseObj in
             if let response = responseObj as? NSDictionary{
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
 
                     self.setUserData(uDict: response.value(forKey: KKey.payload) as? NSDictionary ?? [:])
 
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
 
     }
@@ -84,29 +84,29 @@ class MainViewModel: ObservableObject {
     
     func serviceCalSignUp(){
         
-        if txtUsername.isEmpty{
-            self.errorMessage = "please enter valid username"
-            self.showError = true
+        if textFieldUsername.isEmpty{
+            self.alertMessage = "please enter valid username"
+            self.showAlert = true
             return
             
         }
         
-        if !txtEmail.isValidEmail{
-            self.errorMessage = "please enter valid email address"
-            self.showError = true
+        if !textFieldEmail.isValidEmail{
+            self.alertMessage = "please enter valid email address"
+            self.showAlert = true
             return
             
         }
 
         
-        if txtPassword.isEmpty{
-            self.errorMessage = "please enter valid password"
-            self.showError = true
+        if textFieldPassword.isEmpty{
+            self.alertMessage = "please enter valid password"
+            self.showAlert = true
             return
             
         }
         
-        ServiceCall.post(parameter: ["username": txtUsername,"email": txtEmail,"password": txtPassword,"dervice_token": ""], path: Globs.SV_LOGIN) { responseObj in
+        ServiceCall.post(parameter: ["username": textFieldUsername,"email": textFieldEmail,"password": textFieldPassword,"dervice_token": ""], path: Globs.SV_LOGIN) { responseObj in
             if let response = responseObj as? NSDictionary{
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
 
@@ -114,13 +114,13 @@ class MainViewModel: ObservableObject {
                   
                     
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
 
     }
@@ -132,9 +132,9 @@ class MainViewModel: ObservableObject {
 
         self.userObj = UserModel(dict: uDict)
         self.isUserLogin = true
-        self.txtUsername = ""
-        self.txtEmail = ""
-        self.txtPassword = ""
+        self.textFieldUsername = ""
+        self.textFieldEmail = ""
+        self.textFieldPassword = ""
         self.isShowPassword = false
     
     }

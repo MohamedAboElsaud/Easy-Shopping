@@ -11,11 +11,11 @@ class HomeViewModel: ObservableObject {
         static var shared: HomeViewModel = HomeViewModel()
         
 //        @Published var selectTab: Int = 0
-        @Published var txtSearch: String = ""
+        @Published var textFieldSearch: String = ""
         
         
-        @Published var showError = false
-        @Published var errorMessage = ""
+        @Published var showAlert = false
+        @Published var alertMessage = ""
         
         @Published var offerArr: [ProductModel] = []
         @Published var bestArr: [ProductModel] = []
@@ -60,13 +60,13 @@ class HomeViewModel: ObservableObject {
                         
                         
                     }else{
-                        self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                        self.showError = true
+                        self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                        self.showAlert = true
                     }
                 }
             } failure: { error in
-                self.errorMessage = error?.localizedDescription ?? "Fail"
-                self.showError = true
+                self.alertMessage = error?.localizedDescription ?? "Fail"
+                self.showAlert = true
             }
         }
         

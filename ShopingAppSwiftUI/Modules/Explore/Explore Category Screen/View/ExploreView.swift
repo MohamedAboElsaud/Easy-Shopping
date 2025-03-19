@@ -11,7 +11,7 @@ struct ExploreView: View {
     @StateObject var exploreVM = ExporeViewModel.shared
     
     //TODO: implement search in screen
-    @State var txtSearch = ""
+    @State var textFieldSearch = ""
     
     var colums = [
         GridItem(.flexible(),spacing: 15),
@@ -24,13 +24,13 @@ struct ExploreView: View {
                 HStack{
                     Spacer()
                     Text("Find Products")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                 }
                 .padding(.top,.topInsets)
                 
-                SearchTextField(txt: $txtSearch, placeholder: "Search Store")
+                SearchTextField(textField: $textFieldSearch, placeholder: "Search Store")
                     .padding(.horizontal,20)
                     .padding(.bottom,4)
                 

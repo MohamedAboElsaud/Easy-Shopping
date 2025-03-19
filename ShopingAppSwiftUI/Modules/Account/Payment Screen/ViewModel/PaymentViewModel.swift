@@ -14,14 +14,14 @@ class PaymentViewModel: ObservableObject
     static var shared: PaymentViewModel = PaymentViewModel()
     
     
-    @Published var txtName: String = ""
-    @Published var txtCardNumber: String = ""
-    @Published var txtCardMonth: String = ""
-    @Published var txtCardYear: String = ""
+    @Published var textFieldName: String = ""
+    @Published var textFieldCardNumber: String = ""
+    @Published var textFieldCardMonth: String = ""
+    @Published var textFieldCardYear: String = ""
     
     
-    @Published var showError = false
-    @Published var errorMessage = ""
+    @Published var showAlert = false
+    @Published var alertMessage = ""
     
     @Published var listArr: [PaymentModel] = []
     
@@ -31,10 +31,10 @@ class PaymentViewModel: ObservableObject
     }
     
     func clearAll(){
-        txtName = ""
-        txtCardNumber = ""
-        txtCardYear = ""
-        txtCardMonth = ""
+        textFieldName = ""
+        textFieldCardNumber = ""
+        textFieldCardYear = ""
+        textFieldCardMonth = ""
         
     }
     
@@ -52,13 +52,13 @@ class PaymentViewModel: ObservableObject
                     })
                 
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     
@@ -70,57 +70,57 @@ class PaymentViewModel: ObservableObject
                     self.serviceCallList()
                 
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     
     func serviceCallAdd(didDone: ((  )->())? ) {
             
-        if(txtName.isEmpty) {
-            errorMessage = "please enter name"
-            showError = true
+        if(textFieldName.isEmpty) {
+            alertMessage = "please enter name"
+            showAlert = true
             return
         }
         
-        if(txtCardNumber.count != 16) {
-            errorMessage = "please enter valid card number"
-            showError = true
+        if(textFieldCardNumber.count != 16) {
+            alertMessage = "please enter valid card number"
+            showAlert = true
             return
         }
         
         
-        if(txtCardMonth.count != 2) {
-            errorMessage = "please enter valid card month"
-            showError = true
+        if(textFieldCardMonth.count != 2) {
+            alertMessage = "please enter valid card month"
+            showAlert = true
             return
         }
         
-        if(txtCardYear.count != 4) {
-            errorMessage = "please enter valid card year"
-            showError = true
+        if(textFieldCardYear.count != 4) {
+            alertMessage = "please enter valid card year"
+            showAlert = true
             return
         }
         
-        ServiceCall.post(parameter: ["name":  txtName, "card_number": txtCardNumber, "card_month": txtCardMonth, "card_year": txtCardYear  ], path: Globs.SV_ADD_PAYMENT_METHOD, isToken: true ) { responseObj in
+        ServiceCall.post(parameter: ["name":  textFieldName, "card_number": textFieldCardNumber, "card_month": textFieldCardMonth, "card_year": textFieldCardYear  ], path: Globs.SV_ADD_PAYMENT_METHOD, isToken: true ) { responseObj in
             if let response = responseObj as? NSDictionary {
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
                     self.clearAll()
                     self.serviceCallList()
                     didDone?( )
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
 
     }

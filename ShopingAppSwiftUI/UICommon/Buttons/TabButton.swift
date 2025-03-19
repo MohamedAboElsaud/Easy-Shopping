@@ -24,7 +24,7 @@ struct TabButton: View {
                     .scaledToFit()
                     .frame(width: 25,height: 25)
                 Text(title)
-                    .font(.customfont(.semibold, fontSize: 14))
+                    .font(.customFont(.semibold, fontSize: 14))
                 
             }
         }

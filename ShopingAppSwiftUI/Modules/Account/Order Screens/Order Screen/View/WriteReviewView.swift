@@ -10,8 +10,8 @@ import SwiftUI
 
 struct WriteReviewView: View {
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @StateObject var vm : MyOrderDetailViewModel
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
+    @StateObject var myOrderDetailViewModel : MyOrderDetailViewModel
     
     var body: some View {
         
@@ -27,10 +27,10 @@ struct WriteReviewView: View {
                             Image(systemName: "star.fill")
                                 .resizable()
                                 .scaledToFit()
-                                .foregroundColor( index <= vm.rating ? Color.orange : Color.black.opacity(0.2))
+                                .foregroundColor( index <= myOrderDetailViewModel.rating ? Color.orange : Color.black.opacity(0.2))
                                 .frame(width: .widthPer(per: 0.1), height: .widthPer(per: 0.1))
                                 .onTapGesture {
-                                    vm.rating = index
+                                    myOrderDetailViewModel.rating = index
                                 }
                         }
                     }
@@ -38,14 +38,14 @@ struct WriteReviewView: View {
                     
                     ZStack(alignment: .leading, content: {
                         
-                        TextEditor(text: $vm.txtMessage)
+                        TextEditor(text: $myOrderDetailViewModel.textFieldMessage)
                             .multilineTextAlignment(.leading)
                             .onAppear(){
                                 UITextView.appearance().backgroundColor = .clear
                             }
                         
                         VStack {
-                            Text( vm.txtMessage == "" ? "Write A Review here ..." : "" )
+                            Text( myOrderDetailViewModel.textFieldMessage == "" ? "Write A Review here ..." : "" )
                                 .padding(8)
                                 .foregroundColor(.placeholder)
                             
@@ -60,8 +60,8 @@ struct WriteReviewView: View {
                     .padding(.bottom, 15)
                     
                     RoundButton(title: "Submit") {
-                        vm.serviceCallWriteReview {
-                            mode.wrappedValue.dismiss()
+                        myOrderDetailViewModel.serviceCallWriteReview {
+                            presentMode.wrappedValue.dismiss()
                         }
                     }
                 }
@@ -73,7 +73,7 @@ struct WriteReviewView: View {
                 
                 HStack{
                     Button(action: {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     }, label: {
                         Image("back")
                             .resizable()
@@ -84,7 +84,7 @@ struct WriteReviewView: View {
                     Spacer()
                     
                     Text("Write A Review")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     
                     Spacer()

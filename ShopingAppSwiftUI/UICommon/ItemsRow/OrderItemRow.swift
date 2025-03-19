@@ -30,31 +30,31 @@ struct OrderItemRow: View {
                 VStack(spacing: 4){
                     
                     Text(pObj.name)
-                        .font(.customfont(.bold, fontSize: 16))
+                        .font(.customFont(.bold, fontSize: 16))
                         .foregroundColor(.primaryText)
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     
                     Text("\(pObj.unitValue)\(pObj.unitName), price")
-                        .font(.customfont(.medium, fontSize: 14))
+                        .font(.customFont(.medium, fontSize: 14))
                         .foregroundColor(.secondaryText)
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         .padding(.bottom, 8)
                     
                     HStack {
                         Text("QTY:")
-                            .font(.customfont(.bold, fontSize: 16))
+                            .font(.customFont(.bold, fontSize: 16))
                             .foregroundColor(.primaryText)
                         
                         Text("\( pObj.qty )")
-                            .font(.customfont(.bold, fontSize: 16))
+                            .font(.customFont(.bold, fontSize: 16))
                             .foregroundColor(.primaryText)
                         
                         Text("×")
-                            .font(.customfont(.bold, fontSize: 16))
+                            .font(.customFont(.bold, fontSize: 16))
                             .foregroundColor(.primaryText)
                         
                         Text("$ \( pObj.itemPrice, specifier: "%.2f" )")
-                            .font(.customfont(.bold, fontSize: 16))
+                            .font(.customFont(.bold, fontSize: 16))
                             .foregroundColor(.primaryText)
                         
                         
@@ -64,7 +64,7 @@ struct OrderItemRow: View {
                 }
                 
                 Text("$\(pObj.offerPrice ?? pObj.price, specifier: "%.2f" )")
-                    .font(.customfont(.semibold, fontSize: 18))
+                    .font(.customFont(.semibold, fontSize: 18))
                     .foregroundColor(.primaryText)
                 
                 

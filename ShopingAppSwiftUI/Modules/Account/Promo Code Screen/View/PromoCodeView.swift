@@ -10,9 +10,9 @@
 import SwiftUI
 
 struct PromoCodeView: View {
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
     
-    @StateObject var promoVM = PromoCodeViewMpdel.shared
+    @StateObject var promoCodeViewModel = PromoCodeViewModel.shared
     @State var isPicker: Bool = false
     var didSelect:( (_ obj: PromoCodeModel) -> () )?
     
@@ -21,19 +21,19 @@ struct PromoCodeView: View {
             
             ScrollView{
                 LazyVStack(spacing: 15) {
-                    ForEach( promoVM.listArr , id: \.id, content: {
+                    ForEach( promoCodeViewModel.listArr , id: \.id, content: {
                         pObj in
                         
                             VStack{
                                 HStack {
                                     Text(pObj.title)
-                                        .font(.customfont(.bold, fontSize: 14))
+                                        .font(.customFont(.bold, fontSize: 14))
                                         .foregroundColor(.primaryText)
                                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                     
                                     
                                     Text(pObj.code)
-                                        .font(.customfont(.bold, fontSize: 15))
+                                        .font(.customFont(.bold, fontSize: 15))
                                         .foregroundColor(.primaryApp)
                                         .padding(.horizontal, 8)
                                         .padding(.vertical, 2)
@@ -42,20 +42,20 @@ struct PromoCodeView: View {
                                 }
                                 
                                 Text(pObj.description)
-                                    .font(.customfont(.medium, fontSize: 14))
+                                    .font(.customFont(.medium, fontSize: 14))
                                     .foregroundColor(.secondaryText)
                                     .multilineTextAlignment( .leading)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                 
                                 HStack{
                                     Text("Expiry Date:")
-                                        .font(.customfont(.bold, fontSize: 14))
+                                        .font(.customFont(.bold, fontSize: 14))
                                         .foregroundColor(.primaryText)
                                         .padding(.vertical, 8)
                                         
                                     
                                     Text( pObj.endDate.displayDate(format: "yyyy-MM-dd hh:mm a") )
-                                        .font(.customfont(.bold, fontSize: 12))
+                                        .font(.customFont(.bold, fontSize: 12))
                                         .foregroundColor(.secondaryText)
                                         .padding(.vertical, 8)
                                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -67,7 +67,7 @@ struct PromoCodeView: View {
                             .shadow(color: Color.black.opacity(0.15), radius: 2)
                             .onTapGesture {
                                 if(isPicker) {
-                                    mode.wrappedValue.dismiss()
+                                    presentMode.wrappedValue.dismiss()
                                     didSelect?(pObj)
                                 }
                             }
@@ -86,7 +86,7 @@ struct PromoCodeView: View {
                 HStack{
                     
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -99,7 +99,7 @@ struct PromoCodeView: View {
                     Spacer()
                     
                     Text("Promo Code")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                    

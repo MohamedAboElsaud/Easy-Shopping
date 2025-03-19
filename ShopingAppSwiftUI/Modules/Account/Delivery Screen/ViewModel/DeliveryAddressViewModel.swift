@@ -13,17 +13,17 @@ class DeliveryAddressViewModel: ObservableObject
     static var shared: DeliveryAddressViewModel = DeliveryAddressViewModel()
     
     
-    @Published var txtName: String = ""
-    @Published var txtMobile: String = ""
-    @Published var txtAddress: String = ""
-    @Published var txtCity: String = ""
-    @Published var txtState: String = ""
-    @Published var txtPostalCode: String = ""
-    @Published var txtTypeName: String = "Home"
+    @Published var textFieldName: String = ""
+    @Published var textFieldMobile: String = ""
+    @Published var textFieldAddress: String = ""
+    @Published var textFieldCity: String = ""
+    @Published var textFieldState: String = ""
+    @Published var textFieldPostalCode: String = ""
+    @Published var textFieldTypeName: String = "Home"
     
     
-    @Published var showError = false
-    @Published var errorMessage = ""
+    @Published var showAlert = false
+    @Published var alertMessage = ""
     
     @Published var listArr: [AddressModel] = []
     
@@ -33,23 +33,23 @@ class DeliveryAddressViewModel: ObservableObject
     }
     
     func clearAll(){
-        txtName = ""
-        txtMobile = ""
-        txtAddress = ""
-        txtCity = ""
-        txtState = ""
-        txtPostalCode = ""
-        txtTypeName = "Home"
+        textFieldName = ""
+        textFieldMobile = ""
+        textFieldAddress = ""
+        textFieldCity = ""
+        textFieldState = ""
+        textFieldPostalCode = ""
+        textFieldTypeName = "Home"
     }
     
     func setData(aObj: AddressModel) {
-        txtName = aObj.name
-        txtMobile = aObj.phone
-        txtAddress = aObj.address
-        txtCity = aObj.city
-        txtState = aObj.state
-        txtPostalCode = aObj.postalCode
-        txtTypeName = aObj.typeName
+        textFieldName = aObj.name
+        textFieldMobile = aObj.phone
+        textFieldAddress = aObj.address
+        textFieldCity = aObj.city
+        textFieldState = aObj.state
+        textFieldPostalCode = aObj.postalCode
+        textFieldTypeName = aObj.typeName
     }
     
     
@@ -67,13 +67,13 @@ class DeliveryAddressViewModel: ObservableObject
                     })
                 
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     
@@ -85,50 +85,50 @@ class DeliveryAddressViewModel: ObservableObject
                     self.serviceCallList()
                 
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     
     func serviceCallUpdateAddress( aObj: AddressModel?, didDone: (( )->())? ) {
-        ServiceCall.post(parameter: ["address_id":  aObj?.id ?? "", "name":  txtName, "type_name": txtTypeName, "phone": txtMobile, "address": txtAddress, "city": txtCity, "state": txtState, "postal_code": txtPostalCode ], path: Globs.SV_UPDATE_ADDRESS, isToken: true ) { responseObj in
+        ServiceCall.post(parameter: ["address_id":  aObj?.id ?? "", "name":  textFieldName, "type_name": textFieldTypeName, "phone": textFieldMobile, "address": textFieldAddress, "city": textFieldCity, "state": textFieldState, "postal_code": textFieldPostalCode ], path: Globs.SV_UPDATE_ADDRESS, isToken: true ) { responseObj in
             if let response = responseObj as? NSDictionary {
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
                     self.clearAll()
                     self.serviceCallList()
                     didDone?()
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
 
     }
     
     func serviceCallAddAddress(didDone: ((  )->())? ) {
-        ServiceCall.post(parameter: ["name":  txtName, "type_name": txtTypeName, "phone": txtMobile, "address": txtAddress, "city": txtCity, "state": txtState, "postal_code": txtPostalCode  ], path: Globs.SV_ADD_ADDRESS, isToken: true ) { responseObj in
+        ServiceCall.post(parameter: ["name":  textFieldName, "type_name": textFieldTypeName, "phone": textFieldMobile, "address": textFieldAddress, "city": textFieldCity, "state": textFieldState, "postal_code": textFieldPostalCode  ], path: Globs.SV_ADD_ADDRESS, isToken: true ) { responseObj in
             if let response = responseObj as? NSDictionary {
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
                     self.clearAll()
                     self.serviceCallList()
                     didDone?( )
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
 
     }

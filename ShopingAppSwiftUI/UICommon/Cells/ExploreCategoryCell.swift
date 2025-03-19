@@ -22,7 +22,7 @@ struct ExploreCategoryCell: View{
                 .frame(width: 120,height: 90)
             Spacer()
             Text(cObj.name)
-                .font(.customfont(.bold, fontSize: 16))
+                .font(.customFont(.bold, fontSize: 16))
                 .foregroundColor(.primaryText)
                 .frame(maxWidth: .infinity,alignment: .center)
             Spacer()

@@ -13,9 +13,9 @@ class CartViewModel: ObservableObject
     static var shared: CartViewModel = CartViewModel()
     
     
-    @Published var showError = false
+    @Published var showAlert = false
     @Published var showOrderAccept = false
-    @Published var errorMessage = ""
+    @Published var alertMessage = ""
     
     @Published var listArr: [CartItemModel] = []
     @Published var total: String = "0.0"
@@ -66,13 +66,13 @@ class CartViewModel: ObservableObject
                     self.deliverPriceAmount = response.value(forKey: "deliver_price_amount") as? String ?? "0.0"
                     self.userPayAmount = response.value(forKey: "user_pay_price") as? String ?? "0.0"
                     
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     
@@ -85,13 +85,13 @@ class CartViewModel: ObservableObject
                     self.serviceCallList()
                 
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     
@@ -103,27 +103,27 @@ class CartViewModel: ObservableObject
                     self.serviceCallList()
                 
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     
     func serviceCallOrderPlace(){
             
         if(deliveryType == 1 && deliverObj == nil ) {
-            self.errorMessage = "Please select delivery address"
-            self.showError = true
+            self.alertMessage = "Please select delivery address"
+            self.showAlert = true
             return
         }
         
         if(paymentType == 2 && paymentObj == nil ) {
-            self.errorMessage = "Please select payment method"
-            self.showError = true
+            self.alertMessage = "Please select payment method"
+            self.showAlert = true
             return
         }
         
@@ -140,20 +140,20 @@ class CartViewModel: ObservableObject
                     self.paymentObj = nil
                     self.promoObj = nil
                     self.showCheckout = false
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Success"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Success"
+                    self.showAlert = true
                     self.serviceCallList()
                     
                     self.showOrderAccept = true
                 
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     

@@ -10,11 +10,11 @@ import SwiftUI
 
 class MyOrderDetailViewModel: ObservableObject {
     @Published var pObj: MyOrderModel = MyOrderModel(dict: [:])
-    @Published var showError = false
-    @Published var errorMessage = ""
+    @Published var showAlert = false
+    @Published var alertMessage = ""
     @Published var listArr: [OrderItemModel] = []
     
-    @Published var txtMessage = ""
+    @Published var textFieldMessage = ""
     @Published var rating = 0
     @Published var showWriteReview = false
     @Published var productObj : OrderItemModel?
@@ -29,7 +29,7 @@ class MyOrderDetailViewModel: ObservableObject {
     func actionWriteReviewOpen(obj: OrderItemModel){
         
         rating = 5
-        txtMessage = ""
+        textFieldMessage = ""
         productObj = obj
         showWriteReview = true
     }
@@ -52,18 +52,18 @@ class MyOrderDetailViewModel: ObservableObject {
                     
                     
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     
     func serviceCallWriteReview(didDone: (()->())? ) {
-        ServiceCall.post(parameter: ["order_id": self.pObj.id,"prod_id":self.productObj?.prodId ?? "" ,"rating":rating,"review_message": txtMessage ], path: Globs.SV_PRODUCT_RATING_REVIEW, isToken: true ) { responseObj in
+        ServiceCall.post(parameter: ["order_id": self.pObj.id,"prod_id":self.productObj?.prodId ?? "" ,"rating":rating,"review_message": textFieldMessage ], path: Globs.SV_PRODUCT_RATING_REVIEW, isToken: true ) { responseObj in
             if let response = responseObj as? NSDictionary {
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
                     
@@ -73,19 +73,19 @@ class MyOrderDetailViewModel: ObservableObject {
                     self.serviceCallDetail()
                     //TODO: understand disqueue
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-                        self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Success"
-                        self.showError = true
+                        self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Success"
+                        self.showAlert = true
                     }
                     
                     
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
 }

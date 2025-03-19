@@ -12,11 +12,11 @@ class ForgotPasswordViewModel: ObservableObject
     static var shared: ForgotPasswordViewModel = ForgotPasswordViewModel()
     
     
-    @Published var txtEmail: String = ""
-    @Published var txtResetCode: String = ""
+    @Published var textFieldEmail: String = ""
+    @Published var textFieldResetCode: String = ""
     
-    @Published var txtNewPassword: String = ""
-    @Published var txtConfirmPassword: String = ""
+    @Published var textFieldNewPassword: String = ""
+    @Published var textFieldConfirmPassword: String = ""
     
     @Published var isNewPassword: Bool = false
     @Published var isConfirmPassword: Bool = false
@@ -24,8 +24,8 @@ class ForgotPasswordViewModel: ObservableObject
     @Published var showVerify: Bool = false
     @Published var showSetPassword: Bool = false
     
-    @Published var showError = false
-    @Published var errorMessage = ""
+    @Published var showAlert = false
+    @Published var alertMessage = ""
     
    
     var resetObj: NSDictionary?
@@ -37,86 +37,86 @@ class ForgotPasswordViewModel: ObservableObject
     //MARK: ServiceCall
     func serviceCallRequest(){
         
-        if(!txtEmail.isValidEmail) {
-            self.errorMessage = "Please enter valid email address"
-            self.showError = true
+        if(!textFieldEmail.isValidEmail) {
+            self.alertMessage = "Please enter valid email address"
+            self.showAlert = true
             return
         }
         
-        ServiceCall.post(parameter: ["email": txtEmail ], path: Globs.SV_FORGOT_PASSWORD_REQUEST, isToken: false ) { responseObj in
+        ServiceCall.post(parameter: ["email": textFieldEmail ], path: Globs.SV_FORGOT_PASSWORD_REQUEST, isToken: false ) { responseObj in
             if let response = responseObj as? NSDictionary {
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
                     self.showVerify = true
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     
     func serviceCallVerify(){
         
-        if(txtResetCode.count != 4) {
-            self.errorMessage = "Please enter valid otp"
-            self.showError = true
+        if(textFieldResetCode.count != 4) {
+            self.alertMessage = "Please enter valid otp"
+            self.showAlert = true
             return
         }
-        ServiceCall.post(parameter: ["email": txtEmail, "reset_code": txtResetCode ], path: Globs.SV_FORGOT_PASSWORD_VERIFY, isToken: false ) { responseObj in
+        ServiceCall.post(parameter: ["email": textFieldEmail, "reset_code": textFieldResetCode ], path: Globs.SV_FORGOT_PASSWORD_VERIFY, isToken: false ) { responseObj in
             if let response = responseObj as? NSDictionary {
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
                     self.resetObj = response.value(forKey: KKey.payload) as? NSDictionary
                     self.showSetPassword = true
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     
     func serviceCallSetPassword(){
         
-        if(txtNewPassword.count < 6) {
-            self.errorMessage = "Please enter new password minimum 6 character"
-            self.showError = true
+        if(textFieldNewPassword.count < 6) {
+            self.alertMessage = "Please enter new password minimum 6 character"
+            self.showAlert = true
             return
         }
         
-        if(txtNewPassword != txtConfirmPassword) {
-            self.errorMessage = "password not match"
-            self.showError = true
+        if(textFieldNewPassword != textFieldConfirmPassword) {
+            self.alertMessage = "password not match"
+            self.showAlert = true
             return
         }
         
         
-        ServiceCall.post(parameter: ["user_id": self.resetObj?.value(forKey: "user_id") ?? "", "reset_code":self.resetObj?.value(forKey: "reset_code") ?? "" , "new_password": txtNewPassword], path: Globs.SV_FORGOT_PASSWORD_SET_PASSWORD, isToken: false ) { responseObj in
+        ServiceCall.post(parameter: ["user_id": self.resetObj?.value(forKey: "user_id") ?? "", "reset_code":self.resetObj?.value(forKey: "reset_code") ?? "" , "new_password": textFieldNewPassword], path: Globs.SV_FORGOT_PASSWORD_SET_PASSWORD, isToken: false ) { responseObj in
             if let response = responseObj as? NSDictionary {
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
                     
-                    self.txtEmail = ""
-                    self.txtConfirmPassword = ""
-                    self.txtNewPassword = ""
+                    self.textFieldEmail = ""
+                    self.textFieldConfirmPassword = ""
+                    self.textFieldNewPassword = ""
                     
                     self.showSetPassword = false
                     
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Success"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Success"
+                    self.showAlert = true
                     
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     

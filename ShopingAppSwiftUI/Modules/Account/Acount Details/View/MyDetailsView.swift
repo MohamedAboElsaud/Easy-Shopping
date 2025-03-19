@@ -10,8 +10,8 @@ import SwiftUI
 import CountryPicker
 
 struct MyDetailsView: View {
-    @Environment(\.presentationMode) var mode : Binding<PresentationMode>
-    @StateObject var myVM = MyDetailsViewModel.shared
+    @Environment(\.presentationMode) var presentMode : Binding<PresentationMode>
+    @StateObject var accountDetailsViewModel = AccountDetailsViewModel.shared
     
    
     
@@ -22,12 +22,12 @@ struct MyDetailsView: View {
                 VStack(spacing: 15){
                     
                     
-                    LineTextField(txt: $myVM.txtName,title: "Name", placeholder: "Enter you name" )
+                    LineTextField(textField: $accountDetailsViewModel.textFieldName,title: "Name", placeholder: "Enter you name" )
                     
                     
                     VStack {
                         Text("Mobile")
-                            .font(.customfont(.semibold, fontSize: 16))
+                            .font(.customFont(.semibold, fontSize: 16))
                             .foregroundColor(.textTitle)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         
@@ -35,22 +35,22 @@ struct MyDetailsView: View {
                         HStack{
                                 
                             Button {
-                                myVM.isShowPicker = true
+                                accountDetailsViewModel.isShowPicker = true
                                 
                             } label: {
-                                if let countryObj = myVM.countryObj {
+                                if let countryPickerObject = accountDetailsViewModel.countryPickerObject {
                                     
-                                    Text( "\( countryObj.isoCode.getFlag())")
-                                        .font(.customfont(.medium, fontSize: 35))
+                                    Text( "\( countryPickerObject.isoCode.getFlag())")
+                                        .font(.customFont(.medium, fontSize: 35))
                                                                   
-                                    Text( "+\( countryObj.phoneCode )")
-                                        .font(.customfont(.medium, fontSize: 18))
+                                    Text( "+\( countryPickerObject.phoneCode )")
+                                        .font(.customFont(.medium, fontSize: 18))
                                         .foregroundColor(.primaryText)
                                 }
                                 
                             }
                             
-                            TextField("Enter you mobile number", text:  $myVM.txtMobile)
+                            TextField("Enter you mobile number", text:  $accountDetailsViewModel.textFieldMobile)
                                 .keyboardType(.numberPad)
                                 .frame(minWidth: 0, maxWidth: .infinity)
                             
@@ -60,13 +60,13 @@ struct MyDetailsView: View {
                         
                     }
                     
-                    LineTextField(txt: $myVM.txtUsername,title: "Username", placeholder: "Enter you username" )
+                    LineTextField(textField: $accountDetailsViewModel.textFieldUsername,title: "Username", placeholder: "Enter you username" )
                     
                    
                    
                     
                     RoundButton(title: "Update") {
-                        myVM.serviceCallUpdate()
+                        accountDetailsViewModel.serviceCallUpdate()
                     }
                     .padding(.bottom, 45)
                     
@@ -74,7 +74,7 @@ struct MyDetailsView: View {
                         ChangePasswordView()
                     } label: {
                         Text("Change Password")
-                            .font(.customfont(.bold, fontSize: 18))
+                            .font(.customFont(.bold, fontSize: 18))
                             .foregroundColor(.primaryApp)
                     }
 
@@ -90,7 +90,7 @@ struct MyDetailsView: View {
                 HStack{
                     
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -101,7 +101,7 @@ struct MyDetailsView: View {
                     Spacer()
                     
                     Text( "My Details")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     
@@ -118,11 +118,11 @@ struct MyDetailsView: View {
             }
         }
         
-        .sheet(isPresented: $myVM.isShowPicker, content: {
-            CountryPickerUI(country: $myVM.countryObj)
+        .sheet(isPresented: $accountDetailsViewModel.isShowPicker, content: {
+            CountryPickerUI(country: $accountDetailsViewModel.countryPickerObject)
         })
-        .alert(isPresented: $myVM.showError) {
-            Alert(title: Text(Globs.AppName), message: Text(myVM.errorMessage), dismissButton: .default(Text("Ok")))
+        .alert(isPresented: $accountDetailsViewModel.showAlert) {
+            Alert(title: Text(Globs.AppName), message: Text(accountDetailsViewModel.alertMessage), dismissButton: .default(Text("Ok")))
         }
         .navigationTitle("")
         .navigationBarHidden(true)

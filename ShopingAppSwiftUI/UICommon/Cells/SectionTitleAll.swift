@@ -15,12 +15,12 @@ struct SectionTitleAll: View {
         
         HStack{
             Text(title)
-                .font(.customfont(.semibold, fontSize: 24))
+                .font(.customFont(.semibold, fontSize: 24))
                 .foregroundColor(.primaryText)
             
             Spacer()
             Text(titleAll)
-                .font(.customfont(.semibold, fontSize: 16))
+                .font(.customFont(.semibold, fontSize: 16))
                 .foregroundColor(.primaryApp)
         }
         .frame(height: 40)

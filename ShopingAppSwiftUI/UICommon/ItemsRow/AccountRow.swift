@@ -20,7 +20,7 @@ struct AccountRow: View {
                     .scaledToFit()
                     .frame(width: 20,height: 20)
                 Text(title)
-                    .font(.customfont(.semibold, fontSize: 18))
+                    .font(.customFont(.semibold, fontSize: 18))
                     .foregroundColor(.primaryText)
                     .frame(maxWidth: .infinity,alignment:.leading)
                 Image("back")

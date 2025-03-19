@@ -30,42 +30,42 @@ struct SignUpView: View {
                     
                     
                     Text("Sign Up")
-                        .font(.customfont(.semibold, fontSize: 26))
+                        .font(.customFont(.semibold, fontSize: 26))
                         .foregroundColor(.primaryText)
                         .frame(maxWidth: .infinity,alignment:.leading)
                         .padding(.bottom,4)
                     
                     Text("Enter your username , email and password")
-                        .font(.customfont(.semibold, fontSize: 16))
+                        .font(.customFont(.semibold, fontSize: 16))
                         .foregroundColor(.secondaryText)
                         .frame(maxWidth: .infinity,alignment:.leading)
                         .padding(.bottom, .screenWidth * 0.1)
                     
-                    LineTextField(txt: $mainVM.txtUsername, title: "Username", placeholder: "Enter your username")
+                    LineTextField(textField: $mainVM.textFieldUsername, title: "Username", placeholder: "Enter your username")
                         .padding(.bottom,.screenWidth * 0.07)
                     
-                    LineTextField(txt: $mainVM.txtEmail, title: "Email", placeholder: "Enter your email address",keyboardType: .emailAddress)
+                    LineTextField(textField: $mainVM.textFieldEmail, title: "Email", placeholder: "Enter your email address",keyboardType: .emailAddress)
                         .padding(.bottom,.screenWidth * 0.07)
                     
-                    LineSecureField(txt: $mainVM.txtPassword, isPassword: $mainVM.isShowPassword, title: "Password", placeholder: "Enter your Password")
+                    LineSecureField(textField: $mainVM.textFieldPassword, isPassword: $mainVM.isShowPassword, title: "Password", placeholder: "Enter your Password")
                         .padding(.bottom,.screenWidth * 0.04)
                     
 
                     VStack{
                         Text("By continue you agree to our privacy")
-                            .font(.customfont(.medium, fontSize: 14))
+                            .font(.customFont(.medium, fontSize: 14))
                             .foregroundColor(.secondaryText)
                             .frame(maxWidth: .infinity)
                         HStack{
                             Text("Terms of Service")
                                 .foregroundColor(Color.primaryApp)
-                                .font(.customfont(.medium, fontSize: 14))
+                                .font(.customFont(.medium, fontSize: 14))
                             Text("and")
                                 .foregroundColor(Color.secondaryText)
-                                .font(.customfont(.medium, fontSize: 14))
+                                .font(.customFont(.medium, fontSize: 14))
                             Text("Privacy Policy")
                                 .foregroundColor(Color.primaryApp)
-                                .font(.customfont(.medium, fontSize: 14))
+                                .font(.customFont(.medium, fontSize: 14))
                         }
                         .padding(.bottom,.screenWidth * 0.02)
                     }
@@ -82,10 +82,10 @@ struct SignUpView: View {
                     } label: {
                         HStack{
                             Text("Already have an account?")
-                                .font(.customfont(.semibold, fontSize: 14))
+                                .font(.customFont(.semibold, fontSize: 14))
                                 .foregroundColor(.primaryText)
                             Text("Sign In")
-                                .font(.customfont(.semibold, fontSize: 14))
+                                .font(.customFont(.semibold, fontSize: 14))
                                 .foregroundColor(.primaryApp)
                         }
                     }
@@ -116,8 +116,8 @@ struct SignUpView: View {
             .padding(.top,.topInsets)
             .padding(.horizontal,20)
         }
-        .alert(isPresented: $mainVM.showError, content: {
-            Alert(title: Text(Globs.AppName),message: Text(mainVM.errorMessage),dismissButton: .default(Text("Ok")))
+        .alert(isPresented: $mainVM.showAlert, content: {
+            Alert(title: Text(Globs.AppName),message: Text(mainVM.alertMessage),dismissButton: .default(Text("Ok")))
         })
         .navigationTitle("")
         .navigationBarHidden(true)

@@ -23,13 +23,13 @@ struct WelcomeView: View {
                     .padding(.bottom,8)
                 
                 Text("Welcome\nto our store")
-                    .font(.customfont(.semibold, fontSize: 48))
+                    .font(.customFont(.semibold, fontSize: 48))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 
                 Text("Get Your Shoping in as fast as one hour")
                     .foregroundColor(.white.opacity(0.7))
-                    .font(.customfont(.medium, fontSize: 16))
+                    .font(.customFont(.medium, fontSize: 16))
                     .multilineTextAlignment(.center)
                     .padding(.bottom,30)
                 

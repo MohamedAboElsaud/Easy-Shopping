@@ -27,11 +27,11 @@ struct HomeView: View {
                             .frame(width: 16, height: 16 )
                         
                         Text("Cairo, Egypt")
-                            .font(.customfont(.semibold, fontSize: 18))
+                            .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.darkGray)
                     }
                     
-                    SearchTextField(txt: $homeVM.txtSearch, placeholder: "Search Store")
+                    SearchTextField(textField: $homeVM.textFieldSearch, placeholder: "Search Store")
                         .padding(.horizontal,20)
                         .padding(.vertical,10)
                 }
@@ -65,8 +65,8 @@ struct HomeView: View {
                             ProductCell(pObj: pObj, didAddCart: {
                                 CartViewModel.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { isDone, msg in
                                     
-                                    self.homeVM.errorMessage = msg
-                                    self.homeVM.showError = true
+                                    self.homeVM.alertMessage = msg
+                                    self.homeVM.showAlert = true
                                 }
                             })
                         }
@@ -94,8 +94,8 @@ struct HomeView: View {
                             ProductCell(pObj: pObj, didAddCart: {
                                 CartViewModel.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { isDone, msg in
                                     
-                                    self.homeVM.errorMessage = msg
-                                    self.homeVM.showError = true
+                                    self.homeVM.alertMessage = msg
+                                    self.homeVM.showAlert = true
                                 }
                             })
                         }
@@ -137,8 +137,8 @@ struct HomeView: View {
                             ProductCell(pObj: pObj, didAddCart: {
                                 CartViewModel.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { isDone, msg in
                                     
-                                    self.homeVM.errorMessage = msg
-                                    self.homeVM.showError = true
+                                    self.homeVM.alertMessage = msg
+                                    self.homeVM.showAlert = true
                                 }
                             })
                         }
@@ -150,8 +150,8 @@ struct HomeView: View {
                 
             }
         }
-        .alert(isPresented: $homeVM.showError, content: {
-            Alert(title: Text(Globs.AppName), message: Text(homeVM.errorMessage), dismissButton: .default(Text("OK")) )
+        .alert(isPresented: $homeVM.showAlert, content: {
+            Alert(title: Text(Globs.AppName), message: Text(homeVM.alertMessage), dismissButton: .default(Text("OK")) )
         })
         .ignoresSafeArea()
     }

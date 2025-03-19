@@ -9,9 +9,9 @@ import SwiftUI
 import CountryPicker
 
 struct SignInView: View {
-    @State var txtMobile = ""
+    @State var textFieldMobile = ""
     @State var isShowPicker:Bool = false
-    @State var countryObj: Country?
+    @State var countryPickerObject: Country?
     var body: some View {
         //TODO: update this views
 
@@ -32,7 +32,7 @@ struct SignInView: View {
                 
                 VStack(alignment: .leading){
                     Text("Get your Shoping\nwith our store")
-                        .font(.customfont(.semibold, fontSize: 26))
+                        .font(.customFont(.semibold, fontSize: 26))
                         .foregroundColor(.primaryText)
                         .frame(minWidth: 0,maxWidth: .infinity)
                         .multilineTextAlignment(.center)
@@ -43,20 +43,20 @@ struct SignInView: View {
                             isShowPicker = true
                         } label: {
                             
-                            if let countryObj = countryObj{
+                            if let countryPickerObject = countryPickerObject{
                                 
-                                Text("\(countryObj.isoCode.getFlag())")
-                                    .font(.customfont(.medium, fontSize: 18))
+                                Text("\(countryPickerObject.isoCode.getFlag())")
+                                    .font(.customFont(.medium, fontSize: 18))
                                 
-                                Text("+\(countryObj.phoneCode)")
-                                    .font(.customfont(.medium, fontSize: 18))
+                                Text("+\(countryPickerObject.phoneCode)")
+                                    .font(.customFont(.medium, fontSize: 18))
                                     .foregroundColor(.primaryText)
 
                             }
                             
                         }
                         
-                        TextField("enter your mobile", text: $txtMobile)
+                        TextField("enter your mobile", text: $textFieldMobile)
                             .frame(minWidth: 0,maxWidth: .infinity)
 
                     }
@@ -66,7 +66,7 @@ struct SignInView: View {
                         LoginView()
                     } label: {
                         Text("Continue with Email Sign In")
-                            .font(.customfont(.semibold, fontSize: 18))
+                            .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                     }
@@ -79,7 +79,7 @@ struct SignInView: View {
                         SignUpView()
                     } label: {
                         Text("Continue with Email Sign Un")
-                            .font(.customfont(.semibold, fontSize: 18))
+                            .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                     }
@@ -94,7 +94,7 @@ struct SignInView: View {
                         .padding(.bottom,25)
                     
                     Text("Or connectwith social media")
-                        .font(.customfont(.semibold, fontSize: 14))
+                        .font(.customFont(.semibold, fontSize: 14))
                         .foregroundColor(.textTitle)
                         .frame(minWidth: 0,maxWidth: .infinity)
                         .multilineTextAlignment(.center)
@@ -109,7 +109,7 @@ struct SignInView: View {
                             .scaledToFit()
                             .frame(width: 20,height: 20)
                         Text("Continue with google")
-                            .font(.customfont(.semibold, fontSize: 18))
+                            .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                     }
@@ -127,7 +127,7 @@ struct SignInView: View {
                             .scaledToFit()
                             .frame(width: 20,height: 20)
                         Text("Continue with Facebook")
-                            .font(.customfont(.semibold, fontSize: 18))
+                            .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                     }
@@ -148,10 +148,10 @@ struct SignInView: View {
             
         }
         .onAppear{
-            self.countryObj = Country(phoneCode: "20", isoCode: "IN")
+            self.countryPickerObject = Country(phoneCode: "20", isoCode: "IN")
         }
         .sheet(isPresented: $isShowPicker, content: {
-            CountryPickerUI(country: $countryObj)
+            CountryPickerUI(country: $countryPickerObject)
         })
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)

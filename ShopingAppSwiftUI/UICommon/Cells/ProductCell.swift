@@ -25,11 +25,11 @@ struct ProductCell: View {
                 
                 Spacer()
                 Text(pObj.name)
-                    .font(.customfont(.bold, fontSize: 16))
+                    .font(.customFont(.bold, fontSize: 16))
                     .foregroundColor(.primaryText)
                     .frame(maxWidth: .infinity,alignment: .leading)
                 Text("\(pObj.unitValue)\(pObj.unitName) , price")
-                    .font(.customfont(.medium, fontSize: 14))
+                    .font(.customFont(.medium, fontSize: 14))
                     .foregroundColor(.secondaryText)
                     .frame(maxWidth: .infinity,alignment: .leading)
                 
@@ -55,7 +55,7 @@ struct ProductCell: View {
                 
                 HStack{
                     Text("\(pObj.offerPrice ?? pObj.price, specifier: "%.2f")")
-                        .font(.customfont(.semibold, fontSize: 18))
+                        .font(.customFont(.semibold, fontSize: 18))
                         .foregroundColor(.primaryText)
                         .frame(maxWidth: .infinity,alignment: .leading)
                     Spacer()

@@ -23,7 +23,7 @@ struct AccountView: View {
                         HStack{
                             
                             Text("mohamed aboelsaud")
-                                .font(.customfont(.bold, fontSize: 16))
+                                .font(.customFont(.bold, fontSize: 16))
                                 .foregroundColor(.primaryApp)
                             
                             Image(systemName: "pencil")
@@ -32,7 +32,7 @@ struct AccountView: View {
                         }
                         .padding(.bottom,2)
                         Text("mm@gmail.com")
-                            .font(.customfont(.medium, fontSize: 16))
+                            .font(.customFont(.medium, fontSize: 16))
                             .frame(maxWidth: .infinity,alignment:.leading)
                             .accentColor(.secondaryText)
                     }
@@ -108,7 +108,7 @@ struct AccountView: View {
                     ZStack{
                         
                         Text("Log out")
-                            .font(.customfont(.semibold, fontSize: 18))
+                            .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.primaryApp)
                             .multilineTextAlignment(.center)
                         HStack{

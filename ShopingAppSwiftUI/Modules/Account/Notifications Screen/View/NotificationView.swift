@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct NotificationView: View {
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
     
-    @StateObject var notiVM = NotificationViewModel.shared
+    @StateObject var notificationViewModel = NotificationViewModel.shared
     
     
     var body: some View {
@@ -18,20 +18,20 @@ struct NotificationView: View {
             
             ScrollView{
                 LazyVStack(spacing: 15) {
-                    ForEach( notiVM.listArr , id: \.id, content: {
+                    ForEach( notificationViewModel.listArr , id: \.id, content: {
                         nObj in
                         
                         
                         VStack{
                             HStack {
                                 Text(nObj.title)
-                                    .font(.customfont(.bold, fontSize: 14))
+                                    .font(.customFont(.bold, fontSize: 14))
                                     .foregroundColor(.primaryText)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                 
                                 
                                 Text(nObj.createdDate.displayDate(format: "yyyy-MM-dd hh:mm a"))
-                                    .font(.customfont(.regular, fontSize: 12))
+                                    .font(.customFont(.regular, fontSize: 12))
                                     .foregroundColor(.secondaryText)
                                 
                             }
@@ -39,7 +39,7 @@ struct NotificationView: View {
                        
                                 
                                 Text(nObj.message)
-                                    .font(.customfont(.medium, fontSize: 14))
+                                    .font(.customFont(.medium, fontSize: 14))
                                     .foregroundColor(.primaryText)
                                     .multilineTextAlignment( .leading)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -67,7 +67,7 @@ struct NotificationView: View {
                 HStack{
                     
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -80,17 +80,17 @@ struct NotificationView: View {
                     Spacer()
                     
                     Text("Notification")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     
                     
                     Button {
                         
-                        notiVM.serviceCallReadAll()
+                        notificationViewModel.serviceCallReadAll()
                     } label: {
                         Text("Read All")
-                            .font(.customfont(.bold, fontSize: 16))
+                            .font(.customFont(.bold, fontSize: 16))
                             .foregroundColor(.primaryApp)
                     }
 
@@ -110,8 +110,8 @@ struct NotificationView: View {
             
             
         }
-        .alert(isPresented: $notiVM.showError) {
-            Alert(title: Text(Globs.AppName), message: Text(notiVM.errorMessage), dismissButton: .default(Text("Ok")))
+        .alert(isPresented: $notificationViewModel.showAlert) {
+            Alert(title: Text(Globs.AppName), message: Text(notificationViewModel.alertMessage), dismissButton: .default(Text("Ok")))
         }
         .navigationTitle("")
         .navigationBarHidden(true)

@@ -15,7 +15,7 @@ struct RoundButton: View {
             didTap?()
         } label: {
             Text(title)
-                .font(.customfont(.semibold, fontSize: 18))
+                .font(.customFont(.semibold, fontSize: 18))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
         }

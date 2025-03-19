@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SeeAllItems: View {
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
 
     @StateObject var homeVM = HomeViewModel.shared
     @State var array: [ProductModel]?
@@ -30,7 +30,7 @@ struct SeeAllItems: View {
                         .frame(width: 40, height: 40)
                     
                     Button{
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     }label: {
                         Image("back")
                             .resizable()
@@ -41,7 +41,7 @@ struct SeeAllItems: View {
                     Spacer()
                     
                     Text("All items")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     
@@ -61,8 +61,8 @@ struct SeeAllItems: View {
                                 ProductCell( pObj: pObj ) {
                                     CartViewModel.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { isDone, msg in
                                         
-                                        self.homeVM.errorMessage = msg
-                                        self.homeVM.showError = true
+                                        self.homeVM.alertMessage = msg
+                                        self.homeVM.showAlert = true
                                     }
                                 }
                             }
@@ -76,8 +76,8 @@ struct SeeAllItems: View {
            // .padding(.top, .topInsets)
             .padding(.horizontal, 20)
         }
-        .alert(isPresented: $homeVM.showError, content: {
-            Alert(title: Text(Globs.AppName), message: Text(homeVM.errorMessage), dismissButton: .default(Text("OK")) )
+        .alert(isPresented: $homeVM.showAlert, content: {
+            Alert(title: Text(Globs.AppName), message: Text(homeVM.alertMessage), dismissButton: .default(Text("OK")) )
         })
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)

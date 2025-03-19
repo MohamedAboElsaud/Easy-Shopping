@@ -12,8 +12,8 @@ class FavoriteViewModel: ObservableObject
     static var shared: FavoriteViewModel = FavoriteViewModel()
     
     
-    @Published var showError = false
-    @Published var errorMessage = ""
+    @Published var showAlert = false
+    @Published var alertMessage = ""
     
     @Published var listArr: [ProductModel] = []
     
@@ -36,13 +36,13 @@ class FavoriteViewModel: ObservableObject
                     })
                 
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     

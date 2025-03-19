@@ -28,7 +28,7 @@ struct CartItemRow: View {
                     
                     HStack {
                         Text(cObj.name)
-                            .font(.customfont(.bold, fontSize: 16))
+                            .font(.customFont(.bold, fontSize: 16))
                             .foregroundColor(.primaryText)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         
@@ -44,7 +44,7 @@ struct CartItemRow: View {
                    
                     
                     Text("\(cObj.unitValue)\(cObj.unitName), price")
-                        .font(.customfont(.medium, fontSize: 14))
+                        .font(.customFont(.medium, fontSize: 14))
                         .foregroundColor(.secondaryText)
                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         .padding(.bottom, 8)
@@ -68,7 +68,7 @@ struct CartItemRow: View {
                         )
                         
                         Text( "\(cObj.qty)" )
-                            .font(.customfont(.bold, fontSize: 24))
+                            .font(.customFont(.bold, fontSize: 24))
                             .foregroundColor(.primaryText)
                             .multilineTextAlignment(.center)
                             .frame(width: 45, height: 45, alignment: .center)
@@ -93,7 +93,7 @@ struct CartItemRow: View {
                         Spacer()
                         
                         Text("$\(cObj.offerPrice ?? cObj.price, specifier: "%.2f" )")
-                            .font(.customfont(.semibold, fontSize: 20))
+                            .font(.customFont(.semibold, fontSize: 20))
                             .foregroundColor(.primaryText)
                     }
                     

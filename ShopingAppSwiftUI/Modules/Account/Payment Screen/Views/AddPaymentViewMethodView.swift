@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct AddPaymentMethodView: View {
-    @Environment(\.presentationMode) var mode : Binding<PresentationMode>
-    @StateObject var payVM = PaymentViewModel.shared
+    @Environment(\.presentationMode) var presentMode : Binding<PresentationMode>
+    @StateObject var paymentViewModel = PaymentViewModel.shared
     
     
     var body: some View {
@@ -20,22 +20,22 @@ struct AddPaymentMethodView: View {
                 VStack(spacing: 15){
                     
                                         
-                    LineTextField(txt: $payVM.txtName, title: "Name", placeholder: "Enter you name")
+                    LineTextField(textField: $paymentViewModel.textFieldName, title: "Name", placeholder: "Enter you name")
                     
-                    LineTextField(txt: $payVM.txtCardNumber, title: "Card Number", placeholder: "Enter card number", keyboardType: .numberPad)
+                    LineTextField(textField: $paymentViewModel.textFieldCardNumber, title: "Card Number", placeholder: "Enter card number", keyboardType: .numberPad)
                    
                     
                     HStack{
-                        LineTextField(txt: $payVM.txtCardMonth, title: "MM", placeholder: "Enter Month", keyboardType: .numberPad)
+                        LineTextField(textField: $paymentViewModel.textFieldCardMonth, title: "MM", placeholder: "Enter Month", keyboardType: .numberPad)
                         
-                        LineTextField(txt: $payVM.txtCardYear, title: "YYYY", placeholder: "Enter Year", keyboardType: .numberPad)
+                        LineTextField(textField: $paymentViewModel.textFieldCardYear, title: "YYYY", placeholder: "Enter Year", keyboardType: .numberPad)
                     }
                    
                     
                     RoundButton(title:  "Add Payment Method") {
                         
-                            payVM.serviceCallAdd {
-                                self.mode.wrappedValue.dismiss()
+                            paymentViewModel.serviceCallAdd {
+                                self.presentMode.wrappedValue.dismiss()
                             }
                         
                     }
@@ -51,7 +51,7 @@ struct AddPaymentMethodView: View {
                 HStack{
                     
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -64,7 +64,7 @@ struct AddPaymentMethodView: View {
                     Spacer()
                     
                     Text("Add Payment Method")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     
@@ -81,8 +81,8 @@ struct AddPaymentMethodView: View {
             }
         }
         
-        .alert(isPresented: $payVM.showError) {
-            Alert(title: Text(Globs.AppName), message: Text(payVM.errorMessage), dismissButton: .default(Text("Ok")))
+        .alert(isPresented: $paymentViewModel.showAlert) {
+            Alert(title: Text(Globs.AppName), message: Text(paymentViewModel.alertMessage), dismissButton: .default(Text("Ok")))
         }
         .navigationTitle("")
         .navigationBarHidden(true)

@@ -30,7 +30,7 @@ struct FavoriteView: View {
                 HStack{
                     Spacer()
                     Text("Favorites")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     

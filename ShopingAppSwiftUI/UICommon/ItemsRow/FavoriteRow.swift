@@ -22,18 +22,18 @@ struct FavoriteRow: View {
                 
                 VStack(spacing:4){
                     Text(fObj.name)
-                        .font(.customfont(.bold, fontSize: 16))
+                        .font(.customFont(.bold, fontSize: 16))
                         .foregroundColor(.primaryText)
                         .frame(maxWidth: .infinity,alignment: .leading)
                     Text("\(fObj.unitValue)\(fObj.unitName) , price")
-                        .font(.customfont(.medium, fontSize: 14))
+                        .font(.customFont(.medium, fontSize: 14))
                         .foregroundColor(.secondaryText)
                         .frame(maxWidth: .infinity,alignment: .leading)
                     
                 }
                 
                 Text("\(fObj.offerPrice ?? fObj.price, specifier: "%.2f")")
-                    .font(.customfont(.semibold, fontSize: 18))
+                    .font(.customFont(.semibold, fontSize: 18))
                     .foregroundColor(.primaryText)
                 
                 Image("next")

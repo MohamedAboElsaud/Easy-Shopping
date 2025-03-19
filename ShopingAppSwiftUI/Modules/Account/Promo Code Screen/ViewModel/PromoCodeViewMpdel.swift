@@ -1,5 +1,5 @@
 //
-//  PromoCodeViewMpdel.swift
+//  PromoCodeViewModel.swift
 //  ShopingAppSwiftUI
 //
 //  Created by mohamed ahmed on 13/03/2025.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-class PromoCodeViewMpdel: ObservableObject
+class PromoCodeViewModel: ObservableObject
 {
-    static var shared: PromoCodeViewMpdel = PromoCodeViewMpdel()
+    static var shared: PromoCodeViewModel = PromoCodeViewModel()
     
     
-    @Published var showError = false
-    @Published var errorMessage = ""
+    @Published var showAlert = false
+    @Published var alertMessage = ""
     
     @Published var listArr: [PromoCodeModel] = []
     
@@ -35,13 +35,13 @@ class PromoCodeViewMpdel: ObservableObject
                     })
                     
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     

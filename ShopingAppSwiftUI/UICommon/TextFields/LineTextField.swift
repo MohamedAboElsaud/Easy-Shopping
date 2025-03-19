@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LineTextField: View {
-    @Binding var txt:String
+    @Binding var textField:String
     @State var title = "title"
     @State var placeholder = "placeholder"
     @State var keyboardType: UIKeyboardType = .default
@@ -17,12 +17,12 @@ struct LineTextField: View {
     var body: some View {
         VStack{
             Text(title)
-                .font(.customfont(.semibold, fontSize: 16))
+                .font(.customFont(.semibold, fontSize: 16))
                 .foregroundColor(.textTitle)
                 .frame(minWidth: 0,maxWidth: .infinity,alignment:.leading)
             
             
-            TextField(placeholder, text: $txt)
+            TextField(placeholder, text: $textField)
                 .frame(height: 40)
                 .keyboardType(keyboardType)
                 .autocapitalization(.none)
@@ -38,7 +38,7 @@ struct LineTextField: View {
 
 
 struct LineSecureField: View {
-    @Binding var txt:String
+    @Binding var textField:String
     @Binding var isPassword: Bool
     @State var title = "title"
     @State var placeholder = "placeholder"
@@ -46,19 +46,19 @@ struct LineSecureField: View {
     var body: some View {
         VStack{
             Text(title)
-                .font(.customfont(.semibold, fontSize: 16))
+                .font(.customFont(.semibold, fontSize: 16))
                 .foregroundColor(.textTitle)
                 .frame(minWidth: 0,maxWidth: .infinity,alignment:.leading)
             
             if isPassword{
-                TextField(placeholder, text: $txt)
+                TextField(placeholder, text: $textField)
                     .autocorrectionDisabled(true)
                     .autocapitalization(.none)
                     .frame(height: 40)
                     .modifier(ShowButton(isShow: $isPassword))
                 
             }else{
-                SecureField(placeholder, text: $txt)
+                SecureField(placeholder, text: $textField)
                     .autocapitalization(.none)
                     .frame(height: 40)
                     .modifier(ShowButton(isShow: $isPassword))
@@ -73,9 +73,9 @@ struct LineSecureField: View {
 
 
 struct LineTextField_Previews: PreviewProvider {
-    @State static var txt = ""
+    @State static var textField = ""
     static var previews: some View {
-        LineTextField(txt: $txt)
+        LineTextField(textField: $textField)
             .padding(20)
     }
 }

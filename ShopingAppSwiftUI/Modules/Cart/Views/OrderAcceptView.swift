@@ -11,7 +11,7 @@ import SwiftUI
 
 struct OrderAcceptView: View {
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
     
     var body: some View {
         ZStack{
@@ -30,13 +30,13 @@ struct OrderAcceptView: View {
                 
                 Text("Your order has been \n accepted")
                     .multilineTextAlignment(.center)
-                    .font(.customfont(.semibold, fontSize: 28))
+                    .font(.customFont(.semibold, fontSize: 28))
                     .foregroundColor(.primaryText)
                     .padding(.bottom, 12)
                 
                 Text("Your items has been placcd and is on\nit’s way to being processed")
                     .multilineTextAlignment(.center)
-                    .font(.customfont(.semibold, fontSize: 16))
+                    .font(.customFont(.semibold, fontSize: 16))
                     .foregroundColor(.secondaryText)
                     .padding(.bottom, 12)
                 
@@ -48,10 +48,10 @@ struct OrderAcceptView: View {
                 }
                 
                 Button {
-                    mode.wrappedValue.dismiss()
+                    presentMode.wrappedValue.dismiss()
                 } label: {
                     Text("Back to home")
-                        .font(.customfont(.semibold, fontSize: 18))
+                        .font(.customFont(.semibold, fontSize: 18))
                         .foregroundColor(.primaryApp)
                         .padding(.vertical, 15)
                 }

@@ -11,11 +11,11 @@ class ExporeViewModel: ObservableObject
 {
     static var shared: ExporeViewModel = ExporeViewModel()
     
-    @Published var txtSearch: String = ""
+    @Published var textFieldSearch: String = ""
     
     
-    @Published var showError = false
-    @Published var errorMessage = ""
+    @Published var showAlert = false
+    @Published var alertMessage = ""
     
     @Published var listArr: [ExploreCategoryModel] = []
     
@@ -39,13 +39,13 @@ class ExporeViewModel: ObservableObject
                     })
                     
                 }else{
-                    self.errorMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
-                    self.showError = true
+                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.showAlert = true
                 }
             }
         } failure: { error in
-            self.errorMessage = error?.localizedDescription ?? "Fail"
-            self.showError = true
+            self.alertMessage = error?.localizedDescription ?? "Fail"
+            self.showAlert = true
         }
     }
     

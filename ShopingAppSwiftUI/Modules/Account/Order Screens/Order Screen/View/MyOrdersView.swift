@@ -10,47 +10,43 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct MyOrdersView: View {
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
     
-    @StateObject var myVM = MyOrdersViewModel.shared
+    @StateObject var myOrdersViewModel = MyOrdersViewModel.shared
     
     var body: some View {
         ZStack{
             
             ScrollView{
                 LazyVStack(spacing: 15) {
-                    ForEach( myVM.listArr , id: \.id, content: {
+                    ForEach( myOrdersViewModel.listArr , id: \.id, content: {
                         myObj in
-                        
                         NavigationLink {
-                           MyOrdersDetailView(detailVM: MyOrderDetailViewModel(prodObj: myObj) )
+                            MyOrdersDetailView(detailVM: MyOrderDetailViewModel(prodObj: myObj) )
                         } label: {
                             VStack{
                                 HStack {
                                     
                                     Text("Order No: #")
-                                        .font(.customfont(.bold, fontSize: 16))
+                                        .font(.customFont(.bold, fontSize: 16))
                                         .foregroundColor(.primaryText)
                                     
                                     
                                     Text("\( myObj.id  )")
-                                        .font(.customfont(.bold, fontSize: 14))
+                                        .font(.customFont(.bold, fontSize: 14))
                                         .foregroundColor(.primaryText)
                                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                     
                                     
                                     Text(getOrderStatus(mObj: myObj))
-                                        .font(.customfont(.bold, fontSize: 16))
+                                        .font(.customFont(.bold, fontSize: 16))
                                         .foregroundColor( getOrderStatusColor(mObj: myObj) )
-                                        
-                                }
+                                    }
                                 
                                 Text(myObj.createdDate.displayDate(format: "yyyy-MM-dd hh:mm a"))
-                                    .font(.customfont(.bold, fontSize: 12))
+                                    .font(.customFont(.bold, fontSize: 12))
                                     .foregroundColor(.secondaryText)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                
-                                
                                 
                                 HStack {
                                     
@@ -67,12 +63,12 @@ struct MyOrdersView: View {
                                         HStack {
                                             
                                             Text("Items:")
-                                                .font(.customfont(.bold, fontSize: 16))
+                                                .font(.customFont(.bold, fontSize: 16))
                                                 .foregroundColor(.primaryText)
                                             
                                             
                                             Text(myObj.names ?? "")
-                                                .font(.customfont(.medium, fontSize: 14))
+                                                .font(.customFont(.medium, fontSize: 14))
                                                 .foregroundColor(.secondaryText)
                                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                             
@@ -81,12 +77,12 @@ struct MyOrdersView: View {
                                         HStack {
                                             
                                             Text("Delivery Type:")
-                                                .font(.customfont(.bold, fontSize: 16))
+                                                .font(.customFont(.bold, fontSize: 16))
                                                 .foregroundColor(.primaryText)
                                             
                                             
                                             Text( self.getDeliveryType(mObj: myObj) )
-                                                .font(.customfont(.medium, fontSize: 14))
+                                                .font(.customFont(.medium, fontSize: 14))
                                                 .foregroundColor(.secondaryText)
                                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                             
@@ -95,12 +91,12 @@ struct MyOrdersView: View {
                                         HStack {
                                             
                                             Text("Payment Type:")
-                                                .font(.customfont(.bold, fontSize: 16))
+                                                .font(.customFont(.bold, fontSize: 16))
                                                 .foregroundColor(.primaryText)
                                             
                                             
                                             Text(getPaymentType(mObj: myObj))
-                                                .font(.customfont(.medium, fontSize: 14))
+                                                .font(.customFont(.medium, fontSize: 14))
                                                 .foregroundColor(.secondaryText)
                                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                             
@@ -109,12 +105,12 @@ struct MyOrdersView: View {
                                         HStack {
                                             
                                             Text("Payment Status:")
-                                                .font(.customfont(.bold, fontSize: 16))
+                                                .font(.customFont(.bold, fontSize: 16))
                                                 .foregroundColor(.primaryText)
                                             
                                             
                                             Text( getPaymentStatus(mObj: myObj))
-                                                .font(.customfont(.medium, fontSize: 14))
+                                                .font(.customFont(.medium, fontSize: 14))
                                                 .foregroundColor( getPaymentStatusColor(mObj: myObj))
                                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                             
@@ -131,8 +127,6 @@ struct MyOrdersView: View {
                         .cornerRadius(5)
                         .shadow(color: Color.black.opacity(0.15), radius: 2)
                         
-                        
-                        
                     })
                 }
                 .padding(20)
@@ -140,32 +134,24 @@ struct MyOrdersView: View {
                 .padding(.bottom, .bottomInsets + 60)
                 
             }
-            
-            
             VStack {
                 
                 HStack{
                     
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 20, height: 20)
                     }
-                    
-                    
-                    
                     Spacer()
                     
                     Text("My Ordres")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
-                    
-                    
-                    
                 }
                 .padding(.top, .topInsets)
                 .padding(.horizontal, 20)
@@ -175,8 +161,6 @@ struct MyOrdersView: View {
                 Spacer()
                 
             }
-            
-            
             
         }
         .onAppear{
@@ -208,9 +192,9 @@ struct MyOrdersView: View {
     func getDeliveryType(mObj: MyOrderModel) -> String {
         switch mObj.deliverType {
         case 1:
-              return "Delivery";
-            case 2:
-              return "Collection";
+            return "Delivery";
+        case 2:
+            return "Collection";
         default:
             return "";
         }
@@ -264,21 +248,21 @@ struct MyOrdersView: View {
     
     func getOrderStatusColor(mObj: MyOrderModel) -> Color {
         
-     
+        
         
         switch mObj.orderStatus {
         case 1:
-              return Color.blue;
-            case 2:
-              return Color.green;
-            case 3:
-              return Color.green;
-            case 4:
-              return Color.red;
-            case 5:
-              return Color.red;
-            default:
-              return Color.primaryApp;        }
+            return Color.blue;
+        case 2:
+            return Color.green;
+        case 3:
+            return Color.green;
+        case 4:
+            return Color.red;
+        case 5:
+            return Color.red;
+        default:
+            return Color.primaryApp;        }
     }
 }
 
@@ -287,6 +271,6 @@ struct MyOrdersView_Previews: PreviewProvider {
         NavigationView {
             MyOrdersView()
         }
-       
+        
     }
 }

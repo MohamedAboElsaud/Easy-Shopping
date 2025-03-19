@@ -29,21 +29,21 @@ struct LoginView: View {
                 
                 
                 Text("Loging")
-                    .font(.customfont(.semibold, fontSize: 26))
+                    .font(.customFont(.semibold, fontSize: 26))
                     .foregroundColor(.primaryText)
                     .frame(maxWidth: .infinity,alignment:.leading)
                     .padding(.bottom,4)
                 
                 Text("Enter your email and password")
-                    .font(.customfont(.semibold, fontSize: 16))
+                    .font(.customFont(.semibold, fontSize: 16))
                     .foregroundColor(.secondaryText)
                     .frame(maxWidth: .infinity,alignment:.leading)
                     .padding(.bottom, .screenWidth * 0.1)
                 
-                LineTextField(txt: $loginVM.txtEmail, title: "Email", placeholder: "Enter your email address",keyboardType: .emailAddress)
+                LineTextField(textField: $loginVM.textFieldEmail, title: "Email", placeholder: "Enter your email address",keyboardType: .emailAddress)
                     .padding(.bottom,.screenWidth * 0.07)
                 
-                LineSecureField(txt: $loginVM.txtPassword, isPassword: $loginVM.isShowPassword, title: "Password", placeholder: "Enter your Password")
+                LineSecureField(textField: $loginVM.textFieldPassword, isPassword: $loginVM.isShowPassword, title: "Password", placeholder: "Enter your Password")
                     .padding(.bottom,.screenWidth * 0.02)
 
                 
@@ -51,7 +51,7 @@ struct LoginView: View {
                     ForgotPasswordView()
                 } label: {
                     Text("Forgot Password?")
-                        .font(.customfont(.medium, fontSize: 14))
+                        .font(.customFont(.medium, fontSize: 14))
                         .foregroundColor(.primaryText)
                     
                 }
@@ -71,10 +71,10 @@ struct LoginView: View {
                 } label: {
                     HStack{
                         Text("Don't have an account?")
-                            .font(.customfont(.semibold, fontSize: 14))
+                            .font(.customFont(.semibold, fontSize: 14))
                             .foregroundColor(.primaryText)
                         Text("Sign Up")
-                            .font(.customfont(.semibold, fontSize: 14))
+                            .font(.customFont(.semibold, fontSize: 14))
                             .foregroundColor(.primaryApp)
                     }
                 }
@@ -106,8 +106,8 @@ struct LoginView: View {
             .padding(.horizontal,20)
                 
         }
-        .alert(isPresented: $loginVM.showError, content: {
-            Alert(title: Text(Globs.AppName),message: Text(loginVM.errorMessage),dismissButton: .default(Text("Ok")))
+        .alert(isPresented: $loginVM.showAlert, content: {
+            Alert(title: Text(Globs.AppName),message: Text(loginVM.alertMessage),dismissButton: .default(Text("Ok")))
         })
         .background(Color.white)
         .navigationTitle("")

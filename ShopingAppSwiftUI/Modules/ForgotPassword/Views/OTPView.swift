@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct OTPView: View {
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @StateObject var forgotVM = ForgotPasswordViewModel.shared;
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
+    @StateObject var forgotPasswordViewModel = ForgotPasswordViewModel.shared;
     
     
     var body: some View {
@@ -24,21 +24,21 @@ struct OTPView: View {
             VStack{
                 
                 Text("Enter your 4-digit code")
-                    .font(.customfont(.semibold, fontSize: 26))
+                    .font(.customFont(.semibold, fontSize: 26))
                     .foregroundColor(.primaryText)
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 8)
                 
-                LineTextField(txt:  $forgotVM.txtResetCode, title: "Code", placeholder: "- - - -", keyboardType: .phonePad)
+                LineTextField(textField:  $forgotPasswordViewModel.textFieldResetCode, title: "Code", placeholder: "- - - -", keyboardType: .phonePad)
                     .padding(.bottom, .screenWidth * 0.07)
                 
                 
                 HStack {
                     Button {
-                        forgotVM.serviceCallRequest()
+                        forgotPasswordViewModel.serviceCallRequest()
                     } label: {
                         Text("Resend Code")
-                            .font(.customfont(.bold, fontSize: 18))
+                            .font(.customFont(.bold, fontSize: 18))
                             .foregroundColor(.primaryApp)
                             
                     }
@@ -46,7 +46,7 @@ struct OTPView: View {
                     Spacer()
                     
                     Button {
-                        forgotVM.serviceCallVerify()
+                        forgotPasswordViewModel.serviceCallVerify()
                     } label: {
                         Image("next")
                             .resizable()
@@ -72,7 +72,7 @@ struct OTPView: View {
                     
                 HStack {
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -93,9 +93,9 @@ struct OTPView: View {
             
             
         }
-        .alert(isPresented: $forgotVM.showError) {
+        .alert(isPresented: $forgotPasswordViewModel.showAlert) {
                 
-            Alert(title: Text(Globs.AppName), message: Text( forgotVM.errorMessage ), dismissButton: .default(Text("Ok")))
+            Alert(title: Text(Globs.AppName), message: Text( forgotPasswordViewModel.alertMessage ), dismissButton: .default(Text("Ok")))
         }
        
         .background(Color.white)

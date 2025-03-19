@@ -8,7 +8,7 @@ import SwiftUI
 
 struct DelieryAddressView: View {
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
     
     @StateObject var addressVM = DeliveryAddressViewModel.shared
     @State var isPicker: Bool = false
@@ -26,13 +26,13 @@ struct DelieryAddressView: View {
                             VStack{
                                 HStack {
                                     Text(aObj.name)
-                                        .font(.customfont(.bold, fontSize: 14))
+                                        .font(.customFont(.bold, fontSize: 14))
                                         .foregroundColor(.primaryText)
                                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                     
                                     
                                     Text(aObj.typeName)
-                                        .font(.customfont(.bold, fontSize: 12))
+                                        .font(.customFont(.bold, fontSize: 12))
                                         .foregroundColor(.primaryText)
                                         .padding(.horizontal, 8)
                                         .padding(.vertical, 2)
@@ -41,13 +41,13 @@ struct DelieryAddressView: View {
                                 }
                                 
                                 Text("\(aObj.address),\(aObj.city), \(aObj.state), \(aObj.postalCode) ")
-                                    .font(.customfont(.medium, fontSize: 14))
+                                    .font(.customFont(.medium, fontSize: 14))
                                     .foregroundColor(.primaryText)
                                     .multilineTextAlignment( .leading)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                                 
                                 Text(aObj.phone)
-                                    .font(.customfont(.bold, fontSize: 12))
+                                    .font(.customFont(.bold, fontSize: 12))
                                     .foregroundColor(.secondaryText)
                                     .padding(.vertical, 8)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -90,7 +90,7 @@ struct DelieryAddressView: View {
                         .shadow(color: Color.black.opacity(0.15), radius: 2)
                         .onTapGesture {
                             if(isPicker) {
-                                mode.wrappedValue.dismiss()
+                                presentMode.wrappedValue.dismiss()
                                 didSelect?(aObj)
                             }
                         }
@@ -110,7 +110,7 @@ struct DelieryAddressView: View {
                 HStack{
                     
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -123,7 +123,7 @@ struct DelieryAddressView: View {
                     Spacer()
                     
                     Text("Delivery Address")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     

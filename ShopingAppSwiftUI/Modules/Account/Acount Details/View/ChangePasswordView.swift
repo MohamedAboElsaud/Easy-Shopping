@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ChangePasswordView: View {
-    @Environment(\.presentationMode) var mode : Binding<PresentationMode>
-    @StateObject var myVM = MyDetailsViewModel.shared
+    @Environment(\.presentationMode) var presentMode : Binding<PresentationMode>
+    @StateObject var accountDetailsViewModel = AccountDetailsViewModel.shared
     
    
     
@@ -19,17 +19,17 @@ struct ChangePasswordView: View {
             ScrollView{
                 VStack(spacing: 15){
                     
-                    LineSecureField(txt: $myVM.txtCurrentPassword, isPassword: $myVM.isCurrentPassword, title: "Current Password", placeholder: "Enter your current password")
+                    LineSecureField(textField: $accountDetailsViewModel.textFieldCurrentPassword, isPassword: $accountDetailsViewModel.isCurrentPassword, title: "Current Password", placeholder: "Enter your current password")
                         .padding(.bottom, .screenWidth * 0.02)
                     
-                    LineSecureField(txt: $myVM.txtNewPassword, isPassword: $myVM.isNewPassword,title: "New Password", placeholder: "Enter your new password")
+                    LineSecureField(textField: $accountDetailsViewModel.textFieldNewPassword, isPassword: $accountDetailsViewModel.isNewPassword,title: "New Password", placeholder: "Enter your new password")
                         .padding(.bottom, .screenWidth * 0.02)
                     
-                    LineSecureField(txt: $myVM.txtConfirmPassword, isPassword: $myVM.isConfirmPassword,title: "Confirm Password", placeholder: "Enter your confirm password")
+                    LineSecureField(textField: $accountDetailsViewModel.textFieldConfirmPassword, isPassword: $accountDetailsViewModel.isConfirmPassword,title: "Confirm Password", placeholder: "Enter your confirm password")
                         .padding(.bottom, .screenWidth * 0.02)
                     
                     RoundButton(title: "Update") {
-                        myVM.serviceCallChangePassword()
+                        accountDetailsViewModel.serviceCallChangePassword()
                     }
                     .padding(.bottom, 45)
                     
@@ -45,7 +45,7 @@ struct ChangePasswordView: View {
                 HStack{
                     
                     Button {
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     } label: {
                         Image("back")
                             .resizable()
@@ -56,7 +56,7 @@ struct ChangePasswordView: View {
                     Spacer()
                     
                     Text( "Change Password")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     
@@ -73,11 +73,11 @@ struct ChangePasswordView: View {
             }
         }
         
-        .sheet(isPresented: $myVM.isShowPicker, content: {
-            CountryPickerUI(country: $myVM.countryObj)
+        .sheet(isPresented: $accountDetailsViewModel.isShowPicker, content: {
+            CountryPickerUI(country: $accountDetailsViewModel.countryPickerObject)
         })
-        .alert(isPresented: $myVM.showError) {
-            Alert(title: Text(Globs.AppName), message: Text(myVM.errorMessage), dismissButton: .default(Text("Ok")))
+        .alert(isPresented: $accountDetailsViewModel.showAlert) {
+            Alert(title: Text(Globs.AppName), message: Text(accountDetailsViewModel.alertMessage), dismissButton: .default(Text("Ok")))
         }
         .navigationTitle("")
         .navigationBarHidden(true)

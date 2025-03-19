@@ -20,22 +20,22 @@ struct AddDeliveryAddressView: View {
                 VStack(spacing:15){
                     HStack{
                         Button {
-                            addressVM.txtName = "Home"
+                            addressVM.textFieldName = "Home"
                         } label: {
-                            Image(systemName: addressVM.txtName == "Home" ? "record.circle" : "circle")
+                            Image(systemName: addressVM.textFieldName == "Home" ? "record.circle" : "circle")
                             Text("Home")
-                                .font(.customfont(.medium, fontSize: 16))
+                                .font(.customFont(.medium, fontSize: 16))
                                 .frame(maxWidth: .infinity,alignment:.leading)
 
                             
                         }
                         .foregroundColor(.primaryText)
                         Button {
-                            addressVM.txtName = "Office"
+                            addressVM.textFieldName = "Office"
                         } label: {
-                            Image(systemName: addressVM.txtName == "Office" ? "record.circle" : "circle")
+                            Image(systemName: addressVM.textFieldName == "Office" ? "record.circle" : "circle")
                             Text("Office")
-                                .font(.customfont(.medium, fontSize: 16))
+                                .font(.customFont(.medium, fontSize: 16))
                                 .frame(maxWidth: .infinity,alignment:.leading)
                             
                         }
@@ -44,19 +44,19 @@ struct AddDeliveryAddressView: View {
                     }
                     .padding(.bottom,15)
                     
-                    LineTextField(txt: $addressVM.txtName, title: "Name", placeholder: "Enter your name")
+                    LineTextField(textField: $addressVM.textFieldName, title: "Name", placeholder: "Enter your name")
                     
-                    LineTextField(txt: $addressVM.txtMobile, title: "Mobile", placeholder: "Enter your Mobile",keyboardType: .numberPad)
+                    LineTextField(textField: $addressVM.textFieldMobile, title: "Mobile", placeholder: "Enter your Mobile",keyboardType: .numberPad)
                     
-                    LineTextField(txt: $addressVM.txtAddress, title: "Address Line", placeholder: "Enter your Address")
+                    LineTextField(textField: $addressVM.textFieldAddress, title: "Address Line", placeholder: "Enter your Address")
                     
                     HStack{
-                        LineTextField(txt: $addressVM.txtCity, title: "City", placeholder: "Enter your city")
+                        LineTextField(textField: $addressVM.textFieldCity, title: "City", placeholder: "Enter your city")
                         
-                        LineTextField(txt: $addressVM.txtState, title: "State", placeholder: "Enter your State")
+                        LineTextField(textField: $addressVM.textFieldState, title: "State", placeholder: "Enter your State")
                     }
                     
-                    LineTextField(txt: $addressVM.txtPostalCode, title: "Postal Code", placeholder: "Enter your postal code")
+                    LineTextField(textField: $addressVM.textFieldPostalCode, title: "Postal Code", placeholder: "Enter your postal code")
 
                     RoundButton(title: isEdit ? "Update Address" : "Add Address") {
                         if(isEdit){
@@ -92,7 +92,7 @@ struct AddDeliveryAddressView: View {
                     Spacer()
                     
                     Text(isEdit ? "Edit Delivery Address" : "Add Delivery Address")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     
@@ -113,8 +113,8 @@ struct AddDeliveryAddressView: View {
                 }
             }
         }
-        .alert(isPresented: $addressVM.showError) {
-            Alert(title: Text(Globs.AppName),message: Text(addressVM.errorMessage),dismissButton: .default(Text( "Ok")))
+        .alert(isPresented: $addressVM.showAlert) {
+            Alert(title: Text(Globs.AppName),message: Text(addressVM.alertMessage),dismissButton: .default(Text( "Ok")))
         }
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)

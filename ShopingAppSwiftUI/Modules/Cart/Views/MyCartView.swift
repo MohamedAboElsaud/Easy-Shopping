@@ -15,7 +15,7 @@ struct MyCartView: View {
             
             if(cartVM.listArr.count == 0) {
                 Text("You Card is Empty")
-                    .font(.customfont(.bold, fontSize: 20))
+                    .font(.customFont(.bold, fontSize: 20))
             }
             
             ScrollView{
@@ -42,7 +42,7 @@ struct MyCartView: View {
                     Spacer()
                     
                     Text("My Cart")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     
@@ -62,14 +62,14 @@ struct MyCartView: View {
                     } label: {
                         ZStack {
                             Text("Check Out")
-                                .font(.customfont(.semibold, fontSize: 18))
+                                .font(.customFont(.semibold, fontSize: 18))
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
                             
                             HStack {
                                 Spacer()
                                 Text("$\(cartVM.total)")
-                                    .font(.customfont(.semibold, fontSize: 12))
+                                    .font(.customFont(.semibold, fontSize: 12))
                                     .foregroundColor(.white)
                                     .padding(.horizontal, 8)
                                     .padding(.vertical, 4)
@@ -109,8 +109,8 @@ struct MyCartView: View {
         .background(NavigationLink(destination: OrderAcceptView(),isActive: $cartVM.showOrderAccept, label: {
             EmptyView()
         }))
-        .alert(isPresented: $cartVM.showError, content: {
-            Alert(title: Text(Globs.AppName), message: Text(cartVM.errorMessage), dismissButton: .default(Text("OK")) )
+        .alert(isPresented: $cartVM.showAlert, content: {
+            Alert(title: Text(Globs.AppName), message: Text(cartVM.alertMessage), dismissButton: .default(Text("OK")) )
         })
         .ignoresSafeArea()
     }

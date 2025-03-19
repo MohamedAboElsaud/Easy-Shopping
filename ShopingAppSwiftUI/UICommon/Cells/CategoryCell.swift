@@ -22,7 +22,7 @@ struct CategoryCell: View {
                 .frame(width: 70,height: 70)
             
             Text(tObj.name)
-                .font(.customfont(.bold, fontSize: 16))
+                .font(.customFont(.bold, fontSize: 16))
                 .foregroundColor(.primaryText)
                 .frame(maxWidth: .infinity,alignment: .leading)
             

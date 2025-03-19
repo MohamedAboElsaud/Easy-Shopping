@@ -33,7 +33,7 @@ struct ProductDetailView: View {
                 VStack{
                     HStack{
                         Text(detailVM.pObj.name)
-                            .font(.customfont(.bold, fontSize: 24))
+                            .font(.customFont(.bold, fontSize: 24))
                             .foregroundColor(.primaryText)
                             .frame(maxWidth: .infinity,alignment: .leading)
                         Button {
@@ -51,7 +51,7 @@ struct ProductDetailView: View {
                     
                     
                     Text("\(detailVM.pObj.unitValue)\(detailVM.pObj.unitName) , price")
-                        .font(.customfont(.semibold, fontSize: 16))
+                        .font(.customFont(.semibold, fontSize: 16))
                         .foregroundColor(.secondaryText)
                         .frame(maxWidth: .infinity,alignment: .leading)
                     
@@ -67,7 +67,7 @@ struct ProductDetailView: View {
                         }
                         
                         Text("\(detailVM.qty)")
-                            .font(.customfont(.bold, fontSize: 24))
+                            .font(.customFont(.bold, fontSize: 24))
                             .foregroundColor(.primaryText)
                             .multilineTextAlignment(.center)
                             .frame(width: 45,height: 45,alignment: .center)
@@ -90,7 +90,7 @@ struct ProductDetailView: View {
                         Spacer()
                         
                         Text("$\((detailVM.pObj.offerPrice ?? detailVM.pObj.price) * Double(detailVM.qty) , specifier: "%.2f")")
-                            .font(.customfont(.bold, fontSize: 24))
+                            .font(.customFont(.bold, fontSize: 24))
                             .foregroundColor(.primaryText)
                         
                     }
@@ -104,7 +104,7 @@ struct ProductDetailView: View {
                 VStack{
                     HStack{
                         Text("Product Detail")
-                            .font(.customfont(.semibold, fontSize: 16))
+                            .font(.customFont(.semibold, fontSize: 16))
                             .foregroundColor(.primaryText)
                             .frame(maxWidth: .infinity,alignment: .leading)
                         Button {
@@ -124,7 +124,7 @@ struct ProductDetailView: View {
                     
                     if (detailVM.isShowDetail){
                         Text("\(detailVM.pObj.detail)")
-                            .font(.customfont(.medium, fontSize: 13))
+                            .font(.customFont(.medium, fontSize: 13))
                             .foregroundColor(.secondaryText)
                             .frame(maxWidth: .infinity,alignment: .leading)
                             .padding(.bottom,8)
@@ -138,12 +138,12 @@ struct ProductDetailView: View {
                 VStack{
                     HStack{
                         Text("Nutritions")
-                            .font(.customfont(.semibold, fontSize: 16))
+                            .font(.customFont(.semibold, fontSize: 16))
                             .foregroundColor(.primaryText)
                             .frame(maxWidth: .infinity,alignment: .leading)
                         
                         Text(detailVM.pObj.nutritionWeight)
-                            .font(.customfont(.semibold, fontSize: 10))
+                            .font(.customFont(.semibold, fontSize: 10))
                             .foregroundColor(.secondaryText)
                             .padding(8)
                             .background(Color.placeholder.opacity(0.5))
@@ -169,11 +169,11 @@ struct ProductDetailView: View {
                             ForEach(detailVM.nutritionArr, id: (\.self)) { nObj in
                                 HStack{
                                     Text(nObj.nutritionName)
-                                        .font(.customfont(.semibold, fontSize: 15))
+                                        .font(.customFont(.semibold, fontSize: 15))
                                         .foregroundColor(.secondaryText)
                                         .frame(maxWidth:.infinity,alignment:.leading)
                                     Text(nObj.nutritionValue)
-                                        .font(.customfont(.semibold, fontSize: 15))
+                                        .font(.customFont(.semibold, fontSize: 15))
                                         .foregroundColor(.primaryText)
                                 }
                                 Divider()
@@ -191,7 +191,7 @@ struct ProductDetailView: View {
                 if detailVM.pObj.avgRating > 0{
                     HStack{
                         Text("Review")
-                            .font(.customfont(.semibold, fontSize: 16))
+                            .font(.customFont(.semibold, fontSize: 16))
                             .foregroundColor(.primaryText)
                             .frame(maxWidth: .infinity,alignment: .leading)
                         
@@ -224,8 +224,8 @@ struct ProductDetailView: View {
                 RoundButton(title: "Add to basket") {
                     CartViewModel.serviceCallAddToCart(prodId: detailVM.pObj.prodId, qty: detailVM.qty) { isDone, message in
                         detailVM.qty = 1
-                        self.detailVM.showError = true
-                        self.detailVM.errorMessage = message
+                        self.detailVM.showAlert = true
+                        self.detailVM.alertMessage = message
                     }
                 }
                 
@@ -260,8 +260,8 @@ struct ProductDetailView: View {
             .padding(.top,.topInsets)
             .padding(.horizontal,20)
         }
-        .alert(isPresented: $detailVM.showError, content: {
-            Alert(title: Text(Globs.AppName),message: Text(detailVM.errorMessage),dismissButton: .default(Text("Ok")))
+        .alert(isPresented: $detailVM.showAlert, content: {
+            Alert(title: Text(Globs.AppName),message: Text(detailVM.alertMessage),dismissButton: .default(Text("Ok")))
         })
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)

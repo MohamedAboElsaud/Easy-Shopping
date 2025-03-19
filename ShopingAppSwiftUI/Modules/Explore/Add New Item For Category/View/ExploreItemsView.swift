@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ExploreItemsView: View {
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
     @StateObject var itemsVM = ExploreItemViewModel(catObj: ExploreCategoryModel (dict: [:]))
     
     var columns = [
@@ -28,7 +28,7 @@ struct ExploreItemsView: View {
                         .frame(width: 40, height: 40)
                     
                     Button{
-                        mode.wrappedValue.dismiss()
+                        presentMode.wrappedValue.dismiss()
                     }label: {
                         Image("back")
                             .resizable()
@@ -39,7 +39,7 @@ struct ExploreItemsView: View {
                     Spacer()
                     
                     Text("Category")
-                        .font(.customfont(.bold, fontSize: 20))
+                        .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
                     
@@ -68,8 +68,8 @@ struct ExploreItemsView: View {
                             ProductCell( pObj: pObj ) {
                                 CartViewModel.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { isDone, msg in
                                     
-                                    self.itemsVM.errorMessage = msg
-                                    self.itemsVM.showError = true
+                                    self.itemsVM.alertMessage = msg
+                                    self.itemsVM.showAlert = true
                                 }
                             }
                             
@@ -82,8 +82,8 @@ struct ExploreItemsView: View {
            // .padding(.top, .topInsets)
             .padding(.horizontal, 20)
         }
-        .alert(isPresented: $itemsVM.showError, content: {
-            Alert(title: Text(Globs.AppName), message: Text(itemsVM.errorMessage), dismissButton: .default(Text("OK")) )
+        .alert(isPresented: $itemsVM.showAlert, content: {
+            Alert(title: Text(Globs.AppName), message: Text(itemsVM.alertMessage), dismissButton: .default(Text("OK")) )
         })
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)

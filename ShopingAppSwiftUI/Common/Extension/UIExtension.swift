@@ -16,7 +16,7 @@ enum Gilroy: String {
 
 extension Font {
     
-    static func customfont(_ font: Gilroy, fontSize: CGFloat) -> Font {
+    static func customFont(_ font: Gilroy, fontSize: CGFloat) -> Font {
         custom(font.rawValue, size: fontSize)
     }
 }
