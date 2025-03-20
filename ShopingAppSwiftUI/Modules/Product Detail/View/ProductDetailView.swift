@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 struct ProductDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var detailVM: ProductDetailViewModel = ProductDetailViewModel(prodObj: ProductModel(dict: [:]))
+    
     var body: some View {
         ZStack{
             
@@ -40,7 +41,8 @@ struct ProductDetailView: View {
                             detailVM.isFav.toggle()
                             detailVM.serviceCallAddRemoveFav()
                         } label: {
-                            Image(detailVM.isFav ? "favorite" : "fav")
+                            
+                            Image((detailVM.isFav) ? "favorite" : "fav")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 25,height: 25)
@@ -262,7 +264,11 @@ struct ProductDetailView: View {
         }
         .alert(isPresented: $detailVM.showAlert, content: {
             Alert(title: Text(Globs.AppName),message: Text(detailVM.alertMessage),dismissButton: .default(Text("Ok")))
+            
         })
+        .onAppear{
+            
+        }
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)

@@ -8,43 +8,41 @@
 import SwiftUI
 
 struct AccountView: View {
+    @StateObject var accountViewModel = AccountDetailsViewModel.shared
+    var order = MyOrdersView()
+    
     var body: some View {
         ZStack{
             VStack{
-                
-                HStack(spacing: 15){
-                    Image("u1")
-                        .resizable()
-                        .frame(width: 60,height: 60)
-                        .cornerRadius(30)
-                    
-                    VStack{
-                        
-                        HStack{
-                            
-                            Text("mohamed aboelsaud")
-                                .font(.customFont(.bold, fontSize: 16))
-                                .foregroundColor(.primaryApp)
-                            
-                            Image(systemName: "pencil")
-                                .foregroundColor(.primaryApp)
-                            Spacer()
-                        }
-                        .padding(.bottom,2)
-                        Text("mm@gmail.com")
-                            .font(.customFont(.medium, fontSize: 16))
-                            .frame(maxWidth: .infinity,alignment:.leading)
-                            .accentColor(.secondaryText)
-                    }
-                }
-                .padding(.horizontal,20)
-                .padding(.top,.topInsets)
-                
-                Divider()
-                
-                
                 ScrollView{
                     LazyVStack{
+                        
+                        Image("sprof2")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 90,height: 90)
+                            .padding(.top,.topInsets+10)
+                            .cornerRadius(30)
+                        HStack{
+                            let name = accountViewModel.textFieldName
+                            Text(name == "" ? "User" : name)
+                                .font(.customFont(.bold, fontSize: 39))
+                                .foregroundColor(.primaryApp)
+                                .frame(maxWidth: .infinity,alignment:.center)
+                                .padding(.bottom,1)
+                                .padding(.horizontal,20)
+                        }
+
+                        HStack{
+                            let email = accountViewModel.textFieldUsername
+                            Text(email == "" ? "Email" : email)
+                                .font(.customFont(.medium, fontSize: 18))
+                                .accentColor(.secondaryText)
+                                .frame(maxWidth: .infinity,alignment:.center)
+                                .padding(.horizontal,20)
+                            
+                        }
+                        
                         VStack{
                             
                             NavigationLink {
@@ -53,7 +51,7 @@ struct AccountView: View {
                                 
                                 AccountRow(title: "My Orders", icon: "a_order")
                             }
-
+                            
                             
                             NavigationLink {
                                 MyDetailsView()
@@ -61,7 +59,7 @@ struct AccountView: View {
                                 
                                 AccountRow(title: "My Details", icon: "a_my_detail")
                             }
-
+                            
                             
                             NavigationLink {
                                 DelieryAddressView()
@@ -69,7 +67,7 @@ struct AccountView: View {
                                 
                                 AccountRow(title: "Delivery Address", icon: "a_delivery_address")
                             }
-
+                            
                             NavigationLink {
                                 PaymentMethodsView()
                             } label: {
@@ -90,12 +88,12 @@ struct AccountView: View {
                                 
                                 AccountRow(title: "Notifications", icon: "a_noitification")
                             }
-
+                            
                             //TODO: create screens for this views
                             AccountRow(title: "Help", icon: "a_help")
-
+                            
                             AccountRow(title: "About", icon: "a_about")
-
+                            
                         }
                     }
                 }
@@ -120,14 +118,14 @@ struct AccountView: View {
                                 .padding(.trailing,20)
                         }
                     }
-                   
+                    
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
                 .background(Color(hex: "F2F3F2"))
                 .cornerRadius(20)
                 .padding(.horizontal,20)
                 .padding(.bottom,20)
-
+                
             }
             .padding(.bottom,.bottomInsets + 60)
         }

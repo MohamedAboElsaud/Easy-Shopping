@@ -50,7 +50,6 @@ struct MyOrdersView: View {
         .ignoresSafeArea()
     }
     
-    
     @ViewBuilder
     func headerRow()-> some View{
         HStack{
@@ -72,6 +71,7 @@ struct MyOrdersView: View {
         }
     }
     
+    @MainActor
     @ViewBuilder
     func row(for myObj: MyOrderModel) -> some View {
         
@@ -116,7 +116,7 @@ struct MyOrdersView: View {
                                 .font(.customFont(.bold, fontSize: 16))
                                 .foregroundColor(.primaryText)
                             
-                            Text(myObj.names ?? "")
+                            Text(myObj.names)
                                 .font(.customFont(.medium, fontSize: 14))
                                 .foregroundColor(.secondaryText)
                                 .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)

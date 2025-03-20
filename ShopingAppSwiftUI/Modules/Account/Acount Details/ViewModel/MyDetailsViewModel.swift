@@ -57,7 +57,7 @@ class AccountDetailsViewModel: ObservableObject
     }
     
     func setData() {
-        var userObj = MainViewModel.shared.userObj
+        let userObj = MainViewModel.shared.userObj
         textFieldName = userObj.name
         textFieldMobile = userObj.mobile
         textFieldMobileCode = userObj.mobileCode

@@ -38,28 +38,28 @@ struct SignInView: View {
                         .multilineTextAlignment(.center)
                         .padding(.bottom,25)
                     
-                    HStack{
-                        Button {
-                            isShowPicker = true
-                        } label: {
-                            
-                            if let countryPickerObject = countryPickerObject{
-                                
-                                Text("\(countryPickerObject.isoCode.getFlag())")
-                                    .font(.customFont(.medium, fontSize: 18))
-                                
-                                Text("+\(countryPickerObject.phoneCode)")
-                                    .font(.customFont(.medium, fontSize: 18))
-                                    .foregroundColor(.primaryText)
-
-                            }
-                            
-                        }
-                        
-                        TextField("enter your mobile", text: $textFieldMobile)
-                            .frame(minWidth: 0,maxWidth: .infinity)
-
-                    }
+//                    HStack{
+//                        Button {
+//                            isShowPicker = true
+//                        } label: {
+//
+//                            if let countryPickerObject = countryPickerObject{
+//
+//                                Text("\(countryPickerObject.isoCode.getFlag())")
+//                                    .font(.customFont(.medium, fontSize: 18))
+//
+//                                Text("+\(countryPickerObject.phoneCode)")
+//                                    .font(.customFont(.medium, fontSize: 18))
+//                                    .foregroundColor(.primaryText)
+//
+//                            }
+//
+//                        }
+//
+//                        TextField("enter your mobile", text: $textFieldMobile)
+//                            .frame(minWidth: 0,maxWidth: .infinity)
+//
+//                    }
                     
                     
                     NavigationLink {
@@ -78,7 +78,7 @@ struct SignInView: View {
                     NavigationLink {
                         SignUpView()
                     } label: {
-                        Text("Continue with Email Sign Un")
+                        Text("Continue with Email Sign Up")
                             .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
@@ -148,7 +148,7 @@ struct SignInView: View {
             
         }
         .onAppear{
-            self.countryPickerObject = Country(phoneCode: "20", isoCode: "IN")
+            self.countryPickerObject = Country(phoneCode: "20", isoCode: "EG")
         }
         .sheet(isPresented: $isShowPicker, content: {
             CountryPickerUI(country: $countryPickerObject)

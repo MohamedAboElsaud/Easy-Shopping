@@ -44,10 +44,10 @@ struct HomeView: View {
                     .padding(.horizontal, 20)
                 
                 // I create array for backend not have offer_list
-                let array =  homeVM.listArr.shuffled()
+                    
                 
                 NavigationLink {
-                    SeeAllItems(array: array)
+                    SeeAllItems(array: homeVM.listArr.shuffled())
                 } label: {
                     SectionTitleAll(title: "Exclusive offer", titleAll: "See All") {
                         
@@ -60,7 +60,7 @@ struct HomeView: View {
                 ScrollView(.horizontal, showsIndicators: false ) {
                     LazyHStack(spacing: 15) {
                         // TODO: update offerList
-                        ForEach (array, id: \.id) {
+                        ForEach (homeVM.listArr, id: \.id) {
                             pObj in
                             ProductCell(pObj: pObj, didAddCart: {
                                 CartViewModel.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { isDone, msg in
