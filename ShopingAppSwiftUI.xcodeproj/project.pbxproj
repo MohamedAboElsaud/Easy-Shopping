@@ -152,7 +152,7 @@
 		CE4C00E92D5F7BD40062CC8E /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Medium.ttf"; sourceTree = "<group>"; };
 		CE4C00EA2D5F7BD40062CC8E /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Regular.ttf"; sourceTree = "<group>"; };
 		CE4C00EB2D5F7BD40062CC8E /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gilroy-Bold.ttf"; sourceTree = "<group>"; };
-		CE4C00F02D5F832E0062CC8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CE4C00F02D5F832E0062CC8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4C00F62D5F851F0062CC8E /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		CE4C00F82D5F85AB0062CC8E /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CE4C00FA2D5F8A230062CC8E /* UIExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtension.swift; sourceTree = "<group>"; };
@@ -234,6 +234,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A520329D2D8D842F000D8293 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				A520329F2D8D84B6000D8293 /* App */,
+				A520329E2D8D8447000D8293 /* AppAssets */,
+				CE2D9B8F2D8A19CC003EAC96 /* Resources */,
+				CE2D9B8E2D8A197E003EAC96 /* Extension */,
+				CE4C00F42D5F84BF0062CC8E /* UICommon */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		A520329E2D8D8447000D8293 /* AppAssets */ = {
+			isa = PBXGroup;
+			children = (
+				CE4C00F02D5F832E0062CC8E /* Info.plist */,
+				CE4C00C12D5F72660062CC8E /* Assets.xcassets */,
+				CE4C00F82D5F85AB0062CC8E /* Launch Screen.storyboard */,
+			);
+			path = AppAssets;
+			sourceTree = "<group>";
+		};
+		A520329F2D8D84B6000D8293 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CE4C00BD2D5F72650062CC8E /* ShopingAppSwiftUIApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		CE2D9B642D89FFFE003EAC96 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -669,15 +699,6 @@
 			path = Cart;
 			sourceTree = "<group>";
 		};
-		CE4418482D60CA2B00CC68CF /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				CE2D9B8F2D8A19CC003EAC96 /* Resources */,
-				CE2D9B8E2D8A197E003EAC96 /* Extension */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		CE44E6642D7DB971009D9EF7 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -709,15 +730,10 @@
 		CE4C00BC2D5F72650062CC8E /* ShopingAppSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				A520329D2D8D842F000D8293 /* Core */,
 				CED607A02D86D2C40016A320 /* Modules */,
 				CE2D9B8C2D8A1830003EAC96 /* Services */,
-				CE4418482D60CA2B00CC68CF /* Common */,
-				CE4C00F42D5F84BF0062CC8E /* UICommon */,
-				CE4C00F02D5F832E0062CC8E /* Info.plist */,
-				CE4C00BD2D5F72650062CC8E /* ShopingAppSwiftUIApp.swift */,
-				CE4C00C12D5F72660062CC8E /* Assets.xcassets */,
 				CE4C00C32D5F72660062CC8E /* Preview Content */,
-				CE4C00F82D5F85AB0062CC8E /* Launch Screen.storyboard */,
 			);
 			path = ShopingAppSwiftUI;
 			sourceTree = "<group>";
@@ -1391,7 +1407,7 @@
 				DEVELOPMENT_TEAM = 8D8A3356H5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShopingAppSwiftUI/Info.plist;
+				INFOPLIST_FILE = ShopingAppSwiftUI/Core/AppAssets/AppInfo.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Easy Shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1428,7 +1444,7 @@
 				DEVELOPMENT_TEAM = 8D8A3356H5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShopingAppSwiftUI/Info.plist;
+				INFOPLIST_FILE = ShopingAppSwiftUI/Core/AppAssets/AppInfo.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Easy Shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
