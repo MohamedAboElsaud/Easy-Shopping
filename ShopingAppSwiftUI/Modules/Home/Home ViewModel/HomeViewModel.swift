@@ -34,9 +34,9 @@ class HomeViewModel: ObservableObject {
         func serviceCallList(){
             ServiceCall.post(parameter: [:], path: Globs.SV_HOME, isToken: true ) { responseObj in
                 if let response = responseObj as? NSDictionary {
-                    if response.value(forKey: KKey.status) as? String ?? "" == "1" {
+                    if response.value(forKey: Key.status) as? String ?? "" == "1" {
                         
-                        if let payloadObj = response.value(forKey: KKey.payload) as? NSDictionary {
+                        if let payloadObj = response.value(forKey: Key.payload) as? NSDictionary {
                             self.offerArr = (payloadObj.value(forKey: "offer_list") as? NSArray ?? []).map({ obj in
                                 
                                 return ProductModel(dict: obj as? NSDictionary ?? [:])
@@ -60,7 +60,7 @@ class HomeViewModel: ObservableObject {
                         
                         
                     }else{
-                        self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                        self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                         self.showAlert = true
                     }
                 }

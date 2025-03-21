@@ -38,9 +38,9 @@ class MyOrderDetailViewModel: ObservableObject {
     func serviceCallDetail(){
         ServiceCall.post(parameter: ["order_id": self.pObj.id ], path: Globs.SV_MY_ORDERS_DETAIL, isToken: true ) { responseObj in
             if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
+                if response.value(forKey: Key.status) as? String ?? "" == "1" {
                     
-                    if let payloadObj = response.value(forKey: KKey.payload) as? NSDictionary {
+                    if let payloadObj = response.value(forKey: Key.payload) as? NSDictionary {
                         
                         self.pObj = MyOrderModel(dict: payloadObj)
                         self.listArr = (payloadObj.value(forKey: "cart_list") as? NSArray ?? []).map({ obj in
@@ -52,7 +52,7 @@ class MyOrderDetailViewModel: ObservableObject {
                     
                     
                 }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
             }
@@ -65,7 +65,7 @@ class MyOrderDetailViewModel: ObservableObject {
     func serviceCallWriteReview(didDone: (()->())? ) {
         ServiceCall.post(parameter: ["order_id": self.pObj.id,"prod_id":self.productObj?.prodId ?? "" ,"rating":rating,"review_message": textFieldMessage ], path: Globs.SV_PRODUCT_RATING_REVIEW, isToken: true ) { responseObj in
             if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
+                if response.value(forKey: Key.status) as? String ?? "" == "1" {
                     
                     self.showWriteReview = true
                     didDone?()
@@ -73,13 +73,13 @@ class MyOrderDetailViewModel: ObservableObject {
                     self.serviceCallDetail()
                     //TODO: understand disqueue
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-                        self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Success"
+                        self.alertMessage = response.value(forKey: Key.message) as? String ?? "Success"
                         self.showAlert = true
                     }
                     
                     
                 }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
             }

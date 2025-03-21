@@ -45,10 +45,10 @@ class ForgotPasswordViewModel: ObservableObject
         
         ServiceCall.post(parameter: ["email": textFieldEmail ], path: Globs.SV_FORGOT_PASSWORD_REQUEST, isToken: false ) { responseObj in
             if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
+                if response.value(forKey: Key.status) as? String ?? "" == "1" {
                     self.showVerify = true
                 }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
             }
@@ -67,11 +67,11 @@ class ForgotPasswordViewModel: ObservableObject
         }
         ServiceCall.post(parameter: ["email": textFieldEmail, "reset_code": textFieldResetCode ], path: Globs.SV_FORGOT_PASSWORD_VERIFY, isToken: false ) { responseObj in
             if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
-                    self.resetObj = response.value(forKey: KKey.payload) as? NSDictionary
+                if response.value(forKey: Key.status) as? String ?? "" == "1" {
+                    self.resetObj = response.value(forKey: Key.payload) as? NSDictionary
                     self.showSetPassword = true
                 }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
             }
@@ -98,7 +98,7 @@ class ForgotPasswordViewModel: ObservableObject
         
         ServiceCall.post(parameter: ["user_id": self.resetObj?.value(forKey: "user_id") ?? "", "reset_code":self.resetObj?.value(forKey: "reset_code") ?? "" , "new_password": textFieldNewPassword], path: Globs.SV_FORGOT_PASSWORD_SET_PASSWORD, isToken: false ) { responseObj in
             if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
+                if response.value(forKey: Key.status) as? String ?? "" == "1" {
                     
                     self.textFieldEmail = ""
                     self.textFieldConfirmPassword = ""
@@ -106,11 +106,11 @@ class ForgotPasswordViewModel: ObservableObject
                     
                     self.showSetPassword = false
                     
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Success"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Success"
                     self.showAlert = true
                     
                 }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
             }

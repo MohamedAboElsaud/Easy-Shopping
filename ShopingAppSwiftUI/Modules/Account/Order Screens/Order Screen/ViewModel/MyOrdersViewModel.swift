@@ -29,15 +29,15 @@ class MyOrdersViewModel: ObservableObject
     func serviceCallList(){
         ServiceCall.post(parameter: [:], path: Globs.SV_MY_ORDERS_LIST, isToken: true ) { responseObj in
             if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
+                if response.value(forKey: Key.status) as? String ?? "" == "1" {
                     
                     
-                    self.listArr = (response.value(forKey: KKey.payload) as? NSArray ?? []).map({ obj in
+                    self.listArr = (response.value(forKey: Key.payload) as? NSArray ?? []).map({ obj in
                         return MyOrderModel(dict: obj as? NSDictionary ?? [:])
                     })
                 
                 }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
             }

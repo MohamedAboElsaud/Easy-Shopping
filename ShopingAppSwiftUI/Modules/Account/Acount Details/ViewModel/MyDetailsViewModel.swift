@@ -93,16 +93,16 @@ class AccountDetailsViewModel: ObservableObject
         
         ServiceCall.post(parameter: ["name": textFieldName, "mobile": textFieldMobile, "mobile_code": textFieldMobileCode, "username": textFieldUsername ], path: Globs.SV_UPDATE_PROFILE, isToken: true ) { responseObj in
             if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
+                if response.value(forKey: Key.status) as? String ?? "" == "1" {
                     
                     
-                    MainViewModel.shared.setUserData(uDict: response.value(forKey: KKey.payload) as? NSDictionary ?? [:])
+                    MainViewModel.shared.setUserData(uDict: response.value(forKey: Key.payload) as? NSDictionary ?? [:])
                     
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Success"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Success"
                     self.showAlert = true
                     
                 }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
             }
@@ -135,16 +135,16 @@ class AccountDetailsViewModel: ObservableObject
         
         ServiceCall.post(parameter: ["current_password": textFieldCurrentPassword, "new_password": textFieldNewPassword], path: Globs.SV_CHANGE_PASSWORD, isToken: true ) { responseObj in
             if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
+                if response.value(forKey: Key.status) as? String ?? "" == "1" {
                     
                     self.textFieldConfirmPassword = ""
                     self.textFieldNewPassword = ""
                     self.textFieldCurrentPassword = ""
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Success"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Success"
                     self.showAlert = true
                     
                 }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
             }

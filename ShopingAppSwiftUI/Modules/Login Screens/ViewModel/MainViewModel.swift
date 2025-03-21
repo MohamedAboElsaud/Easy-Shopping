@@ -66,12 +66,12 @@ class MainViewModel: ObservableObject {
         
         ServiceCall.post(parameter: ["email": textFieldEmail,"password": textFieldPassword,"dervice_token": ""], path: Globs.SV_LOGIN) { responseObj in
             if let response = responseObj as? NSDictionary{
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
+                if response.value(forKey: Key.status) as? String ?? "" == "1" {
                     
-                    self.setUserData(uDict: response.value(forKey: KKey.payload) as? NSDictionary ?? [:])
+                    self.setUserData(uDict: response.value(forKey: Key.payload) as? NSDictionary ?? [:])
                     
                 }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
             }
@@ -109,13 +109,13 @@ class MainViewModel: ObservableObject {
         
         ServiceCall.post(parameter: ["username": textFieldUsername,"email": textFieldEmail,"password": textFieldPassword,"dervice_token": ""], path: Globs.SV_SIGN_UP) { responseObj in
             if let response = responseObj as? NSDictionary{
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
+                if response.value(forKey: Key.status) as? String ?? "" == "1" {
                     
-                    self.setUserData(uDict: response.value(forKey: KKey.payload) as? NSDictionary ?? [:])
+                    self.setUserData(uDict: response.value(forKey: Key.payload) as? NSDictionary ?? [:])
                     
                     
                 }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
             }
