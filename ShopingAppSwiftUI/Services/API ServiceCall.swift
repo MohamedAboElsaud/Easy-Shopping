@@ -10,18 +10,17 @@ import UIKit
 
 class ServiceCall {
     
-    class func post(parameter: NSDictionary, path: String, isToken: Bool = false, withSuccess: @escaping ( (_ responseObj: AnyObject?) ->() ), failure: @escaping ( (_ error: Error?) ->() ) ) {
-        
+    class func post(parameter: NSDictionary, path: String, isToken: Bool = false, result: @escaping (Result<AnyObject, Error>) -> Void) {
+
         DispatchQueue.global(qos: .userInitiated).async {
-            
-            
-            var parameterData = NSMutableData()
-            let dictKey = parameter.allKeys as! [String]
-            
+
+            let parameterData = NSMutableData()
+            let dictKey = parameter.allKeys as? [String] ?? []
+
             var i=0;
             
             for dictKey in dictKey {
-                if let values = parameter.value(forKey: dictKey) as? String{
+                if let values = parameter.value(forKey: dictKey) as? String {
                     parameterData.append(String.init(format: "%@%@=%@", i==0 ? "" : "&" ,dictKey, values.replacingOccurrences(of: "+", with: "%2B")).data(using: String.Encoding.utf8)!)
                 }else{
                     parameterData.append(String.init(format: "%@%@=%@", i==0 ? "" : "&" ,dictKey, parameter.value(forKey: dictKey) as! CVarArg) .data(using: String.Encoding.utf8)!)
@@ -56,7 +55,7 @@ class ServiceCall {
               
                 if let error = error {
                     DispatchQueue.main.async {
-                        failure(error)
+                        result(.failure(error))
                     }
                 }else{
                     
@@ -64,17 +63,17 @@ class ServiceCall {
                         do {
                             let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
                             
-                            debugPrint("response: " , jsonDictionary )
+                            debugPrint("response: " , jsonDictionary)
                             
                             DispatchQueue.main.async {
-                                withSuccess(jsonDictionary)
+                                result(.success(jsonDictionary as AnyObject))
                             }
                             
                             
                         }
                         catch {
                             DispatchQueue.main.async {
-                                failure(error)
+                                result(.failure(error))
                             }
                         }
                     }
@@ -93,7 +92,4 @@ class ServiceCall {
         }
         
     }
-    
-
-    
 }

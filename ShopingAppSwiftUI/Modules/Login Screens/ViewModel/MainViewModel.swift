@@ -24,10 +24,10 @@ class MainViewModel: ObservableObject {
     
     init() {
         // spaces
-        if( Utils.UDValueBool(key: Globs.userLogin) ) {
+        if Utils.fetchBoolValue(for: Globs.userLogin) ?? false  {
             // User Login
-            self.setUserData(uDict: Utils.UDValue(key: Globs.userPayload) as? NSDictionary ?? [:] )
-        }else{
+            self.setUserData(uDict: Utils.fetchValue(for: Globs.userPayload) as? NSDictionary ?? [:] )
+        } else {
             // User Not Login
         }
         
@@ -42,7 +42,7 @@ class MainViewModel: ObservableObject {
     //    MARK: Service call
     
     func logout() {
-        Utils.UDSET(date: false, key: Globs.userLogin)
+        Utils.setValue(with: false, for: Globs.userLogin)
         isUserLogin = false
     }
     // Todo : - specific names
@@ -64,27 +64,23 @@ class MainViewModel: ObservableObject {
             
         }
         
-        ServiceCall.post(parameter: ["email": textFieldEmail,"password": textFieldPassword,"dervice_token": ""], path: Globs.SV_LOGIN) { responseObj in
-            if let response = responseObj as? NSDictionary{
-                if response.value(forKey: Key.status) as? String ?? "" == "1" {
-                    
-                    self.setUserData(uDict: response.value(forKey: Key.payload) as? NSDictionary ?? [:])
-                    
-                }else{
-                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
-                    self.showAlert = true
+        ServiceCall.post(parameter: ["email": textFieldEmail,"password": textFieldPassword,"dervice_token": ""], path: Globs.SV_LOGIN) { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let value):
+                if value.value(forKey: Key.status) as? String ?? "" == "1" {
+                    setUserData(uDict: value.value(forKey: Key.payload) as? NSDictionary ?? [:])
                 }
+            case .failure(let error):
+                alertMessage = error.localizedDescription
+                showAlert = true
             }
-        } failure: { error in
-            self.alertMessage = error?.localizedDescription ?? "Fail"
-            self.showAlert = true
         }
-        
     }
     
     
-    func serviceCalSignUp(){
-        
+    func serviceCalSignUp() {
+
         if textFieldUsername.isEmpty{
             self.alertMessage = "please enter valid username"
             self.showAlert = true
@@ -107,30 +103,26 @@ class MainViewModel: ObservableObject {
             
         }
         
-        ServiceCall.post(parameter: ["username": textFieldUsername,"email": textFieldEmail,"password": textFieldPassword,"dervice_token": ""], path: Globs.SV_SIGN_UP) { responseObj in
-            if let response = responseObj as? NSDictionary{
-                if response.value(forKey: Key.status) as? String ?? "" == "1" {
-                    
-                    self.setUserData(uDict: response.value(forKey: Key.payload) as? NSDictionary ?? [:])
-                    
-                    
-                }else{
-                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
-                    self.showAlert = true
+        ServiceCall.post(parameter: ["email": textFieldEmail,"password": textFieldPassword,"dervice_token": ""], path: Globs.SV_SIGN_UP) { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let value):
+                if value.value(forKey: Key.status) as? String ?? "" == "1" {
+                    setUserData(uDict: value.value(forKey: Key.payload) as? NSDictionary ?? [:])
                 }
+            case .failure(let error):
+                alertMessage = error.localizedDescription
+                showAlert = true
             }
-        } failure: { error in
-            self.alertMessage = error?.localizedDescription ?? "Fail"
-            self.showAlert = true
         }
-        
+
     }
     
-    func setUserData(uDict: NSDictionary){
-        
-        Utils.UDSET(date: uDict, key: Globs.userPayload)
-        Utils.UDSET(date: true, key: Globs.userLogin)
-        
+    func setUserData(uDict: NSDictionary) {
+
+        Utils.setValue(with: uDict, for: Globs.userPayload)
+        Utils.setValue(with: true, for: Globs.userLogin)
+
         self.userObj = UserModel(dict: uDict)
         self.isUserLogin = true
         self.textFieldUsername = ""

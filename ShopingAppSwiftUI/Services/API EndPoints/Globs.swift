@@ -77,7 +77,7 @@ class Utils {
 
     }
 
-    class func fetchBoolValue(key: String)-> Bool? {
+    class func fetchBoolValue(for key: String)-> Bool? {
         return UserDefaults.standard.value(forKey: key) as? Bool
 
     }
