@@ -7,10 +7,7 @@
 
 import SwiftUI
 
-class ExporeViewModel: ObservableObject
-{
-    static var shared: ExporeViewModel = ExporeViewModel()
-    
+final class ExploreViewModel: ObservableObject {
     @Published var textFieldSearch: String = ""
     
     
@@ -18,34 +15,31 @@ class ExporeViewModel: ObservableObject
     @Published var alertMessage = ""
     
     @Published var listArr: [ExploreCategoryModel] = []
-    
-    
+
     init() {
+
+    }
+
+    func setup() {
         serviceCallList()
     }
-    
-    
-    
+
     //MARK: ServiceCall
     
-    func serviceCallList(){
-        ServiceCall.post(parameter: [:], path: Globs.SV_EXPLORE_LIST, isToken: true ) { responseObj in
-            if let response = responseObj as? NSDictionary {
-                if response.value(forKey: Key.status) as? String ?? "" == "1" {
-                    
-                    self.listArr = (response.value(forKey: Key.payload) as? NSArray ?? []).map({ obj in
-                        
+    func serviceCallList() {
+        ServiceCall.post(parameter: [:], path: Globs.SV_EXPLORE_LIST, isToken: true) { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let value):
+                if value.value(forKey: Key.status) as? String ?? "" == "1" {
+                    self.listArr = (value.value(forKey: Key.payload) as? NSArray ?? []).map({ obj in
                         return ExploreCategoryModel(dict: obj as? NSDictionary ?? [:])
                     })
-                    
-                }else{
-                    self.alertMessage = response.value(forKey: Key.message) as? String ?? "Fail"
-                    self.showAlert = true
                 }
+            case .failure(let error):
+                alertMessage = error.localizedDescription
+                showAlert = true
             }
-        } failure: { error in
-            self.alertMessage = error?.localizedDescription ?? "Fail"
-            self.showAlert = true
         }
     }
     
