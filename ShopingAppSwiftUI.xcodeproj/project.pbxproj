@@ -700,6 +700,33 @@
 			path = keychain;
 			sourceTree = "<group>";
 		};
+		CE4B39AF2D90F05200AD28E5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				CE4B39B12D90F09A00AD28E5 /* Assets */,
+				CE4B39B02D90F08500AD28E5 /* Launch Screen */,
+				CE4C00C32D5F72660062CC8E /* Preview Content */,
+				CE4C00BD2D5F72650062CC8E /* ShopingAppSwiftUIApp.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		CE4B39B02D90F08500AD28E5 /* Launch Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CE4C00F82D5F85AB0062CC8E /* Launch Screen.storyboard */,
+			);
+			path = "Launch Screen";
+			sourceTree = "<group>";
+		};
+		CE4B39B12D90F09A00AD28E5 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				CE4C00C12D5F72660062CC8E /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		CE4C00B12D5F72650062CC8E = {
 			isa = PBXGroup;
 			children = (
@@ -723,15 +750,12 @@
 		CE4C00BC2D5F72650062CC8E /* ShopingAppSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				CE4B39AF2D90F05200AD28E5 /* Core */,
 				CED607A02D86D2C40016A320 /* Modules */,
 				CE2D9B8C2D8A1830003EAC96 /* Services */,
 				CE4418482D60CA2B00CC68CF /* Common */,
 				CE4C00F42D5F84BF0062CC8E /* UICommon */,
 				CE4C00F02D5F832E0062CC8E /* Info.plist */,
-				CE4C00BD2D5F72650062CC8E /* ShopingAppSwiftUIApp.swift */,
-				CE4C00C12D5F72660062CC8E /* Assets.xcassets */,
-				CE4C00C32D5F72660062CC8E /* Preview Content */,
-				CE4C00F82D5F85AB0062CC8E /* Launch Screen.storyboard */,
 			);
 			path = ShopingAppSwiftUI;
 			sourceTree = "<group>";
@@ -1431,7 +1455,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ShopingAppSwiftUI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ShopingAppSwiftUI/Core/Preview Content\"";
 				DEVELOPMENT_TEAM = 8D8A3356H5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1468,7 +1492,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ShopingAppSwiftUI/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ShopingAppSwiftUI/Core/Preview Content\"";
 				DEVELOPMENT_TEAM = 8D8A3356H5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
