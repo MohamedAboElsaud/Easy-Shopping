@@ -8,24 +8,13 @@
 import SwiftUI
 
 class MainViewModel: ObservableObject {
-    static var shared: MainViewModel = .init()
-
-    @Published var textFieldUsername = ""
-    @Published var textFieldEmail = ""
-    @Published var textFieldPassword = ""
-    @Published var isShowPassword = false
-
-    @Published var showAlert = false
-    @Published var alertMessage = ""
-
-    @Published var isUserLogin = false
-    @Published var userObj = UserModel(dict: [:])
+    // MARK: Lifecycle
 
     init() {
         // spaces
-        if Utils.UDValueBool(key: Globs.userLogin) {
+        if Keychain().getValue(key: Globs.userLogin) {
             // User Login
-            setUserData(uDict: Utils.UDValue(key: Globs.userPayload) as? NSDictionary ?? [:])
+            setUserData(uDict: UserDefault.getValue(key: Globs.userPayload) as? NSDictionary ?? [:])
         } else {
             // User Not Login
         }
@@ -38,10 +27,27 @@ class MainViewModel: ObservableObject {
         //        #endif
     }
 
+    // MARK: Internal
+
+    static var shared: MainViewModel = .init()
+
+    @Published var textFieldUsername = ""
+    @Published var textFieldEmail = ""
+    @Published var textFieldPassword = ""
+    @Published var isShowPassword = false
+
+    @Published var showAlert = false
+    @Published var alertMessage = ""
+
+    @Published var isUserLogin = false
+    @Published var userObj: UserModel = .init(dict: [:])
+
     //    MARK: Service call
 
     func logout() {
-        Utils.UDSET(date: false, key: Globs.userLogin)
+        // UserDefault.UDSET(date: false, key: Globs.userLogin)
+        Keychain().remove(key: Globs.userLogin)
+        UserDefault.remove(key: Globs.userPayload)
         isUserLogin = false
     }
 
@@ -74,6 +80,7 @@ class MainViewModel: ObservableObject {
                     self.alertMessage = value.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
+
             case let .failure(error):
                 alertMessage = error.localizedDescription
                 showAlert = true
@@ -114,6 +121,7 @@ class MainViewModel: ObservableObject {
                     self.alertMessage = value.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
+
             case let .failure(error):
                 alertMessage = error.localizedDescription
                 showAlert = true
@@ -122,8 +130,8 @@ class MainViewModel: ObservableObject {
     }
 
     func setUserData(uDict: NSDictionary) {
-        Utils.UDSET(date: uDict, key: Globs.userPayload)
-        Utils.UDSET(date: true, key: Globs.userLogin)
+        UserDefault.setValue(date: uDict, key: Globs.userPayload)
+        Keychain().setValue(data: true, key: Globs.userLogin)
 
         userObj = UserModel(dict: uDict)
         isUserLogin = true

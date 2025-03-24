@@ -31,6 +31,7 @@
 		CE44184A2D60CA7800CC68CF /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4418492D60CA7800CC68CF /* String+Extension.swift */; };
 		CE44E6662D7DB987009D9EF7 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE44E6652D7DB987009D9EF7 /* FavoriteView.swift */; };
 		CE4A96112D84BFB9008B0F07 /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4A96102D84BFB9008B0F07 /* CheckoutView.swift */; };
+		CE4B39AE2D90E05600AD28E5 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B39AD2D90E05600AD28E5 /* Keychain.swift */; };
 		CE4C00BE2D5F72650062CC8E /* ShopingAppSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4C00BD2D5F72650062CC8E /* ShopingAppSwiftUIApp.swift */; };
 		CE4C00C22D5F72660062CC8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4C00C12D5F72660062CC8E /* Assets.xcassets */; };
 		CE4C00C52D5F72660062CC8E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4C00C42D5F72660062CC8E /* Preview Assets.xcassets */; };
@@ -71,6 +72,8 @@
 		CE6CB57F2D7F8E2C0066C076 /* ExploreCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6CB57E2D7F8E2C0066C076 /* ExploreCategoryCell.swift */; };
 		CE6CB5812D7F94320066C076 /* ExploreItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6CB5802D7F94320066C076 /* ExploreItemViewModel.swift */; };
 		CE6CB5832D7F96910066C076 /* ExploreItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6CB5822D7F96910066C076 /* ExploreItemsView.swift */; };
+		CE71E2902D90DE41003A7853 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CE71E28F2D90DE41003A7853 /* KeychainSwift */; };
+		CE71E2952D90DEFB003A7853 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE71E2942D90DEFB003A7853 /* UserDefault.swift */; };
 		CE77158B2D844B2E0030475C /* AddPaymentViewMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE77158A2D844B2E0030475C /* AddPaymentViewMethodView.swift */; };
 		CE883F202D8364AB00DBB180 /* AddDeliveryAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE883F1F2D8364AB00DBB180 /* AddDeliveryAddressView.swift */; };
 		CE883F222D83800B00DBB180 /* PromoCodeViewMpdel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE883F212D83800B00DBB180 /* PromoCodeViewMpdel.swift */; };
@@ -139,6 +142,7 @@
 		CE4418492D60CA7800CC68CF /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		CE44E6652D7DB987009D9EF7 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		CE4A96102D84BFB9008B0F07 /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
+		CE4B39AD2D90E05600AD28E5 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		CE4C00BA2D5F72650062CC8E /* ShopingAppSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopingAppSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4C00BD2D5F72650062CC8E /* ShopingAppSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopingAppSwiftUIApp.swift; sourceTree = "<group>"; };
 		CE4C00C12D5F72660062CC8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 		CE6CB57E2D7F8E2C0066C076 /* ExploreCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCategoryCell.swift; sourceTree = "<group>"; };
 		CE6CB5802D7F94320066C076 /* ExploreItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreItemViewModel.swift; sourceTree = "<group>"; };
 		CE6CB5822D7F96910066C076 /* ExploreItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreItemsView.swift; sourceTree = "<group>"; };
+		CE71E2942D90DEFB003A7853 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		CE77158A2D844B2E0030475C /* AddPaymentViewMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaymentViewMethodView.swift; sourceTree = "<group>"; };
 		CE883F1F2D8364AB00DBB180 /* AddDeliveryAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeliveryAddressView.swift; sourceTree = "<group>"; };
 		CE883F212D83800B00DBB180 /* PromoCodeViewMpdel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCodeViewMpdel.swift; sourceTree = "<group>"; };
@@ -212,6 +217,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE71E2902D90DE41003A7853 /* KeychainSwift in Frameworks */,
 				CEA0B6F22D66298500C06A3E /* SDWebImageSwiftUI in Frameworks */,
 				CE4C01022D5FAD920062CC8E /* CountryPicker in Frameworks */,
 			);
@@ -580,8 +586,8 @@
 		CE2D9B8C2D8A1830003EAC96 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				CE2D9B8D2D8A190A003EAC96 /* API EndPoints */,
-				CE4418442D60B60A00CC68CF /* API ServiceCall.swift */,
+				CE71E2922D90DEAD003A7853 /* CashManager */,
+				CE71E2912D90DE93003A7853 /* NetowrkManager */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -684,6 +690,14 @@
 				CE44E6652D7DB987009D9EF7 /* FavoriteView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		CE4B39AC2D90E03F00AD28E5 /* keychain */ = {
+			isa = PBXGroup;
+			children = (
+				CE4B39AD2D90E05600AD28E5 /* Keychain.swift */,
+			);
+			path = keychain;
 			sourceTree = "<group>";
 		};
 		CE4C00B12D5F72650062CC8E = {
@@ -800,6 +814,32 @@
 				CE2D9B6D2D8A1014003EAC96 /* Main Account Screen */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		CE71E2912D90DE93003A7853 /* NetowrkManager */ = {
+			isa = PBXGroup;
+			children = (
+				CE2D9B8D2D8A190A003EAC96 /* API EndPoints */,
+				CE4418442D60B60A00CC68CF /* API ServiceCall.swift */,
+			);
+			path = NetowrkManager;
+			sourceTree = "<group>";
+		};
+		CE71E2922D90DEAD003A7853 /* CashManager */ = {
+			isa = PBXGroup;
+			children = (
+				CE4B39AC2D90E03F00AD28E5 /* keychain */,
+				CE71E2932D90DED3003A7853 /* UserDefault */,
+			);
+			path = CashManager;
+			sourceTree = "<group>";
+		};
+		CE71E2932D90DED3003A7853 /* UserDefault */ = {
+			isa = PBXGroup;
+			children = (
+				CE71E2942D90DEFB003A7853 /* UserDefault.swift */,
+			);
+			path = UserDefault;
 			sourceTree = "<group>";
 		};
 		CEA0B6DC2D65D85700C06A3E /* Home */ = {
@@ -1029,6 +1069,7 @@
 			packageProductDependencies = (
 				CE4C01012D5FAD920062CC8E /* CountryPicker */,
 				CEA0B6F12D66298500C06A3E /* SDWebImageSwiftUI */,
+				CE71E28F2D90DE41003A7853 /* KeychainSwift */,
 			);
 			productName = ShopingAppSwiftUI;
 			productReference = CE4C00BA2D5F72650062CC8E /* ShopingAppSwiftUI.app */;
@@ -1105,6 +1146,7 @@
 			packageReferences = (
 				CE4C01002D5FAD920062CC8E /* XCRemoteSwiftPackageReference "CountryPicker" */,
 				CEA0B6F02D66298500C06A3E /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				CE71E28E2D90DE41003A7853 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = CE4C00BB2D5F72650062CC8E /* Products */;
 			projectDirPath = "";
@@ -1189,10 +1231,12 @@
 				CE44184A2D60CA7800CC68CF /* String+Extension.swift in Sources */,
 				CE4C00FB2D5F8A230062CC8E /* UIExtension.swift in Sources */,
 				CE436F552D87974D000876BE /* ForgotPasswordSetView.swift in Sources */,
+				CE71E2952D90DEFB003A7853 /* UserDefault.swift in Sources */,
 				CE883F222D83800B00DBB180 /* PromoCodeViewMpdel.swift in Sources */,
 				CEA0B6E12D65D92900C06A3E /* ExploreView.swift in Sources */,
 				CE6CB5812D7F94320066C076 /* ExploreItemViewModel.swift in Sources */,
 				CE5AE0212D63627F00D5A4EF /* UserModel.swift in Sources */,
+				CE4B39AE2D90E05600AD28E5 /* Keychain.swift in Sources */,
 				CEA0B6E32D65E45300C06A3E /* TabButton.swift in Sources */,
 				CE32D1F42D80C96500688919 /* CartViewModel.swift in Sources */,
 				CE883F2A2D83938A00DBB180 /* PaymentViewModel.swift in Sources */,
@@ -1579,6 +1623,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		CE71E28E2D90DE41003A7853 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 24.0.0;
+			};
+		};
 		CEA0B6F02D66298500C06A3E /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -1594,6 +1646,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CE4C01002D5FAD920062CC8E /* XCRemoteSwiftPackageReference "CountryPicker" */;
 			productName = CountryPicker;
+		};
+		CE71E28F2D90DE41003A7853 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE71E28E2D90DE41003A7853 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 		CEA0B6F12D66298500C06A3E /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
