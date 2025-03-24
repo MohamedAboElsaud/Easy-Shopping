@@ -6,10 +6,9 @@
 //
 
 import SwiftUI
+
 class MainTabViewModel: ObservableObject {
-        static var shared: MainTabViewModel = MainTabViewModel()
-        
-        @Published var selectTab: Int = 0
-    
-    
+    static var shared: MainTabViewModel = .init()
+
+    @Published var selectTab: Int = 0
 }

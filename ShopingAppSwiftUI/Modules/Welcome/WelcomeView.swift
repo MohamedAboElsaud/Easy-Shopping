@@ -9,30 +9,30 @@ import SwiftUI
 
 struct WelcomeView: View {
     var body: some View {
-        ZStack{
+        ZStack {
             Image("welcom_bg")
                 .resizable()
                 .scaledToFill()
-                .frame(width: .screenWidth,height: .screenHeight)
-            VStack{
+                .frame(width: .screenWidth, height: .screenHeight)
+            VStack {
                 Spacer()
                 Image("app_logo")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 60,height: 60)
-                    .padding(.bottom,8)
-                
+                    .frame(width: 60, height: 60)
+                    .padding(.bottom, 8)
+
                 Text("Welcome\nto our store")
                     .font(.customFont(.semibold, fontSize: 48))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                
+
                 Text("Get Your Shoping in as fast as one hour")
                     .foregroundColor(.white.opacity(0.7))
                     .font(.customFont(.medium, fontSize: 16))
                     .multilineTextAlignment(.center)
-                    .padding(.bottom,30)
-               
+                    .padding(.bottom, 30)
+
                 NavigationLink {
                     SignInView()
                 } label: {
@@ -45,13 +45,10 @@ struct WelcomeView: View {
                 .background(Color.primaryApp)
                 .cornerRadius(20)
 
-                
                 Spacer()
                     .frame(height: 100)
-                
-                
             }
-            .padding(.horizontal,20)
+            .padding(.horizontal, 20)
         }
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)

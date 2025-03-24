@@ -8,76 +8,65 @@
 import SwiftUI
 
 struct SeeAllItems: View {
-    
     @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
 
     @StateObject var homeVM = HomeViewModel.shared
     @State var array: [ProductModel]?
     var columns = [
         GridItem(.flexible(), spacing: 15),
-        GridItem(.flexible(), spacing: 15)
+        GridItem(.flexible(), spacing: 15),
     ]
-    
-    
 
     var body: some View {
-        ZStack{
+        ZStack {
             VStack {
-                
-                HStack{
-                    
+                HStack {
                     EmptyView()
                         .frame(width: 40, height: 40)
-                    
-                    Button{
+
+                    Button {
                         presentMode.wrappedValue.dismiss()
-                    }label: {
+                    } label: {
                         Image("back")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 25,height: 25)
+                            .frame(width: 25, height: 25)
                     }
-                    
+
                     Spacer()
-                    
+
                     Text("All items")
                         .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
-                    
-                    
-                    
                 }
                 .padding(.top, .topInsets)
                 .padding(.horizontal, 20)
-                
-                
-                                
+
                 ScrollView {
-                    LazyVGrid(columns: columns,  spacing:15) {
-                        if array != nil{
+                    LazyVGrid(columns: columns, spacing: 15) {
+                        if array != nil {
                             ForEach(array!, id: \.id) {
                                 pObj in
-                                ProductCell( pObj: pObj ) {
-                                    CartViewModel.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { isDone, msg in
-                                        
+                                ProductCell(pObj: pObj) {
+                                    CartViewModel.shared.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { _, msg in
+
                                         self.homeVM.alertMessage = msg
                                         self.homeVM.showAlert = true
                                     }
                                 }
                             }
-
                         }
                     }
                     .padding(.vertical, 10)
                     .padding(.bottom, .bottomInsets + 60)
                 }
             }
-           // .padding(.top, .topInsets)
+            // .padding(.top, .topInsets)
             .padding(.horizontal, 20)
         }
         .alert(isPresented: $homeVM.showAlert, content: {
-            Alert(title: Text(Globs.AppName), message: Text(homeVM.alertMessage), dismissButton: .default(Text("OK")) )
+            Alert(title: Text(Globs.AppName), message: Text(homeVM.alertMessage), dismissButton: .default(Text("OK")))
         })
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)

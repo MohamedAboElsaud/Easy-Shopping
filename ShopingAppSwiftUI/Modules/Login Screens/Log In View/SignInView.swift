@@ -5,39 +5,38 @@
 //  Created by mohamed ahmed on 14/02/2025.
 //
 
-import SwiftUI
 import CountryPicker
+import SwiftUI
 
 struct SignInView: View {
     @State var textFieldMobile = ""
-    @State var isShowPicker:Bool = false
+    @State var isShowPicker: Bool = false
     @State var countryPickerObject: Country?
     var body: some View {
-        //TODO: update this views
+        // TODO: update this views
 
-        ZStack{
+        ZStack {
             Image("bottom_bg")
                 .resizable()
                 .scaledToFill()
-                .frame(width: .screenWidth,height: .screenHeight)
-            
-            VStack{
+                .frame(width: .screenWidth, height: .screenHeight)
+
+            VStack {
                 Image("sign_in_top")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: .screenWidth,height: .screenWidth)
+                    .frame(width: .screenWidth, height: .screenWidth)
                 Spacer()
             }
-            ScrollView{
-                
-                VStack(alignment: .leading){
+            ScrollView {
+                VStack(alignment: .leading) {
                     Text("Get your Shoping\nwith our store")
                         .font(.customFont(.semibold, fontSize: 26))
                         .foregroundColor(.primaryText)
-                        .frame(minWidth: 0,maxWidth: .infinity)
+                        .frame(minWidth: 0, maxWidth: .infinity)
                         .multilineTextAlignment(.center)
-                        .padding(.bottom,25)
-                    
+                        .padding(.bottom, 25)
+
 //                    HStack{
 //                        Button {
 //                            isShowPicker = true
@@ -60,8 +59,7 @@ struct SignInView: View {
 //                            .frame(minWidth: 0,maxWidth: .infinity)
 //
 //                    }
-                    
-                    
+
                     NavigationLink {
                         LoginView()
                     } label: {
@@ -74,7 +72,7 @@ struct SignInView: View {
                     .background(Color(hex: "5383EC"))
                     .cornerRadius(20)
                     .padding(.bottom, 8)
-                    
+
                     NavigationLink {
                         SignUpView()
                     } label: {
@@ -88,26 +86,24 @@ struct SignInView: View {
                     .cornerRadius(20)
                     .padding(.bottom, 8)
 
-
-                    
                     Divider()
-                        .padding(.bottom,25)
-                    
+                        .padding(.bottom, 25)
+
                     Text("Or connectwith social media")
                         .font(.customFont(.semibold, fontSize: 14))
                         .foregroundColor(.textTitle)
-                        .frame(minWidth: 0,maxWidth: .infinity)
+                        .frame(minWidth: 0, maxWidth: .infinity)
                         .multilineTextAlignment(.center)
-                        .padding(.bottom,25)
-                    
+                        .padding(.bottom, 25)
+
                     Button {
-                        //TODO: add code to sign with google
+                        // TODO: add code to sign with google
 
                     } label: {
                         Image("google_logo")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 20,height: 20)
+                            .frame(width: 20, height: 20)
                         Text("Continue with google")
                             .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.white)
@@ -117,15 +113,15 @@ struct SignInView: View {
                     .background(Color(hex: "5383EC"))
                     .cornerRadius(20)
                     .padding(.bottom, 8)
-                    
+
                     Button {
-                        //TODO: add code to sign with FaceBook
+                        // TODO: add code to sign with FaceBook
 
                     } label: {
                         Image("fb_logo")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 20,height: 20)
+                            .frame(width: 20, height: 20)
                         Text("Continue with Facebook")
                             .font(.customFont(.semibold, fontSize: 18))
                             .foregroundColor(.white)
@@ -134,20 +130,13 @@ struct SignInView: View {
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
                     .background(Color(hex: "4A66AC"))
                     .cornerRadius(20)
-                    
-                    
-                   
                 }
-                .padding(.horizontal,20)
-                .frame(width: .screenWidth,alignment: .leading)
-                .padding(.top,.topInsets + .screenWidth * 0.6 )
-                
-                
-                
+                .padding(.horizontal, 20)
+                .frame(width: .screenWidth, alignment: .leading)
+                .padding(.top, .topInsets + .screenWidth * 0.6)
             }
-            
         }
-        .onAppear{
+        .onAppear {
             self.countryPickerObject = Country(phoneCode: "20", isoCode: "EG")
         }
         .sheet(isPresented: $isShowPicker, content: {
@@ -164,7 +153,6 @@ struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             SignInView()
-
         }
     }
 }

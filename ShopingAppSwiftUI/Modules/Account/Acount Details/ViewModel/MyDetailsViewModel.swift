@@ -1,18 +1,16 @@
 //
-//  AccountDetailsViewModel.swift
+//  MyDetailsViewModel.swift
 //  ShopingAppSwiftUI
 //
 //  Created by mohamed ahmed on 16/03/2025.
 //
 
-import SwiftUI
 import CountryPicker
+import SwiftUI
 
-class AccountDetailsViewModel: ObservableObject
-{
-    static var shared: AccountDetailsViewModel = AccountDetailsViewModel()
-    
-    
+class AccountDetailsViewModel: ObservableObject {
+    static var shared: AccountDetailsViewModel = .init()
+
     @Published var textFieldName: String = ""
     @Published var textFieldMobile: String = ""
     @Published var textFieldUsername: String = ""
@@ -20,33 +18,30 @@ class AccountDetailsViewModel: ObservableObject
     @Published var isShowPicker: Bool = false
     @Published var countryPickerObject: Country? {
         didSet {
-            if( countryPickerObject != nil) {
+            if countryPickerObject != nil {
                 textFieldMobileCode = "+\(countryPickerObject!.phoneCode)"
             }
         }
     }
-    
-    
+
     @Published var textFieldCurrentPassword: String = ""
     @Published var textFieldNewPassword: String = ""
     @Published var textFieldConfirmPassword: String = ""
-    
+
     @Published var isCurrentPassword: Bool = false
     @Published var isNewPassword: Bool = false
     @Published var isConfirmPassword: Bool = false
-    
-    
+
     @Published var showAlert = false
     @Published var alertMessage = ""
-    
+
     @Published var listArr: [AddressModel] = []
-    
-    
+
     init() {
         setData()
     }
-    
-    func clearAll(){
+
+    func clearAll() {
         textFieldName = ""
         textFieldMobile = ""
         textFieldUsername = ""
@@ -55,104 +50,102 @@ class AccountDetailsViewModel: ObservableObject
         textFieldNewPassword = ""
         textFieldConfirmPassword = ""
     }
-    
+
     func setData() {
         let userObj = MainViewModel.shared.userObj
         textFieldName = userObj.name
         textFieldMobile = userObj.mobile
         textFieldMobileCode = userObj.mobileCode
         textFieldUsername = userObj.username
-        
-        self.countryPickerObject = Country(phoneCode: textFieldMobileCode.replacingOccurrences(of: "+", with: ""), isoCode: "EG")
+
+        countryPickerObject = Country(phoneCode: textFieldMobileCode.replacingOccurrences(of: "+", with: ""), isoCode: "EG")
     }
-    
-    
-    
-    //MARK: ServiceCall
-    func serviceCallUpdate(){
-        
-        if(textFieldName.isEmpty) {
-            self.alertMessage = "Please enter name"
-            self.showAlert = true
+
+    // MARK: ServiceCall
+
+    func serviceCallUpdate() {
+        if textFieldName.isEmpty {
+            alertMessage = "Please enter name"
+            showAlert = true
             return
         }
-        
-        if(textFieldMobile.isEmpty) {
-            self.alertMessage = "Please enter mobile number"
-            self.showAlert = true
+
+        if textFieldMobile.isEmpty {
+            alertMessage = "Please enter mobile number"
+            showAlert = true
             return
         }
-        
-        if(textFieldUsername.isEmpty) {
-            self.alertMessage = "Please enter username"
-            self.showAlert = true
+
+        if textFieldUsername.isEmpty {
+            alertMessage = "Please enter username"
+            showAlert = true
             return
         }
-        
-        
-        
-        ServiceCall.post(parameter: ["name": textFieldName, "mobile": textFieldMobile, "mobile_code": textFieldMobileCode, "username": textFieldUsername ], path: Globs.SV_UPDATE_PROFILE, isToken: true ) { responseObj in
-            if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
-                    
-                    
-                    MainViewModel.shared.setUserData(uDict: response.value(forKey: KKey.payload) as? NSDictionary ?? [:])
-                    
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Success"
+
+        ServiceCall.post(parameter: ["name": textFieldName, "mobile": textFieldMobile, "mobile_code": textFieldMobileCode, "username": textFieldUsername], path: Globs.SV_UPDATE_PROFILE, isToken: true) {
+            [weak self] response in
+            guard let self else {
+                return
+            }
+            switch response {
+            case let .success(value):
+                if value.value(forKey: Key.status) as? String ?? "" == "1" {
+                    MainViewModel.shared.setUserData(uDict: value.value(forKey: Key.payload) as? NSDictionary ?? [:])
+                    self.alertMessage = value.value(forKey: Key.message) as? String ?? "Success"
                     self.showAlert = true
-                    
-                }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+
+                } else {
+                    self.alertMessage = value.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
+            case let .failure(error):
+                alertMessage = error.localizedDescription
+                showAlert = true
             }
-        } failure: { error in
-            self.alertMessage = error?.localizedDescription ?? "Fail"
-            self.showAlert = true
         }
     }
-    
-    func serviceCallChangePassword(){
-        
-        if(textFieldCurrentPassword.isEmpty) {
-            self.alertMessage = "Please enter current password"
-            self.showAlert = true
+
+    func serviceCallChangePassword() {
+        if textFieldCurrentPassword.isEmpty {
+            alertMessage = "Please enter current password"
+            showAlert = true
             return
         }
-        
-        if(textFieldNewPassword.count < 6) {
-            self.alertMessage = "Please enter new password minimum 6 character"
-            self.showAlert = true
+
+        if textFieldNewPassword.count < 6 {
+            alertMessage = "Please enter new password minimum 6 character"
+            showAlert = true
             return
         }
-        
-        if(textFieldNewPassword != textFieldConfirmPassword) {
-            self.alertMessage = "password not match"
-            self.showAlert = true
+
+        if textFieldNewPassword != textFieldConfirmPassword {
+            alertMessage = "password not match"
+            showAlert = true
             return
         }
-        
-        
-        ServiceCall.post(parameter: ["current_password": textFieldCurrentPassword, "new_password": textFieldNewPassword], path: Globs.SV_CHANGE_PASSWORD, isToken: true ) { responseObj in
-            if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
-                    
+
+        ServiceCall.post(parameter: ["current_password": textFieldCurrentPassword, "new_password": textFieldNewPassword], path: Globs.SV_CHANGE_PASSWORD, isToken: true) {
+            [weak self] response in
+            guard let self else {
+                return
+            }
+            switch response {
+            case let .success(value):
+                if value.value(forKey: Key.status) as? String ?? "" == "1" {
                     self.textFieldConfirmPassword = ""
                     self.textFieldNewPassword = ""
                     self.textFieldCurrentPassword = ""
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Success"
+                    self.alertMessage = value.value(forKey: Key.message) as? String ?? "Success"
                     self.showAlert = true
-                    
-                }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+
+                } else {
+                    self.alertMessage = value.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
+            case let .failure(error):
+                alertMessage = error.localizedDescription
+                showAlert = true
             }
-        } failure: { error in
-            self.alertMessage = error?.localizedDescription ?? "Fail"
-            self.showAlert = true
         }
     }
-    
-    
 }

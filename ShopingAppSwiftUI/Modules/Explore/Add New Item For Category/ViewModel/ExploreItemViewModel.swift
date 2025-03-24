@@ -6,43 +6,43 @@
 //
 
 import Foundation
-class ExploreItemViewModel: ObservableObject
-{
-    @Published var cObj: ExploreCategoryModel = ExploreCategoryModel(dict: [:])
+
+class ExploreItemViewModel: ObservableObject {
+    @Published var cObj: ExploreCategoryModel = .init(dict: [:])
     @Published var showAlert = false
     @Published var alertMessage = ""
-    
+
     @Published var listArr: [ProductModel] = []
-    
-    
+
     init(catObj: ExploreCategoryModel) {
-        self.cObj = catObj
+        cObj = catObj
         serviceCallList()
     }
-    
-    //MARK: ServiceCall
-    
-    func serviceCallList(){
-        ServiceCall.post(parameter: ["cat_id": self.cObj.id ], path: Globs.SV_EXPLORE_ITEMS_LIST, isToken: true ) { responseObj in
-            if let response = responseObj as? NSDictionary {
-                if response.value(forKey: KKey.status) as? String ?? "" == "1" {
-                    
-                    self.listArr = (response.value(forKey: KKey.payload) as? NSArray ?? []).map({ obj in
-                        
-                        return ProductModel(dict: obj as? NSDictionary ?? [:])
-                    })
-                    
-                }else{
-                    self.alertMessage = response.value(forKey: KKey.message) as? String ?? "Fail"
+
+    // MARK: ServiceCall
+
+    func serviceCallList() {
+        ServiceCall.post(parameter: ["cat_id": cObj.id], path: Globs.SV_EXPLORE_ITEMS_LIST, isToken: true) {
+            [weak self] response in
+            guard let self else {
+                return
+            }
+            switch response {
+            case let .success(value):
+                if value.value(forKey: Key.status) as? String ?? "" == "1" {
+                    self.listArr = (value.value(forKey: Key.payload) as? NSArray ?? []).map { obj in
+                        ProductModel(dict: obj as? NSDictionary ?? [:])
+                    }
+
+                } else {
+                    self.alertMessage = value.value(forKey: Key.message) as? String ?? "Fail"
                     self.showAlert = true
                 }
+
+            case let .failure(error):
+                alertMessage = error.localizedDescription
+                showAlert = true
             }
-        } failure: { error in
-            self.alertMessage = error?.localizedDescription ?? "Fail"
-            self.showAlert = true
         }
     }
-    
-    
-    
 }

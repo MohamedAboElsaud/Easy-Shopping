@@ -9,18 +9,16 @@ import SwiftUI
 
 @main
 struct ShopingAppSwiftUIApp: App {
-    
     @StateObject var mainVM = MainViewModel.shared
-    
+
     var body: some Scene {
         WindowGroup {
-            NavigationView{
-                if mainVM.isUserLogin{
+            NavigationView {
+                if mainVM.isUserLogin {
                     MainTabView()
-                }else{
+                } else {
                     WelcomeView()
                 }
-                
             }
         }
     }

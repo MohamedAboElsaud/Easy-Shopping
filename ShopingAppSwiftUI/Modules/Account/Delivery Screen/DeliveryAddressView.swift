@@ -7,30 +7,27 @@
 import SwiftUI
 
 struct DelieryAddressView: View {
-    
     @Environment(\.presentationMode) var presentMode: Binding<PresentationMode>
-    
+
     @StateObject var addressVM = DeliveryAddressViewModel.shared
     @State var isPicker: Bool = false
-    var didSelect:( (_ obj: AddressModel) -> () )?
-    
+    var didSelect: ((_ obj: AddressModel) -> Void)?
+
     var body: some View {
-        ZStack{
-            
-            ScrollView{
+        ZStack {
+            ScrollView {
                 LazyVStack(spacing: 15) {
-                    ForEach( addressVM.listArr , id: \.id, content: {
+                    ForEach(addressVM.listArr, id: \.id, content: {
                         aObj in
-                        
+
                         HStack(spacing: 15) {
-                            VStack{
+                            VStack {
                                 HStack {
                                     Text(aObj.name)
                                         .font(.customFont(.bold, fontSize: 14))
                                         .foregroundColor(.primaryText)
                                         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                    
-                                    
+
                                     Text(aObj.typeName)
                                         .font(.customFont(.bold, fontSize: 12))
                                         .foregroundColor(.primaryText)
@@ -39,27 +36,25 @@ struct DelieryAddressView: View {
                                         .background(Color.secondaryText.opacity(0.3))
                                         .cornerRadius(5)
                                 }
-                                
+
                                 Text("\(aObj.address),\(aObj.city), \(aObj.state), \(aObj.postalCode) ")
                                     .font(.customFont(.medium, fontSize: 14))
                                     .foregroundColor(.primaryText)
-                                    .multilineTextAlignment( .leading)
+                                    .multilineTextAlignment(.leading)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                
+
                                 Text(aObj.phone)
                                     .font(.customFont(.bold, fontSize: 12))
                                     .foregroundColor(.secondaryText)
                                     .padding(.vertical, 8)
                                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                
                             }
-                            
-                            VStack{
-                                
+
+                            VStack {
                                 Spacer()
-                                
+
                                 NavigationLink {
-                                    AddDeliveryAddressView(isEdit: true, editObj: aObj  )
+                                    AddDeliveryAddressView(isEdit: true, editObj: aObj)
                                 } label: {
                                     Image(systemName: "pencil")
                                         .resizable()
@@ -68,20 +63,16 @@ struct DelieryAddressView: View {
                                 }
                                 .padding(.bottom, 8)
 
-                               
-                                
                                 Button {
                                     addressVM.serviceCallRemove(cObj: aObj)
                                 } label: {
                                     Image("close")
                                         .resizable()
-                                        
                                         .scaledToFit()
                                         .frame(width: 20, height: 20)
                                 }
-                                
-                                Spacer()
 
+                                Spacer()
                             }
                         }
                         .padding(15)
@@ -89,26 +80,21 @@ struct DelieryAddressView: View {
                         .cornerRadius(5)
                         .shadow(color: Color.black.opacity(0.15), radius: 2)
                         .onTapGesture {
-                            if(isPicker) {
+                            if isPicker {
                                 presentMode.wrappedValue.dismiss()
                                 didSelect?(aObj)
                             }
                         }
-
 
                     })
                 }
                 .padding(20)
                 .padding(.top, .topInsets + 46)
                 .padding(.bottom, .bottomInsets + 60)
-
             }
-            
-            
+
             VStack {
-                    
-                HStack{
-                    
+                HStack {
                     Button {
                         presentMode.wrappedValue.dismiss()
                     } label: {
@@ -118,16 +104,13 @@ struct DelieryAddressView: View {
                             .frame(width: 20, height: 20)
                     }
 
-                    
-                   
                     Spacer()
-                    
+
                     Text("Delivery Address")
                         .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
-                    
-                    
+
                     NavigationLink {
                         AddDeliveryAddressView()
                     } label: {
@@ -136,28 +119,19 @@ struct DelieryAddressView: View {
                             .scaledToFit()
                             .frame(width: 20, height: 20)
                     }
-                    
+
                     .foregroundColor(.primaryText)
                     .padding(.bottom, 8)
-                    
-                    
-
                 }
                 .padding(.top, .topInsets)
                 .padding(.horizontal, 20)
                 .background(Color.white)
-                .shadow(color: Color.black.opacity(0.2),  radius: 2 )
-                
+                .shadow(color: Color.black.opacity(0.2), radius: 2)
+
                 Spacer()
-                
             }
-            
-            
-            
         }
-        .onAppear{
-            
-        }
+        .onAppear {}
         .navigationTitle("")
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
@@ -170,6 +144,5 @@ struct DelieryAddressView_Previews: PreviewProvider {
         NavigationView {
             DelieryAddressView()
         }
-        
     }
 }

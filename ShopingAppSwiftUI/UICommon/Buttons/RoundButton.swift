@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RoundButton: View {
     @State var title = "title"
-    var didTap:(()->())?
+    var didTap: (() -> Void)?
     var body: some View {
         Button {
             didTap?()
@@ -22,7 +22,6 @@ struct RoundButton: View {
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
         .background(Color.primaryApp)
         .cornerRadius(20)
-
     }
 }
 

@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct CartItemModel:  Identifiable, Equatable {
-    var id: UUID = UUID()
+struct CartItemModel: Identifiable, Equatable {
+    var id: UUID = .init()
     var cartId: Int = 0
     var userId: Int = 0
     var qty: Int = 0
@@ -27,42 +27,39 @@ struct CartItemModel:  Identifiable, Equatable {
     var typeName: String = ""
     var offerPrice: Double?
     var price: Double = 0
-    var startDate: Date = Date()
-    var endDate: Date = Date()
+    var startDate: Date = .init()
+    var endDate: Date = .init()
     var itemPrice: Double?
     var totalPrice: Double?
     var isFav: Bool = false
-    
 
     init(dict: NSDictionary) {
-        
-       
-        self.cartId = dict.value(forKey: "cart_id") as? Int ?? 0
-        self.userId = dict.value(forKey: "user_id") as? Int ?? 0
-        self.qty = dict.value(forKey: "qty") as? Int ?? 0
-        self.prodId = dict.value(forKey: "prod_id") as? Int ?? 0
-        self.catId = dict.value(forKey: "cat_id") as? Int ?? 0
-        self.brandId = dict.value(forKey: "brand_id") as? Int ?? 0
-        self.typeId = dict.value(forKey: "type_id") as? Int ?? 0
-        self.isFav = dict.value(forKey: "is_fav") as? Int ?? 0 == 1
-        
-        self.detail = dict.value(forKey: "detail") as? String ?? ""
-        self.name = dict.value(forKey: "name") as? String ?? ""
-        self.unitName = dict.value(forKey: "unit_name") as? String ?? ""
-        self.unitValue = dict.value(forKey: "unit_value") as? String ?? ""
-        self.nutritionWeight = dict.value(forKey: "nutrition_weight") as? String ?? ""
-        self.image = dict.value(forKey: "image") as? String ?? ""
-        self.catName = dict.value(forKey: "cat_name") as? String ?? ""
-        self.brandName = dict.value(forKey: "brand_name") as? String ?? ""
-        self.typeName = dict.value(forKey: "type_name") as? String ?? ""
-        self.offerPrice = dict.value(forKey: "offer_price") as? Double
-        self.itemPrice = dict.value(forKey: "item_price") as? Double
-        self.totalPrice = dict.value(forKey: "total_price") as? Double
-        self.price = dict.value(forKey: "price") as? Double ?? 0
-        self.startDate = (dict.value(forKey: "start_date") as? String ?? "").stringDatetoDate() ?? Date()
-        self.endDate = (dict.value(forKey: "end_date") as? String ?? "").stringDatetoDate() ?? Date()
+        cartId = dict.value(forKey: "cart_id") as? Int ?? 0
+        userId = dict.value(forKey: "user_id") as? Int ?? 0
+        qty = dict.value(forKey: "qty") as? Int ?? 0
+        prodId = dict.value(forKey: "prod_id") as? Int ?? 0
+        catId = dict.value(forKey: "cat_id") as? Int ?? 0
+        brandId = dict.value(forKey: "brand_id") as? Int ?? 0
+        typeId = dict.value(forKey: "type_id") as? Int ?? 0
+        isFav = dict.value(forKey: "is_fav") as? Int ?? 0 == 1
+
+        detail = dict.value(forKey: "detail") as? String ?? ""
+        name = dict.value(forKey: "name") as? String ?? ""
+        unitName = dict.value(forKey: "unit_name") as? String ?? ""
+        unitValue = dict.value(forKey: "unit_value") as? String ?? ""
+        nutritionWeight = dict.value(forKey: "nutrition_weight") as? String ?? ""
+        image = dict.value(forKey: "image") as? String ?? ""
+        catName = dict.value(forKey: "cat_name") as? String ?? ""
+        brandName = dict.value(forKey: "brand_name") as? String ?? ""
+        typeName = dict.value(forKey: "type_name") as? String ?? ""
+        offerPrice = dict.value(forKey: "offer_price") as? Double
+        itemPrice = dict.value(forKey: "item_price") as? Double
+        totalPrice = dict.value(forKey: "total_price") as? Double
+        price = dict.value(forKey: "price") as? Double ?? 0
+        startDate = (dict.value(forKey: "start_date") as? String ?? "").stringDatetoDate() ?? Date()
+        endDate = (dict.value(forKey: "end_date") as? String ?? "").stringDatetoDate() ?? Date()
     }
-    
+
     static func == (lhs: CartItemModel, rhs: CartItemModel) -> Bool {
         return lhs.id == rhs.id
     }

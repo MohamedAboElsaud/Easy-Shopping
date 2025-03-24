@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AddressModel: Identifiable, Equatable {
-    
     var id: Int = 0
     var name: String = ""
     var phone: String = ""
@@ -18,22 +17,19 @@ struct AddressModel: Identifiable, Equatable {
     var typeName: String = ""
     var postalCode: String = ""
     var isDefault: Int = 0
-    
-    
+
     init(dict: NSDictionary) {
-        self.id = dict.value(forKey: "address_id") as? Int ?? 0
-        self.name = dict.value(forKey: "name") as? String ?? ""
-        self.phone = dict.value(forKey: "phone") as? String ?? ""
-        self.address = dict.value(forKey: "address") as? String ?? ""
-        self.city = dict.value(forKey: "city") as? String ?? ""
-        self.state = dict.value(forKey: "state") as? String ?? ""
-        self.typeName = dict.value(forKey: "type_name") as? String ?? ""
-        self.postalCode = dict.value(forKey: "postal_code") as? String ?? ""
-        self.isDefault = dict.value(forKey: "is_default") as? Int ?? 0
-        
-       
+        id = dict.value(forKey: "address_id") as? Int ?? 0
+        name = dict.value(forKey: "name") as? String ?? ""
+        phone = dict.value(forKey: "phone") as? String ?? ""
+        address = dict.value(forKey: "address") as? String ?? ""
+        city = dict.value(forKey: "city") as? String ?? ""
+        state = dict.value(forKey: "state") as? String ?? ""
+        typeName = dict.value(forKey: "type_name") as? String ?? ""
+        postalCode = dict.value(forKey: "postal_code") as? String ?? ""
+        isDefault = dict.value(forKey: "is_default") as? Int ?? 0
     }
-    
+
     static func == (lhs: AddressModel, rhs: AddressModel) -> Bool {
         return lhs.id == rhs.id
     }

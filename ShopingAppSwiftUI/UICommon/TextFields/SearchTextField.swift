@@ -8,29 +8,26 @@
 import SwiftUI
 
 struct SearchTextField: View {
-    @Binding var textField:String
+    @Binding var textField: String
     @State var placeholder = "placeholder"
-    
+
     var body: some View {
-        HStack(spacing: 15){
+        HStack(spacing: 15) {
             Image("search")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 20,height: 20)
-            
-            
+                .frame(width: 20, height: 20)
+
             TextField(placeholder, text: $textField)
                 .font(.customFont(.regular, fontSize: 17))
                 .autocorrectionDisabled(true)
                 .autocapitalization(.none)
                 .frame(maxWidth: .infinity)
-            
         }
         .frame(height: 30)
         .padding(15)
         .background(Color(hex: "F2F3F2"))
         .cornerRadius(16)
-        
     }
 }
 

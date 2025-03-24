@@ -11,26 +11,23 @@ struct TabButton: View {
     @State var title = "title"
     @State var icon = "store_tab"
     var isSelected = false
-    var didSelected:(()->())
+    var didSelected: () -> Void
     var body: some View {
-        
-        Button{
+        Button {
             debugPrint("(tab button tap)")
             didSelected()
-        }label: {
-            VStack{
+        } label: {
+            VStack {
                 Image(icon)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 25,height: 25)
+                    .frame(width: 25, height: 25)
                 Text(title)
                     .font(.customFont(.semibold, fontSize: 14))
-                
             }
         }
         .foregroundColor(isSelected ? .primaryApp : .primaryText)
         .frame(maxWidth: .infinity)
-        
     }
 }
 

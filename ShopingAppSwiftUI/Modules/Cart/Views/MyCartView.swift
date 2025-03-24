@@ -5,59 +5,51 @@
 //  Created by mohamed ahmed on 11/03/2025.
 //
 
-
 import SwiftUI
 
 struct MyCartView: View {
     @StateObject var cartVM = CartViewModel.shared
     var body: some View {
-        ZStack{
-            
-            if(cartVM.listArr.count == 0) {
+        ZStack {
+            if cartVM.listArr.count == 0 {
                 Text("You Card is Empty")
                     .font(.customFont(.bold, fontSize: 20))
             }
-            
-            ScrollView{
+
+            ScrollView {
                 LazyVStack {
-                    ForEach( cartVM.listArr , id: \.id, content: {
+                    ForEach(cartVM.listArr, id: \.id, content: {
                         cObj in
-                        
+
                         CartItemRow(cObj: cObj)
-                        
+
                     })
                     .padding(.vertical, 8)
                 }
                 .padding(20)
                 .padding(.top, .topInsets + 46)
                 .padding(.bottom, .bottomInsets + 60)
-                
             }
-            
-            
+
             VStack {
-                
-                HStack{
-                    
+                HStack {
                     Spacer()
-                    
+
                     Text("My Cart")
                         .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
-                    
                 }
                 .padding(.top, .topInsets)
                 .background(Color.white)
-                .shadow(color: Color.black.opacity(0.2),  radius: 2 )
-                
-                Spacer()
-                
-                if(cartVM.listArr.count > 0) {
-                    Button {
-                        withAnimation(.easeInOut(duration: 0.6)){
-                            cartVM.showCheckout = true
+                .shadow(color: Color.black.opacity(0.2), radius: 2)
 
+                Spacer()
+
+                if cartVM.listArr.count > 0 {
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.6)) {
+                            cartVM.showCheckout = true
                         }
                     } label: {
                         ZStack {
@@ -65,7 +57,7 @@ struct MyCartView: View {
                                 .font(.customFont(.semibold, fontSize: 18))
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
-                            
+
                             HStack {
                                 Spacer()
                                 Text("$\(cartVM.total)")
@@ -78,39 +70,36 @@ struct MyCartView: View {
                             }
                             .padding(.trailing)
                         }
-                        
                     }
-                    
-                    .frame( minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60 )
-                    .background( Color.primaryApp)
+
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
+                    .background(Color.primaryApp)
                     .cornerRadius(20)
                     .padding(.horizontal, 20)
                     .padding(.bottom, .bottomInsets + 80)
                 }
-                    
-                }
-            if(cartVM.showCheckout){
+            }
+            if cartVM.showCheckout {
                 Color.black
                     .opacity(0.3)
                     .ignoresSafeArea()
                     .onTapGesture {
-                        withAnimation(.easeInOut(duration: 0.6)){
+                        withAnimation(.easeInOut(duration: 0.6)) {
                             cartVM.showCheckout = false
                         }
                     }
                 CheckoutView(isShow: $cartVM.showCheckout)
                     .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
-                
-            }
-        .onAppear{
+        }
+        .onAppear {
             cartVM.serviceCallList()
         }
-        .background(NavigationLink(destination: OrderAcceptView(),isActive: $cartVM.showOrderAccept, label: {
+        .background(NavigationLink(destination: OrderAcceptView(), isActive: $cartVM.showOrderAccept, label: {
             EmptyView()
         }))
         .alert(isPresented: $cartVM.showAlert, content: {
-            Alert(title: Text(Globs.AppName), message: Text(cartVM.alertMessage), dismissButton: .default(Text("OK")) )
+            Alert(title: Text(Globs.AppName), message: Text(cartVM.alertMessage), dismissButton: .default(Text("OK")))
         })
         .ignoresSafeArea()
     }
@@ -121,6 +110,5 @@ struct MyCartView_Previews: PreviewProvider {
         NavigationView {
             MyCartView()
         }
-        
     }
 }

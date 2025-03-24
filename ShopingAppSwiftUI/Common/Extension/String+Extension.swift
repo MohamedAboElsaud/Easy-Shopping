@@ -1,5 +1,5 @@
 //
-//  UIKitExtension.swift
+//  String+Extension.swift
 //  ShopingAppSwiftUI
 //
 //  Created by mohamed ahmed on 15/02/2025.
@@ -7,8 +7,7 @@
 
 import Foundation
 
-extension String{
-    
+extension String {
     var isValidEmail: Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
@@ -20,25 +19,24 @@ extension String{
         dataFormat.dateFormat = format
         return dataFormat.date(from: self)
     }
-    
-    func stringDateChangeFormat(format: String, newFormat: String ) -> String {
+
+    func stringDateChangeFormat(format: String, newFormat: String) -> String {
         let dataFormat = DateFormatter()
         dataFormat.dateFormat = format
         if let dt = dataFormat.date(from: self) {
             dataFormat.dateFormat = newFormat
             return dataFormat.string(from: dt)
-        }else{
+        } else {
             return ""
         }
     }
 }
 
-extension Date{
-    func displayDate(format: String, addMinTime:  Int = 0) -> String {
+extension Date {
+    func displayDate(format: String, addMinTime: Int = 0) -> String {
         let dataFormat = DateFormatter()
         dataFormat.dateFormat = format
-        let date = self.addingTimeInterval(TimeInterval(60 * addMinTime))
+        let date = addingTimeInterval(TimeInterval(60 * addMinTime))
         return dataFormat.string(from: date)
     }
-    
 }

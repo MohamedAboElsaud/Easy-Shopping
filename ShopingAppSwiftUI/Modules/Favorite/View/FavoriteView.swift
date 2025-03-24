@@ -5,35 +5,33 @@
 //  Created by mohamed ahmed on 09/03/2025.
 //
 
-import SwiftUI
 import SDWebImageSwiftUI
+import SwiftUI
+
 struct FavoriteView: View {
     @StateObject var favVM = FavoriteViewModel.shared
     var body: some View {
-        ZStack{
-            
-            ScrollView{
-                LazyVStack{
-                    ForEach(favVM.listArr,id: \.self){
+        ZStack {
+            ScrollView {
+                LazyVStack {
+                    ForEach(favVM.listArr, id: \.self) {
                         fObj in
-                        
+
                         FavoriteRow(fObj: fObj)
                     }
                 }
                 .padding(20)
-                .padding(.top,.topInsets + 60)
-
-                .padding(.bottom,.bottomInsets + 60)
-
+                .padding(.top, .topInsets + 60)
+                .padding(.bottom, .bottomInsets + 60)
             }
-            VStack{
-                HStack{
+            VStack {
+                HStack {
                     Spacer()
                     Text("Favorites")
                         .font(.customFont(.bold, fontSize: 20))
                         .frame(height: 46)
                     Spacer()
-                    
+
                     //                    Button{
                     //
                     //                    }label: {
@@ -52,26 +50,23 @@ struct FavoriteView: View {
                     //                            .frame(width: 25,height: 25)
                     //                    }
                 }
-                .padding(.top,.topInsets)
+                .padding(.top, .topInsets)
                 .background(Color.white)
-                .shadow(color: Color.black.opacity(0.2),radius: 2)
-                
+                .shadow(color: Color.black.opacity(0.2), radius: 2)
+
                 Spacer()
                 RoundButton(title: "Add All To Cart")
-                    .padding(.horizontal,20)
-                    .padding(.bottom,.bottomInsets + 60)
-
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, .bottomInsets + 60)
             }
         }
-        .onAppear{
-            
+        .onAppear {
             favVM.serviceCallList()
         }
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
         .ignoresSafeArea()
-        
     }
 }
 

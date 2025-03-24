@@ -10,14 +10,13 @@ import SwiftUI
 struct SectionTitleAll: View {
     @State var title = "title"
     @State var titleAll = "view all"
-    var didTap:(()->())?
+    var didTap: (() -> Void)?
     var body: some View {
-        
-        HStack{
+        HStack {
             Text(title)
                 .font(.customFont(.semibold, fontSize: 24))
                 .foregroundColor(.primaryText)
-            
+
             Spacer()
             Text(titleAll)
                 .font(.customFont(.semibold, fontSize: 16))

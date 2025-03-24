@@ -8,26 +8,23 @@
 import SwiftUI
 
 struct AccountRow: View {
-    
     @State var title = "Order"
     @State var icon = "a_order"
     var body: some View {
-        
-        VStack{
-            HStack(spacing:15){
+        VStack {
+            HStack(spacing: 15) {
                 Image(icon)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 20,height: 20)
+                    .frame(width: 20, height: 20)
                 Text(title)
                     .font(.customFont(.semibold, fontSize: 18))
                     .foregroundColor(.primaryText)
-                    .frame(maxWidth: .infinity,alignment:.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Image("back")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 20,height: 20)
-                
+                    .frame(width: 20, height: 20)
             }
             Divider()
         }

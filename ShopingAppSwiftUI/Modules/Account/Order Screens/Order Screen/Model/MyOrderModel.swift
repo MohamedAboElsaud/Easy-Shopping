@@ -5,10 +5,9 @@
 //  Created by mohamed ahmed on 15/03/2025.
 //
 
-
 import SwiftUI
 
-struct MyOrderModel:  Identifiable, Equatable {
+struct MyOrderModel: Identifiable, Equatable {
     var id: Int = 0
     var cartId: Int = 0
     var totalPrice: Double = 0
@@ -28,39 +27,37 @@ struct MyOrderModel:  Identifiable, Equatable {
     var state: String = ""
     var postalCode: String = ""
     var images: [String] = []
-  
-    var createdDate: Date = Date()
-    
+
+    var createdDate: Date = .init()
 
     init(dict: NSDictionary) {
-        self.id = dict.value(forKey: "order_id") as? Int ?? 0
-        
-        self.cartId = dict.value(forKey: "cart_id") as? Int ?? 0
-        
-        self.totalPrice = dict.value(forKey: "total_price") as? Double ?? 0.0
-        self.userPayPrice = dict.value(forKey: "user_pay_price") as? Double ?? 0.0
-        self.discountPrice = dict.value(forKey: "discount_price") as? Double ?? 0.0
-        self.deliverPrice = dict.value(forKey: "deliver_price") as? Double ?? 0.0
-        
-        self.deliverType = dict.value(forKey: "deliver_type") as? Int ?? 0
-        self.paymentType = dict.value(forKey: "payment_type") as? Int ?? 0
-        self.paymentStatus = dict.value(forKey: "payment_status") as? Int ?? 0
-        self.orderStatus = dict.value(forKey: "order_status") as? Int ?? 0
-        self.status = dict.value(forKey: "status") as? Int ?? 0
-        
-        
-        self.names = dict.value(forKey: "names") as? String ?? ""
-        self.userName = dict.value(forKey: "user_name") as? String ?? ""
-        self.phone = dict.value(forKey: "phone") as? String ?? ""
-        self.address = dict.value(forKey: "address") as? String ?? ""
-        self.city = dict.value(forKey: "city") as? String ?? ""
-        self.state = dict.value(forKey: "state") as? String ?? ""
-        self.postalCode = dict.value(forKey: "postal_code") as? String ?? ""
-        
-        self.images = (dict.value(forKey: "images") as? String ?? "").components(separatedBy: ",")
-        self.createdDate = (dict.value(forKey: "created_date") as? String ?? "").stringDatetoDate() ?? Date()
+        id = dict.value(forKey: "order_id") as? Int ?? 0
+
+        cartId = dict.value(forKey: "cart_id") as? Int ?? 0
+
+        totalPrice = dict.value(forKey: "total_price") as? Double ?? 0.0
+        userPayPrice = dict.value(forKey: "user_pay_price") as? Double ?? 0.0
+        discountPrice = dict.value(forKey: "discount_price") as? Double ?? 0.0
+        deliverPrice = dict.value(forKey: "deliver_price") as? Double ?? 0.0
+
+        deliverType = dict.value(forKey: "deliver_type") as? Int ?? 0
+        paymentType = dict.value(forKey: "payment_type") as? Int ?? 0
+        paymentStatus = dict.value(forKey: "payment_status") as? Int ?? 0
+        orderStatus = dict.value(forKey: "order_status") as? Int ?? 0
+        status = dict.value(forKey: "status") as? Int ?? 0
+
+        names = dict.value(forKey: "names") as? String ?? ""
+        userName = dict.value(forKey: "user_name") as? String ?? ""
+        phone = dict.value(forKey: "phone") as? String ?? ""
+        address = dict.value(forKey: "address") as? String ?? ""
+        city = dict.value(forKey: "city") as? String ?? ""
+        state = dict.value(forKey: "state") as? String ?? ""
+        postalCode = dict.value(forKey: "postal_code") as? String ?? ""
+
+        images = (dict.value(forKey: "images") as? String ?? "").components(separatedBy: ",")
+        createdDate = (dict.value(forKey: "created_date") as? String ?? "").stringDatetoDate() ?? Date()
     }
-    
+
     static func == (lhs: MyOrderModel, rhs: MyOrderModel) -> Bool {
         return lhs.id == rhs.id
     }

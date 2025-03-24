@@ -5,36 +5,34 @@
 //  Created by mohamed ahmed on 10/03/2025.
 //
 
-import SwiftUI
 import SDWebImageSwiftUI
+import SwiftUI
 
-struct ExploreCategoryCell: View{
+struct ExploreCategoryCell: View {
     @State var cObj = ExploreCategoryModel(dict: [:])
-    var didAddCart:(()->())?
+    var didAddCart: (() -> Void)?
     var body: some View {
-        
-        VStack{
+        VStack {
             WebImage(url: URL(string: cObj.image))
                 .resizable()
                 .indicator(.activity)
                 .transition(.fade(duration: 0.5))
                 .scaledToFit()
-                .frame(width: 120,height: 90)
+                .frame(width: 120, height: 90)
             Spacer()
             Text(cObj.name)
                 .font(.customFont(.bold, fontSize: 16))
                 .foregroundColor(.primaryText)
-                .frame(maxWidth: .infinity,alignment: .center)
+                .frame(maxWidth: .infinity, alignment: .center)
             Spacer()
         }
         .padding(15)
         .background(cObj.color.opacity(0.3))
         .cornerRadius(15)
         .overlay(
-        RoundedRectangle(cornerRadius: 16)
-            .stroke(cObj.color,lineWidth: 1)
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(cObj.color, lineWidth: 1)
         )
-        
     }
 }
 
@@ -57,6 +55,6 @@ struct ExploreCategoryCell_Previews: PreviewProvider {
                                                               "cat_name": "Frash Fruits & Vegetable",
                                                               "type_name": "Pulses",
                                                               "is_fav": 1]))
-        .padding(20)
+            .padding(20)
     }
 }
