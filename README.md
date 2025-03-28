@@ -1,4 +1,4 @@
-# 📌 Easy-Shoping (E-Commerce App)
+# 📌 Easy-Shopping (E-Commerce App)
 
 ![featured](./assets/line_gif.gif)
 
@@ -9,11 +9,11 @@ App fetches product data through API integration, empowering users to effortless
 
 Leveraging **Swift, and SwiftUI**, our design prioritizes user-friendliness, ensuring a smooth and enjoyable shopping journey. Inclusion of UITests and Unit Tests further ensures the app's reliability and functionality.
 ## 🎯 Features
-✔️ **create an account or login to an existing account**
+✔️ **Create an account or log in to an existing account**
 
-✔️ **add/remove** items to/from their cart.
+✔️ **Add/remove** items to/from their cart.
 
-✔️ **proceed with payment**
+✔️ **Proceed with payment**
 
 ✔️ **User-Friendly UI** – Designed with SwiftUI for a smooth and intuitive shopping experience.
 
@@ -31,13 +31,13 @@ Leveraging **Swift, and SwiftUI**, our design prioritizes user-friendliness, ens
 
 ✔️ **Secure Authentication** – User login and registration functionality (if implemented).
 
-✔️ **User Profile Managemen**t – Users can manage their personal details and order history.
+✔️ **User Profile Management** – Users can manage their personal details and order history.
 
 ✔️ **view orders history**
 
 ## 🛠️ Tech Stack
 - **Swift Programming language** - For interactive functionalities
-- **SwiftUI** - For styling and layout,and Animations & Smooth Transitions, and Enhancing user experience with SwiftUI animations.
+- **SwiftUI** - For styling and layout, Animations & Smooth Transitions, and Enhancing user experience with SwiftUI animations.
 - **Error Handling & Network URL Session** – Graceful handling of API failures or connectivity issues.
 - **MVVM Architecture** - For structuring the app, and Ensuring separation of concerns for better scalability.
 
@@ -96,7 +96,7 @@ git clone https://github.com/MohamedAboElsaud/Easy-Shoping.git
 
 Open the `ShopingAppSwiftUI.xcodeproj` file with Xcode and build the application in the simulator or on a device.
 
-## It's a demo of Easy-Shoping app :
+## It's a demo of Easy-Shopping app :
  
 <img src="./assets/demo.gif" width="250" width="250"/>
 
